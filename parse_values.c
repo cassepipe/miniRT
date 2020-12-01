@@ -1,5 +1,7 @@
 #include "minirt.h"
 
+#define log(...) printf
+
 static int	ft_isspace(const char c)
 {
 	if (c == ' '
@@ -49,8 +51,7 @@ double parse_double_or_die(char **input)
 	result = 0;
 	div = 1;
 	dot = false;
-	while (ft_isspace(**input))
-		(*input)++;
+	skip_blank(input);
 	if (**input == '-')
 		neg = (*input)++;
 	if (!ft_isdigit(**input))
@@ -63,7 +64,7 @@ double parse_double_or_die(char **input)
 		{
 			if (dot)
 				div /= 10;
-			result = dot ? result * 10 + (**input - '0') : result + (**input - '0') * div;
+			result = !dot ? result * 10 + (**input - '0') : result + (**input - '0') * div;
 		}
 		(*input)++;
 	}
@@ -71,3 +72,4 @@ double parse_double_or_die(char **input)
 		die();*/
 	return (neg ? -result : result);
 }
+

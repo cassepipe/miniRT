@@ -1,75 +1,71 @@
 #include "minirt.h"
 
-#define log(...) printf
-
-static int	ft_isspace(const char c)
-{
-	if (c == ' '
-	|| c == '\t'
-	|| c == '\v'
-	|| c == '\n'
-	|| c == '\f'
-	|| c == '\r')
-		return (1);
-	return (0);
-}
-
-
-/*
-**  Mock function to pretend we are returnig an int
-** 	and to free some stuff before exiting;
-*/
-
-
-int die()
-{
-	//free_some_stuff();
-	exit(EXIT_FAILURE);
-}
-
 void	skip_blank(char **input)
 {
 	while (ft_isspace(**input))
 		(*input)++;
 }
 
+void	skip_blank_and_one_comma(char **input)
+{
+	while (ft_isspace(**input))
+		(*input)++;
+	if (**input == ',')
+		(*input)++;
+	while (ft_isspace(**input))
+		(*input)++;
+}
+
 /*
-**  Here is a function to parse a double literal in a sting.
+**  Here is a function to parse a double literal in a string.
 ** 	If parsing fails, it has to call die();
 **	Another requirement is that it "advances" in
 **	the string by incrementing the pointer.
 */
 
-double parse_double_or_die(char **input)
+double parse_double_or_die(char **data)
 {
 	char	*neg;
-	double	result;
+	double	ret;
 	double  div;
 	bool	dot;
 
 	neg = NULL;
-	result = 0;
+	ret = 0;
 	div = 1;
 	dot = false;
-	skip_blank(input);
-	if (**input == '-')
-		neg = (*input)++;
-	if (!ft_isdigit(**input))
+	if (**data == '-')
+		neg = (*data)++;
+	if (!ft_isdigit(**data))
 		die();
-	while (ft_isdigit(**input) || (**input == '.' && !dot))
+	while (ft_isdigit(**data) || (**data == '.' && !dot))
 	{
-		if (**input == '.')
+		if (**data == '.')
 			dot = true;
 		else
 		{
-			if (dot)
-				div /= 10;
-			result = !dot ? result * 10 + (**input - '0') : result + (**input - '0') * div;
+			div = dot ? div / 10 : div;
+			ret = dot ? ret + (**data - '0') * div : ret * 10 + (**data - '0');
 		}
-		(*input)++;
+		(*data)++;
 	}
-	/*if (**input && (**input != ',' || ft_isspace(**input)))
-		die();*/
-	return (neg ? -result : result);
+	printf("RESULT is %f\n", neg ? -ret : ret);
+	return (neg ? -ret : ret);
 }
 
+double	parse_double(char **input)
+{
+	skip_blank_and_one_comma(input);
+	return(parse_double_or_die(input));
+}
+
+t_vec3	parse_vec(char **input)
+{
+	t_vec3 vector;
+
+	vector.x = parse_double(input);
+	vector.y = parse_double(input);
+	vector.z = parse_double(input);
+
+	return (vector);
+}

@@ -6,7 +6,7 @@
 #    By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/23 16:37:33 by tpouget           #+#    #+#              #
-#    Updated: 2020/12/01 12:42:11 by tpouget          ###   ########.fr        #
+#    Updated: 2020/12/02 12:09:44 by tpouget          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 ##  VARIABLES  ##
 #################
 
-PHONY			=	all clean fclean re 
+PHONY			=	all clean fclean re libft
 
 SOURCEFILES		=	$(wildcard *.c)	
 
@@ -37,14 +37,14 @@ DEBUG			=	 -g3
 
 all:			miniRT
 
-miniRT:			${OBJECTFILES} ${HEADERS} libft/lift.a
+miniRT:			${OBJECTFILES} ${HEADERS} libft
 				${CC} ${OBJECTFILES} -Llibft -lft -o $@
 
-test:			${HEADERS} ${TEST_OBJECTS} libft/libft.a tests/tests.c
+test:			${HEADERS} ${TEST_OBJECTS} libft tests/tests.c
 				${CC} ${TEST_OBJECTS} tests/tests.c -Llibft -lft -lcriterion -o $@
 
-libft/libft.a:		
-				make -C libft
+libft:		
+				make -C libft libft.a
 				
 obj/%.o:		%.c	
 				${CC} -g3 ${CFLAGS} -c $< -o $@
@@ -56,6 +56,6 @@ fclean:			clean
 				rm -rf miniRT
 				rm -rf test
 
-re:				fclean ${RE_ARGV}
+re:				fclean $(filter-out re, $(MAKECMDGOALS))
 
 .PHONY:			${PHONY}	

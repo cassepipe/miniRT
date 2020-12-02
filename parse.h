@@ -21,10 +21,11 @@ void	parse_item(char **input);
 t_color	parse_rgb(char **input);
 t_vec3	parse_vec(char **input);
 t_color	parse_color(char **input);
+double	parse_double(char **input);
 double	parse_double_or_die(char **input);
 int		parse_int_or_die(char **input);
 
-void	skip_blank();
-int		die();
+void	skip_blank(char **input);
+void	skip_blank_and_one_comma(char **input);
 
 

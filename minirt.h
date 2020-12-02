@@ -9,9 +9,13 @@
 # include <stdio.h>
 # include <ctype.h>
 # include <stdbool.h>
+# include <limits.h>
 
 # include "structs.h"
 # include "parse.h"
+# include "error.h"
+
+
 # include "libft/libft.h"
 
 #endif

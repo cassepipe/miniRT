@@ -19,11 +19,11 @@ void parse_file_into(t_env *env)
 {
 	char *input;
 
-	input = read_scene_file();
+	input = get_next_line();
 	while(*input)
 	{
-		skip_blank(*input);
-		parse_item_into(&input);
+		skip_blank(input);
+		parse_item(&input);
 	}
 }
 
@@ -31,7 +31,7 @@ void parse_item(char **input)
 {
 	int	i;
 
-	skip_blank(**input);
+	skip_blank(input);
 	i = 0;
 	while (i++ < sizeof(token_table))
 	{

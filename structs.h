@@ -93,8 +93,10 @@ typedef	struct s_triangle {
 	t_vec3		p3;
 	t_color		color;
 } t_triangle;
+
 typedef struct s_env
 {
+	char				*scene_path;	
 	int					res_x;
 	int					res_y;
 	int					ambl_ratio;

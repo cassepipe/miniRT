@@ -17,7 +17,7 @@ void parse_cy(char **input);
 void parse_tr(char **input);
 
 
-void	parse_item(char **input);
+void	parse_file_into_env();
 t_color	parse_rgb(char **input);
 t_vec3	parse_vec(char **input);
 t_color	parse_color(char **input);
@@ -27,5 +27,6 @@ int		parse_int_or_die(char **input);
 
 void	skip_blank(char **input);
 void	skip_blank_and_one_comma(char **input);
+void	skip_set(char **input, const char *set);
 
 

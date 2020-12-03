@@ -10,6 +10,7 @@
 # include <ctype.h>
 # include <stdbool.h>
 # include <limits.h>
+# include <fcntl.h>
 
 # include "structs.h"
 # include "parse.h"

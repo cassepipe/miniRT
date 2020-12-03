@@ -6,7 +6,7 @@
 #    By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/23 16:37:33 by tpouget           #+#    #+#              #
-#    Updated: 2020/12/02 12:09:44 by tpouget          ###   ########.fr        #
+#    Updated: 2020/12/03 01:15:43 by tpouget          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,9 +28,9 @@ HEADERS			=	$(wildcard *.h)
 	
 CFLAGS			=	-Wall -Wextra 
 
-CC	  		  	= 	 gcc
+CC	  		  	= 	 clang
 
-DEBUG			=	 -g3
+DEBUG			=	 -g3 -fsanitize=address
 
 
 #	Rules
@@ -38,7 +38,7 @@ DEBUG			=	 -g3
 all:			miniRT
 
 miniRT:			${OBJECTFILES} ${HEADERS} libft
-				${CC} ${OBJECTFILES} -Llibft -lft -o $@
+				${CC} ${DEBUG} ${OBJECTFILES} -Llibft -lft -o $@
 
 test:			${HEADERS} ${TEST_OBJECTS} libft tests/tests.c
 				${CC} ${TEST_OBJECTS} tests/tests.c -Llibft -lft -lcriterion -o $@
@@ -47,7 +47,7 @@ libft:
 				make -C libft libft.a
 				
 obj/%.o:		%.c	
-				${CC} -g3 ${CFLAGS} -c $< -o $@
+				${CC} ${CFLAGS} -c $< -o $@
 
 clean:			
 				rm -rf obj/*.o

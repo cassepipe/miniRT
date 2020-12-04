@@ -2,7 +2,6 @@
 
 void	skip_blank(char **input)
 {
-	puts("HEllo there !\n");
 	while (ft_isspace(**input))
 		(*input)++;
 }
@@ -17,12 +16,25 @@ void	skip_blank_and_one_comma(char **input)
 		(*input)++;
 }
 
+int		is_in(char c, const char *set)
+{
+	while(*set)
+	{
+		if (*set == c)
+			return 1;
+		set++;
+	}
+	return 0;
+}
+
 void	skip_set(char **input, const char *set)
 {
 	while (**input)
-		while (set++)
-			if (**input == *set)
-				(*input)++;
+	{
+		if (!is_in(**input, set))
+			return;
+		(*input)++;
+	}
 }
 
 /*

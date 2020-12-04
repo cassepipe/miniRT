@@ -9,7 +9,7 @@ void parse_sp(char **input)
 
 	new_sphere = malloc(sizeof(t_sphere));
 	new_sphere->center = parse_vec(input);
-	new_sphere->diameter = parse_double_or_die(input);
+	new_sphere->diameter = parse_double(input);
 	new_sphere->color = parse_vec(input);
 
 	new_node = malloc(sizeof(t_node));
@@ -44,7 +44,7 @@ void parse_sq(char **input)
 	new_square = malloc(sizeof(t_square));
 	new_square->center = parse_vec(input);
 	new_square->orientation = parse_vec(input);
-	new_square->side_len = parse_double_or_die(input);
+	new_square->side_len = parse_double(input);
 	new_square->color = parse_vec(input);
 
 	new_node = malloc(sizeof(t_node));
@@ -62,9 +62,10 @@ void parse_cy(char **input)
 	new_cylinder = malloc(sizeof(t_square));
 	new_cylinder->center = parse_vec(input);
 	new_cylinder->orientation = parse_vec(input);
-	new_cylinder->diameter = parse_double_or_die(input);
-	new_cylinder->height = parse_double_or_die(input);
+	new_cylinder->diameter = parse_double(input);
+	new_cylinder->height = parse_double(input);
 	new_cylinder->color = parse_vec(input);
+	printf("Hello there !\n");
 
 	new_node = malloc(sizeof(t_node));
 	new_node->id = CYLINDER;

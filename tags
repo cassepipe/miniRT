@@ -1,0 +1,132 @@
+${NAME}	libft/Makefile	/^${NAME}:		${OBJS} Makefile$/
+-c.o	libft/Makefile	/^-c.o:			$/
+.PHONY	libft/Makefile	/^.PHONY:			all clean fclean re$/
+AR	libft/Makefile	/^AR			= 	ar rcs$/
+ATTRIBUT	libft/Makefile	/^ATTRIBUT 	= 	-c$/
+BUFFER_SIZE	libft/get_next_line.h	17
+CC	libft/Makefile	/^CC			= 	gcc$/
+CFLAGS	libft/Makefile	/^CFLAGS		=	-Werror -Wall -Wextra -g3$/
+ELF	obj/parse_objects.o	1
+GET_NEXT_LINE_H	libft/get_next_line.h	14
+INCLUDES	libft/Makefile	/^INCLUDES		=	libft.h	get_next_line.h	$/
+LIBFT_H	libft/libft.h	14
+NAME	libft/Makefile	/^NAME			= 	libft.a$/
+OBJS	libft/Makefile	/^OBJS		= 	${SRC:.c=.o}$/
+OPEN_MAX	libft/get_next_line.h	21
+RM	libft/Makefile	/^RM			= 	rm -rf$/
+SRC	libft/Makefile	/^SRC			=	ft_atoi.c    			\\$/
+Test	tests/tests.c	/^Test(minirt, parsing)$/
+U	libft/ft_split.o	18
+U	libft/ft_strtrim.o	13
+U	libft/ft_substr.o	10
+U	libft/ft_strdup.o	8
+U	libft/ft_strmapi.o	12
+XJ	libft/ft_strjoin_and_free.o	11
+a	libft/ft_strnstr.o	36
+actual	libft/result.log	189
+actual	libft/result.log	192
+all	libft/Makefile	/^all:			${NAME}$/
+buff	libft/result.log	149
+buff2	libft/result.log	150
+buff2	libft/result.log	155
+c	libft/result.log	151
+clean	libft/Makefile	/^clean:			$/
+content	libft/libft.h	22
+d1	libft/result.log	99
+d2	libft/result.log	100
+data	libft/result.log	15
+diralloc	libft/ft_split.c	/^static char			**diralloc(const char *s, char c)$/
+dst	libft/result.log	14
+expected	libft/result.log	188
+expected	libft/result.log	191
+fclean	libft/Makefile	/^fclean:			clean$/
+ft_10powerof	libft/ft_itoa.c	/^static long	ft_10powerof(long n)$/
+ft_10powerof	libft/ft_putnbr_fd.c	/^static long	ft_10powerof(long n)$/
+ft_atoi	libft/ft_atoi.c	/^int			ft_atoi(const char *nptr)$/
+ft_bzero	libft/ft_bzero.c	/^void	ft_bzero(void *s, size_t n)$/
+ft_calloc	libft/ft_calloc.c	/^void	*ft_calloc(size_t count, size_t size)$/
+ft_isalnum	libft/ft_isalnum.c	/^int	ft_isalnum(int c)$/
+ft_isalpha	libft/ft_isalpha.c	/^int	ft_isalpha(int c)$/
+ft_isascii	libft/ft_isascii.c	/^int	ft_isascii(int c)$/
+ft_isdigit	libft/ft_isdigit.c	/^int	ft_isdigit(int c)$/
+ft_isprint	libft/ft_isprint.c	/^int	ft_isprint(int c)$/
+ft_isspace	libft/ft_isspace.c	/^int	ft_isspace(int c)$/
+ft_itoa	libft/ft_itoa.c	/^char		*ft_itoa(int n)$/
+ft_lstadd_back	libft/ft_lstadd_back.c	/^void	ft_lstadd_back(t_list **lst, t_list *new)$/
+ft_lstadd_front	libft/ft_lstadd_front.c	/^void	ft_lstadd_front(t_list **lst, t_list *new)$/
+ft_lstclear	libft/ft_lstclear.c	/^void	ft_lstclear(t_list **lst, void (*del)(void*))/
+ft_lstdelone	libft/ft_lstdelone.c	/^void	ft_lstdelone(t_list *lst, void (*del)(void*))/
+ft_lstiter	libft/ft_lstiter.c	/^void	ft_lstiter(t_list *lst, void (*f)(void *))$/
+ft_lstlast	libft/ft_lstlast.c	/^t_list	*ft_lstlast(t_list *lst)$/
+ft_lstmap	libft/ft_lstmap.c	/^t_list	*ft_lstmap(t_list *lst, void *(*f)(void *),/
+ft_lstnew	libft/ft_lstnew.c	/^t_list	*ft_lstnew(void *content)$/
+ft_lstsize	libft/ft_lstsize.c	/^int	ft_lstsize(t_list *lst)$/
+ft_memccpy	libft/ft_memccpy.c	/^void	*ft_memccpy(void *dest, const void *src, int /
+ft_memchr	libft/ft_memchr.c	/^void	*ft_memchr(const void *s, int c, size_t n)$/
+ft_memcmp	libft/ft_memcmp.c	/^int	ft_memcmp(const void *s1, const void *s2, size/
+ft_memcpy	libft/ft_memcpy.c	/^void	*ft_memcpy(void *dest, const void *src, size_/
+ft_memmove	libft/ft_memmove.c	/^void	*ft_memmove(void *dst, const void *src, size_/
+ft_memset	libft/ft_memset.c	/^void	*ft_memset(void *s, int c, size_t n)$/
+ft_putchar_fd	libft/ft_putchar_fd.c	/^void	ft_putchar_fd(char c, int fd)$/
+ft_putendl_fd	libft/ft_putendl_fd.c	/^void	ft_putendl_fd(char *s, int fd)$/
+ft_putnbr_fd	libft/ft_putnbr_fd.c	/^void		ft_putnbr_fd(int n, int fd)$/
+ft_putstr_fd	libft/ft_putstr_fd.c	/^void	ft_putstr_fd(char *s, int fd)$/
+ft_split	libft/ft_split.c	/^char				**ft_split(char const *s, char c)$/
+ft_strchr	libft/ft_strchr.c	/^char	*ft_strchr(const char *s, int c)$/
+ft_strdup	libft/ft_strdup.c	/^char	*ft_strdup(const char *s)$/
+ft_strjoin	libft/ft_strjoin.c	/^char	*ft_strjoin(char const *s1, char const *s2)$/
+ft_strjoin_and_free	libft/ft_strjoin_and_free.c	/^char	*ft_strjoin_and_free(char const *s1, char con/
+ft_strlcat	libft/ft_strlcat.c	/^size_t	ft_strlcat(char *dst, const char *src, size/
+ft_strlcpy	libft/ft_strlcpy.c	/^size_t	ft_strlcpy(char *dst, const char *src, size/
+ft_strlen	libft/ft_strlen.c	/^size_t	ft_strlen(const char *s)$/
+ft_strmapi	libft/ft_strmapi.c	/^char	*ft_strmapi(char const *s, char (*f)(unsigned/
+ft_strncmp	libft/ft_strncmp.c	/^int	ft_strncmp(const char *l, const char *r, size_/
+ft_strndup	libft/ft_split.c	/^static char			*ft_strndup(const char *s, size_t n)/
+ft_strndup	libft/ft_strtrim.c	/^static char	*ft_strndup(const char *s, size_t n)$/
+ft_strndup	libft/ft_substr.c	/^static char	*ft_strndup(const char *s, size_t n)$/
+ft_strnstr	libft/ft_strnstr.c	/^char	*ft_strnstr(const char *big, const char *litt/
+ft_strrchr	libft/ft_strrchr.c	/^char	*ft_strrchr(const char *s, int c)$/
+ft_strtrim	libft/ft_strtrim.c	/^char		*ft_strtrim(char const *s1, char const *set)/
+ft_substr	libft/ft_substr.c	/^char		*ft_substr(char const *s, unsigned int start/
+ft_tolower	libft/ft_tolower.c	/^int	ft_tolower(int c)$/
+ft_toupper	libft/ft_toupper.c	/^int	ft_toupper(int c)$/
+get_next_line	libft/get_next_line.c	/^int			get_next_line(int fd, char **line)$/
+grow_buffer_until_newline	libft/get_next_line.c	/^static int	grow_buffer_until_newline(int fd, char /
+i	libft/result.log	38
+i	libft/result.log	40
+i1	libft/result.log	69
+i1	libft/result.log	83
+i1	libft/result.log	133
+i1	libft/result.log	135
+i2	libft/result.log	70
+i2	libft/result.log	84
+is_in_set	libft/ft_strtrim.c	/^static int	is_in_set(char c, char const *set)$/
+l	libft/result.log	176
+l	libft/result.log	187
+l	libft/result.log	204
+l	libft/result.log	220
+len	libft/result.log	152
+n	libft/result.log	68
+n	libft/result.log	82
+next	libft/libft.h	23
+next	libft/result.log	206
+next	libft/result.log	207
+next	libft/result.log	223
+next	libft/result.log	224
+next_sep	libft/ft_split.c	/^static const char	*next_sep(const char *str, char /
+next_word	libft/ft_split.c	/^static const char	*next_word(const char *str, char/
+re	libft/Makefile	/^re:				fclean all$/
+ret	libft/result.log	221
+ret	libft/result.log	225
+s_list	libft/libft.h	20
+size	libft/result.log	13
+size	libft/result.log	97
+size	libft/result.log	132
+size	libft/result.log	136
+str	libft/result.log	113
+str	libft/result.log	116
+t	libft/ft_itoa.o	15
+t	libft/libft.a	/^tƒ}ütƒ}üu¸$/
+t	obj/parse.o	11
+t_list	libft/libft.h	24
+tmp	libft/result.log	114

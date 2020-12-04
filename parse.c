@@ -2,11 +2,11 @@
 
 static struct s_fat_token token_table[] =
 {
-	{ "R",	1,	&parse_res 	},
-	{ "A",	1,	&parse_ambl	},
-	{ "c",	1,	&parse_cam	},
-	{ "l",	1,	&parse_light},
-	{ "sp",	1,	&parse_sp	},
+	{ "R ",		2,	&parse_res 	},
+	{ "A ",		2,	&parse_ambl	},
+	{ "c ",		2,	&parse_cam	},
+	{ "l ",		2,	&parse_light},
+	{ "sp",	2,	&parse_sp	},
 	{ "pl",	2,	&parse_pl	},
 	{ "sq",	2,	&parse_sq	},
 	{ "cy",	2,	&parse_cy	},
@@ -17,26 +17,32 @@ extern t_env	env;
 
 void parse_file_into_env()
 {
-	char	*input;
-	int		fd;
-	int		i;
+	int			fd;
+	size_t		i;
+	char		*input;
 
 	fd = open(env.scene_path, O_RDONLY);
 	while (get_next_line(fd, &input))
 	{
 		skip_blank(&input);
 		i = 0;
-		while (i++ < sizeof(token_table))
+		while (i < sizeof(token_table)/sizeof(token_table[0]))
 		{
-			if (!strncmp(token_table[i].token, input , token_table[i].len))
+			if (*input == '\0' || *input == '\n')
+				break;
+			printf("strncmp returned %d\n", !strncmp(token_table[i].token, input , token_table[i].len));
+			if (!ft_strncmp(token_table[i].token, input , token_table[i].len))
 			{
 				skip_set(&input, token_table[i].token);
 				token_table[i].token_func(&input);
+				break;
 			}
-			else
-				die();
+			i++;
 		}
+		if (i == sizeof(token_table)/sizeof(token_table[0]))
+			perror("Format error in .rt file : Invalid object token");
 	}
+	return;
 }
 
 void	parse_ambl(char **input)

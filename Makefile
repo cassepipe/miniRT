@@ -6,7 +6,7 @@
 #    By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/23 16:37:33 by tpouget           #+#    #+#              #
-#    Updated: 2020/12/03 01:15:43 by tpouget          ###   ########.fr        #
+#    Updated: 2020/12/04 16:06:29 by tpouget          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,19 +26,19 @@ TEST_OBJECTS	=	$(patsubst %.c,obj/%.o,$(TEST_SOURCES))
 	
 HEADERS			=	$(wildcard *.h)
 	
-CFLAGS			=	-Wall -Wextra 
+CFLAGS			=	-Wall -Wextra  -g3
 
 CC	  		  	= 	 clang
 
-DEBUG			=	 -g3 -fsanitize=address
+SANITIZER		=	 #-fsanitize=address
 
 
 #	Rules
 
 all:			miniRT
 
-miniRT:			${OBJECTFILES} ${HEADERS} libft
-				${CC} ${DEBUG} ${OBJECTFILES} -Llibft -lft -o $@
+miniRT:			${OBJECTFILES} ${HEADERS} libft Makefile
+				${CC} ${SANITIZER} ${OBJECTFILES} -Llibft -lft -o $@
 
 test:			${HEADERS} ${TEST_OBJECTS} libft tests/tests.c
 				${CC} ${TEST_OBJECTS} tests/tests.c -Llibft -lft -lcriterion -o $@
@@ -58,4 +58,5 @@ fclean:			clean
 
 re:				fclean $(filter-out re, $(MAKECMDGOALS))
 
-.PHONY:			${PHONY}	
+.PHONY:			
+				${PHONY}	

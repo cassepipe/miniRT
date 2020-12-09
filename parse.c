@@ -30,7 +30,6 @@ void parse_file_into_env()
 		{
 			if (*input == '\0' || *input == '\n')
 				break;
-			printf("strncmp returned %d\n", !strncmp(token_table[i].token, input , token_table[i].len));
 			if (!ft_strncmp(token_table[i].token, input , token_table[i].len))
 			{
 				skip_set(&input, token_table[i].token);
@@ -62,6 +61,7 @@ void parse_cam(char **input)
 {
 	t_cam *new_cam;
 
+	printf("Parsing cam ...\n");
 	new_cam = malloc(sizeof(t_cam));
 	new_cam->origin = parse_vec(input);
 	new_cam->direction = parse_vec(input);
@@ -74,6 +74,7 @@ void parse_light(char **input)
 {
 	t_light *new_light;
 
+	printf("Parsing light...\n");
 	new_light = malloc(sizeof(t_light));
 	new_light->origin = parse_vec(input);
 	new_light->ratio = parse_double(input);

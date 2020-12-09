@@ -69,7 +69,6 @@ typedef	struct s_plane {
 	t_vec3		some_point;
 	t_vec3		orientation;
 	t_color		color;
-	void		*next;
 } t_plane;
 
 typedef	struct s_square {

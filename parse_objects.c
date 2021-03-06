@@ -4,40 +4,40 @@ extern t_env env;
 
 void parse_sp(char **input)
 {
-	t_node		*new_node;
+	t_object		*new_object;
 	t_sphere	*new_sphere;
 
 	new_sphere = malloc(sizeof(t_sphere));
 	new_sphere->center = parse_vec(input);
 	new_sphere->diameter = parse_double(input);
-	new_sphere->color = parse_vec(input);
+	new_sphere->color = parse_color(input);
 
-	new_node = malloc(sizeof(t_node));
-	new_node->id = SPHERE;
-	new_node->object = new_sphere;
-	new_node->next = env.objects;
-	env.objects = new_node;
+	new_object = malloc(sizeof(t_object));
+	new_object->id = SPHERE;
+	new_object->data = new_sphere;
+	new_object->next = env.objects;
+	env.objects = new_object;
 }
 
 void parse_pl(char **input)
 {
-	t_node		*new_node;
+	t_object		*new_object;
 	t_plane		*new_plane;
 
 	printf("Parsing plane...\n");
 	new_plane = malloc(sizeof(t_plane));
 	new_plane->some_point = parse_vec(input);
 	new_plane->orientation = parse_vec(input);
-	new_plane->color = parse_vec(input);
+	new_plane->color = parse_color(input);
 
 	printf("env.objects is %p\n", env.objects);
 	if (env.objects)
 		printf("env.objects->next is %p\n", env.objects->next);
-	new_node = malloc(sizeof(t_node));
-	new_node->id = PLANE;
-	new_node->object = new_plane;
-	new_node->next = env.objects;
-	env.objects = new_node;
+	new_object = malloc(sizeof(t_object));
+	new_object->id = PLANE;
+	new_object->data = new_plane;
+	new_object->next = env.objects;
+	env.objects = new_object;
 	printf("env.objects is %p\n", env.objects);
 	if (env.objects)
 		printf("env.objects->next is %p\n", env.objects->next);
@@ -45,25 +45,25 @@ void parse_pl(char **input)
 
 void parse_sq(char **input)
 {
-	t_node			*new_node;
+	t_object			*new_object;
 	t_square		*new_square;
 
 	new_square = malloc(sizeof(t_square));
 	new_square->center = parse_vec(input);
 	new_square->orientation = parse_vec(input);
 	new_square->side_len = parse_double(input);
-	new_square->color = parse_vec(input);
+	new_square->color = parse_color(input);
 
-	new_node = malloc(sizeof(t_node));
-	new_node->id = SQUARE;
-	new_node->object = new_square;
-	new_node->next = env.objects;
-	env.objects = new_node;
+	new_object = malloc(sizeof(t_object));
+	new_object->id = SQUARE;
+	new_object->data = new_square;
+	new_object->next = env.objects;
+	env.objects = new_object;
 }
 
 void parse_cy(char **input)
 {
-	t_node			*new_node;
+	t_object			*new_object;
 	t_cylinder		*new_cylinder;
 
 	printf("Parsing cylinder...\n");
@@ -72,16 +72,16 @@ void parse_cy(char **input)
 	new_cylinder->orientation = parse_vec(input);
 	new_cylinder->diameter = parse_double(input);
 	new_cylinder->height = parse_double(input);
-	new_cylinder->color = parse_vec(input);
+	new_cylinder->color = parse_color(input);
 
 	printf("env.objects is %p\n", env.objects);
 	if (env.objects)
 		printf("env.objects->next is %p\n", env.objects->next);
-	new_node = malloc(sizeof(t_node));
-	new_node->id = CYLINDER;
-	new_node->object = new_cylinder;
-	new_node->next = env.objects;
-	env.objects = new_node;
+	new_object = malloc(sizeof(t_object));
+	new_object->id = CYLINDER;
+	new_object->data = new_cylinder;
+	new_object->next = env.objects;
+	env.objects = new_object;
 	printf("env.objects is %p\n", env.objects);
 	if (env.objects)
 		printf("env.objects->next is %p\n", env.objects->next);
@@ -89,17 +89,17 @@ void parse_cy(char **input)
 
 void parse_tr(char **input)
 {
-	t_node			*new_node;
+	t_object			*new_object;
 	t_triangle		*new_triangle;
 
 	new_triangle = malloc(sizeof(t_square));
 	new_triangle->p1 = parse_vec(input);
 	new_triangle->p2 = parse_vec(input);
 	new_triangle->p3 = parse_vec(input);
-	new_triangle->color = parse_vec(input);
+	new_triangle->color = parse_color(input);
 
-	new_node = malloc(sizeof(t_node));
-	new_node->id = TRIANGLE;
-	new_node->next = env.objects;
-	env.objects = new_node;
+	new_object = malloc(sizeof(t_object));
+	new_object->id = TRIANGLE;
+	new_object->next = env.objects;
+	env.objects = new_object;
 }

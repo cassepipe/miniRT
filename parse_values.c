@@ -44,7 +44,7 @@ void	skip_set(char **input, const char *set)
 **	the string by incrementing the pointer.
 */
 
-double parse_double_or_die(char **data)
+double parse_double_or_die(char **input)
 {
 	char	*neg;
 	double	ret;
@@ -55,20 +55,20 @@ double parse_double_or_die(char **data)
 	ret = 0;
 	div = 1;
 	dot = false;
-	if (**data == '-')
-		neg = (*data)++;
-	if (!ft_isdigit(**data))
+	if (**input == '-')
+		neg = (*input)++;
+	if (!ft_isdigit(**input))
 		die();
-	while (ft_isdigit(**data) || (**data == '.' && !dot))
+	while (ft_isdigit(**input) || (**input == '.' && !dot))
 	{
-		if (**data == '.')
+		if (**input == '.')
 			dot = true;
 		else
 		{
 			div = dot ? div / 10 : div;
-			ret = dot ? ret + (**data - '0') * div : ret * 10 + (**data - '0');
+			ret = dot ? ret + (**input - '0') * div : ret * 10 + (**input - '0');
 		}
-		(*data)++;
+		(*input)++;
 	}
 //	printf("RESULT is %f\n", neg ? -ret : ret);
 	return (neg ? -ret : ret);
@@ -89,4 +89,43 @@ t_vec3	parse_vec(char **input)
 	vector.z = parse_double(input);
 
 	return (vector);
+}
+
+t_color	parse_color(char **input)
+{
+	t_color color;
+
+	color.red = parse_int(input);
+	color.green = parse_int(input);
+	color.blue = parse_int(input);
+
+	return (color);
+}
+
+int		parse_int(char**input)
+{
+	skip_blank_and_one_comma(input);
+	return (parse_int_or_die(input));
+}
+
+int parse_int_or_die(char **input)
+{
+	char	*neg;
+	int		ret;
+	double  div;
+
+	neg = NULL;
+	ret = 0;
+	div = 1;
+	if (**input == '-')
+		neg = (*input)++;
+	if (!ft_isdigit(**input))
+		die();
+	while (ft_isdigit(**input))
+	{
+		ret = ret * 10 + (**input - '0');
+	(*input)++;
+	}
+//	printf("RESULT is %f\n", neg ? -ret : ret);
+	return (neg ? -ret : ret);
 }

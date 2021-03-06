@@ -9,7 +9,11 @@ typedef struct s_vec3 {
 	double z;
 } t_vec3;
 
-typedef t_vec3 t_color;
+typedef struct s_color {
+	int red;
+	int green;
+	int blue;
+} t_color;
 
 typedef double t_matrix3x3[3][3];
 typedef double t_matrix4x4[4][4];
@@ -53,11 +57,11 @@ enum e_objid {
 	TRIANGLE,
 };
 
-typedef struct s_node {
+typedef struct s_object {
 	enum e_objid	id;
-	void 			*object;
+	void 			*data;
 	void		 	*next;
-} t_node;
+} t_object;
 
 typedef	struct s_sphere {
 	t_vec3		center;
@@ -102,7 +106,7 @@ typedef struct s_env
 	t_color				ambl_color;
 	struct s_light		*lights;
 	struct s_cam		*cameras;
-	struct s_node		*objects;
+	struct s_object		*objects;
 } t_env;
 
 struct s_fat_token {

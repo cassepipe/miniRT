@@ -2,15 +2,26 @@
 
 t_env	env;
 
-void prints(struct s_object*);
-t_vec3 new_vec3(double x, double y, double z);
-t_vec3 CanvasToViewport(int x, int y);
-t_object	*trace_ray( t_vec3 eye, t_vec3 D);
-int intersect_ray_with_object(t_vec3 eye, t_vec3 ray, t_object *object);
-int intersect_ray_with_sphere(t_vec3 eye, t_vec3 ray, t_sphere *sphere);
-t_color get_object_color( t_object *object);
+void		prints(struct s_object*);
+t_vec3		new_vec3(double x, double y, double z);
+t_vec3		canvas_to_viewport(int x, int y);
+t_object	*trace_ray(t_vec3 *eye, t_vec3 *D);
+bool		intersect_ray_with_object(t_vec3 *eye, t_vec3 *ray, t_object *object);
+bool		intersect_ray_with_sphere(t_vec3 *eye, t_vec3 *ray, t_sphere *sphere);
+t_color		*get_object_color(t_object *object);
+int			get_color_as_int(t_color *color);
+t_vec3		make_vector_substracting_2_points(t_vec3 point1, t_vec3 point2);
+double		dot_product(t_vec3 u, t_vec3 v);
+void		init_env(t_env *env);
 
-int main(int argc, char *argv[])
+void		init_env(t_env *env)
+{
+	env->objects = NULL;
+	env->cameras = NULL;
+	env->lights = NULL;
+}
+
+int			main(int argc, char *argv[])
 {
 	if (argc != 2)
 	{
@@ -20,6 +31,7 @@ int main(int argc, char *argv[])
 
 	env.scene_path = argv[1];
 
+	init_env(&env);
 	parse_file_into_env();
 
 	struct s_object *cur = env.objects;
@@ -35,77 +47,83 @@ int main(int argc, char *argv[])
 	mlx_ptr = mlx_init();
 	if (mlx_ptr == NULL)
 		die("Failed to set up connection to X server");
-	mlx_new_window(mlx_ptr, env.res_x, env.res_y, "miniRT");
+	window = mlx_new_window(mlx_ptr, env.res_x, env.res_y, "miniRT");
 
 	//Rendering
 
 	t_vec3 ray;
 	t_object *closest_object;
-	t_color closest_color;
-	int color;
-	int Cw = 800;
-	int Ch = 800;
-	int x = -Cw/2;
-		while ( x <= Cw/2)
+	t_color *closest_object_color;
+	int pixel_color;
+		int y = 0;
+		while ( y < env.res_y)
 		{
-			int y = -Ch/2;
-			while (y <= Ch/2)
+			printf("env.res_x = %d\n", env.res_y);
+			printf("env.res_y = %d\n", env.res_x);
+			int x = 0;
+			while (x <= env.res_x)
 			{
-				ray = CanvasToViewport(x, y);
-					closest_object = trace_ray(env.cameras->origin, ray);
-					closest_color = get_object_color(closest_object);
-					color = get_color_as_int(closest_color);
-					mlx_pixel_put(mlx_ptr, window,x, y, color);
+				printf("Processing pixel(%d, %d)...\n", x, y);
+				ray = canvas_to_viewport(x, y);
+				printf("Processing pixel(%d, %d)...\n", x, y);
+				closest_object = trace_ray(&env.cameras->origin, &ray);
+				closest_object_color = get_object_color(closest_object);
+				pixel_color = get_color_as_int(closest_object_color);
+				mlx_pixel_put(mlx_ptr, window, x, y, pixel_color);
+				x++;
 			}
+			y++;
 		}
+
+	mlx_loop(mlx_ptr);
 
 	return (0);
 }
 
-int get_color_as_int(t_color *color)
+int			get_color_as_int(t_color *color)
 {
 	int color_int;
-	int red;
-	int green;
-	int blue;
 
-	red = (color->x) << 16;
-	green = (color->y) << 8;
-	blue = (color->z);
-
-	color_int = red + green + blue;
+	if (color == NULL)
+		return (0xFFFFFF);
+	color_int = color->red << 16 |  color->green << 8 | color->blue;
 
 	return (color_int);
 }
 
-t_vec3 CanvasToViewport(int x, int y)
+t_vec3		canvas_to_viewport(int x, int y)
 {
 	t_vec3 ray;
-	int Cw = 800;
-	int Ch = 800;
-	int Vh = 1;
-	int Vw = 1;
 
-	ray.x = x * Vw/Cw;
-	ray.y = y * Vh/Ch;
+	printf("hello from canvas_to_viewport\n");
+	ray.x = env.res_x * 0.5 + x;
+	ray.y = env.res_y * 0.5 - y;
+
+	ray.x = ray.x * 1 / env.res_x;
+	ray.y = ray.y * 1 / env.res_y;
 	ray.z = 1;
 
 	return (ray);
 }
 
-t_object	*TraceRay( t_vec3 eye, t_vec3 ray)
+t_object	*trace_ray(t_vec3 *eye, t_vec3 *ray)
 {
-	t_object *closest_object = NULL;
-	t_object *current_object = env.objects;
+	t_object	*closest_object = NULL;
+	t_object	*current_object = env.objects;
+	bool		has_hit;
 
+	printf("Hello from trace_ray\n");
+	has_hit = false;
 	while (current_object != NULL)
 	{
-		double t1;
-		current_object = env.objects;
+		printf("Current obj is %p\n", env.objects);
+		printf("Next obj is %p\n", env.objects->next);
 
-		t1  = intersect_ray_with_object(eye, ray, current_object);
-		if (t1 >= 1 && t1 < INT_MAX)
+		has_hit = intersect_ray_with_object(eye, ray, current_object);
+		if (has_hit)
+		{
 			closest_object = current_object;
+		}
 		current_object = current_object->next;
 	}
 	if (closest_object == NULL)
@@ -115,7 +133,7 @@ t_object	*TraceRay( t_vec3 eye, t_vec3 ray)
 	return closest_object;
 }
 
-int intersect_ray_with_object(t_vec3 eye, t_vec3 ray, t_object *object)
+bool		intersect_ray_with_object(t_vec3 *eye, t_vec3 *ray, t_object *object)
 {
 	if (object->id == SPHERE)
 		return	(intersect_ray_with_sphere(eye, ray, (t_sphere*)(object->data)));
@@ -124,28 +142,83 @@ int intersect_ray_with_object(t_vec3 eye, t_vec3 ray, t_object *object)
 	return (0);
 }
 
-t_color get_obj_color( t_object *object)
+bool		intersect_ray_with_sphere(t_vec3 *eye,  t_vec3 *ray, t_sphere *sphere)
 {
+	double	radius;
+	t_vec3	Ceye;
+	double	a;
+	double	b;
+	double	c;
+	double	discriminant;
+	double  t1;
+	double  t2;
+
+	radius = sphere->diameter * 0.5;
+	Ceye = make_vector_substracting_2_points(*eye, sphere->center);
+
+	a = dot_product(*ray, *ray);
+	b = 2 * dot_product(Ceye, *ray);
+	c = dot_product(Ceye, Ceye) - radius*radius;
+
+	discriminant = b*b - 4*a*c;
+	if (discriminant < 0)
+	{
+		return 0;
+	}
+	t1 = (-b + sqrt(discriminant)) / (2 * a);
+	t2 = (-b - sqrt(discriminant)) / (2 * a);
+
+	if ((1 < t1 && t1 > INFINITY ) || (1 < t2 && t2 > INFINITY))
+		return (1);
+	else
+		return (0);
+
+}
+
+t_vec3		make_vector_substracting_2_points(t_vec3 point1, t_vec3 point2)
+{
+	t_vec3 vector;
+
+	vector.x = point2.x - point1.x;
+	vector.y = point2.y - point1.y;
+	vector.z = point2.z - point1.z;
+
+	return vector;
+
+}
+
+double dot_product(t_vec3 u, t_vec3 v)
+{
+
+	return (u.x * v.x + u.y * v.y +  u.z * v.z);
+}
+
+t_color *get_object_color(t_object *object)
+{
+	if (object == NULL)
+		return (NULL);
 	if (object->id == SPHERE)
-		return ((t_sphere*)object->data)->color;
+		return &((t_sphere*)object->data)->color;
 	if (object->id == CYLINDER)
-		return ((t_sphere*)object->data)->color;
+		return &((t_sphere*)object->data)->color;
 	if (object->id == SQUARE)
-		return ((t_sphere*)object->data)->color;
+		return &((t_sphere*)object->data)->color;
 	if (object->id == PLANE)
-		return ((t_sphere*)object->data)->color;
+		return &((t_sphere*)object->data)->color;
 	if (object->id == TRIANGLE)
-		return ((t_sphere*)object->data)->color;
-	return ((struct s_vec3) {0, 0, 0});
+		return &((t_sphere*)object->data)->color;
+	die("Wrong object id while in get_obj_color");
+	return (NULL);
 }
 
 
 t_vec3 new_vec3(double x, double y, double z)
 {
 	t_vec3 vector;
-	vector.x = 0;
-	vector.y = 0;
-	vector.z = 0;
+
+	vector.x = x;
+	vector.y = y;
+	vector.z = z;
 
 	return (vector);
 }
@@ -165,7 +238,7 @@ void prints(struct s_object *object)
 		printf("Center is at (%.1f, %.1f, %.1f)\t", square->center.x, square->center.y, square->center.x);
 		printf("Orientation vector is (%.1f, %.1f, %.1f)\t", square->orientation.x, square->orientation.y, square->orientation.z);
 		printf("Side lenght is %.1f\t", square->side_len);
-		printf("RGB is (%.1f, %.1f, %.1f)\t", square->color.x, square->color.y, square->color.z);
+		printf("RGB is (%d, %d, %d)\t", square->color.red, square->color.green, square->color.blue);
 		printf("\n");
 	}
 	else if (object->id == CYLINDER)
@@ -178,7 +251,7 @@ void prints(struct s_object *object)
 		printf("Orientation vector is (%.1f, %.1f, %.1f)\t", cyl->orientation.x, cyl->orientation.y, cyl->orientation.z);
 		printf("Diameter is %.1f\t", cyl->diameter);
 		printf("Height is %.1f\t", cyl->height);
-		printf("RGB is (%.1f, %.1f, %.1f)\t", cyl->color.x, cyl->color.y, cyl->color.z);
+		printf("RGB is (%d, %d, %d)\t", cyl->color.red, cyl->color.green, cyl->color.blue);
 		printf("\n");
 	}
 	else if (object->id == PLANE)
@@ -189,7 +262,17 @@ void prints(struct s_object *object)
 		printf("Plane:\t\t");
 		printf("Point is at (%.1f, %.1f, %.1f)\t", plane->some_point.x, plane->some_point.y, plane->some_point.x);
 		printf("Orientation vector is (%.1f, %.1f, %.1f)\t", plane->orientation.x, plane->orientation.y, plane->orientation.z);
-		printf("RGB is (%.1f, %.1f, %.1f)\t", plane->color.x, plane->color.y, plane->color.z);
+		printf("RGB is (%d, %d, %d)\t", plane->color.red, plane->color.green, plane->color.blue);
+		printf("\n");
+	}
+	else if (object->id == SPHERE)
+	{
+		t_sphere* sphere;
+		sphere = object->data;
+
+		printf("Sphere:\t\t");
+		printf("Center is at (%.1f, %.1f, %.1f)\t", sphere->center.x, sphere->center.y, sphere->center.x);
+		printf("RGB is (%d, %d, %d)\t", sphere->color.red, sphere->color.green, sphere->color.blue);
 		printf("\n");
 	}
 }

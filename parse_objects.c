@@ -4,7 +4,7 @@ extern t_env env;
 
 void parse_sp(char **input)
 {
-	t_object		*new_object;
+	t_object	*new_object;
 	t_sphere	*new_sphere;
 
 	new_sphere = malloc(sizeof(t_sphere));
@@ -21,7 +21,7 @@ void parse_sp(char **input)
 
 void parse_pl(char **input)
 {
-	t_object		*new_object;
+	t_object	*new_object;
 	t_plane		*new_plane;
 
 	printf("Parsing plane...\n");

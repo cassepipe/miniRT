@@ -21,7 +21,9 @@ int		is_in(char c, const char *set)
 	while(*set)
 	{
 		if (*set == c)
+		{
 			return 1;
+		}
 		set++;
 	}
 	return 0;
@@ -32,7 +34,9 @@ void	skip_set(char **input, const char *set)
 	while (**input)
 	{
 		if (!is_in(**input, set))
+		{
 			return;
+		}
 		(*input)++;
 	}
 }
@@ -58,7 +62,9 @@ double parse_double_or_die(char **input)
 	if (**input == '-')
 		neg = (*input)++;
 	if (!ft_isdigit(**input))
-		die();
+	{
+		die("error parsing double : input is not a digit\n" );
+	}
 	while (ft_isdigit(**input) || (**input == '.' && !dot))
 	{
 		if (**input == '.')
@@ -91,6 +97,12 @@ t_vec3	parse_vec(char **input)
 	return (vector);
 }
 
+int		parse_int(char**input)
+{
+	skip_blank_and_one_comma(input);
+	return (parse_int_or_die(input));
+}
+
 t_color	parse_color(char **input)
 {
 	t_color color;
@@ -100,12 +112,6 @@ t_color	parse_color(char **input)
 	color.blue = parse_int(input);
 
 	return (color);
-}
-
-int		parse_int(char**input)
-{
-	skip_blank_and_one_comma(input);
-	return (parse_int_or_die(input));
 }
 
 int parse_int_or_die(char **input)

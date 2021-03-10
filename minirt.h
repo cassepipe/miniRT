@@ -11,6 +11,7 @@
 # include <limits.h>
 # include <fcntl.h>
 # include <mlx.h>
+# include <math.h>
 
 # include "structs.h"
 # include "parse.h"
@@ -18,5 +19,7 @@
 
 
 # include "libft/libft.h"
+
+extern t_env env;
 
 #endif

@@ -95,8 +95,10 @@ t_vec3		canvas_to_viewport(int x, int y)
 
 	ray.x = -env.res_x * 0.5 + x;
 	ray.y = env.res_y * 0.5 - y;
-	ray.z = 1;
+	ray.z = -1;
 
+	ray.x = ray.x / env.res_x;
+	ray.y = ray.y / env.res_y;
 	/*printf("Corresponding to viewport coordinates (%f,%f)\n", ray.x, ray.y);*/
 
 	return (ray);
@@ -141,6 +143,7 @@ bool		intersect_ray_with_sphere(t_vec3 *eye,  t_vec3 *ray, t_sphere *sphere)
 	double  t1;
 	double  t2;
 
+	printf("For ray [%f, %f, %f]\n", ray->x, ray->y, ray->z);
 	radius = sphere->diameter * 0.5;
 	Ceye = make_vector_substracting_2_points(*eye, sphere->center);
 
@@ -149,12 +152,18 @@ bool		intersect_ray_with_sphere(t_vec3 *eye,  t_vec3 *ray, t_sphere *sphere)
 	c = dot_product(Ceye, Ceye) - radius*radius;
 
 	discriminant = b*b - 4*a*c;
+
+	printf("discriminant = %f\n", discriminant);
 	if (discriminant < 0)
 	{
 		return 0;
 	}
+
 	t1 = (-b + sqrt(discriminant)) / (2 * a);
 	t2 = (-b - sqrt(discriminant)) / (2 * a);
+
+	printf("t1 = %f\n\n", t1);
+	printf("t2 = %f\n\n", t2);
 
 	if ((1 < t1 && t1 < INFINITY ) || (1 < t2 && t2 < INFINITY))
 		return (1);

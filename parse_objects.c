@@ -7,6 +7,7 @@ void parse_sp(char **input)
 	t_object	*new_object;
 	t_sphere	*new_sphere;
 
+	printf("Parsing sphere...");
 	new_sphere = malloc(sizeof(t_sphere));
 	new_sphere->center = parse_vec(input);
 	new_sphere->diameter = parse_double(input);

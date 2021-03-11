@@ -56,17 +56,15 @@ int			main(int argc, char *argv[])
 	t_color *closest_object_color;
 	int pixel_color;
 		int y = 0;
-		while ( y < env.res_y)
+		while ( y <= env.res_y)
 		{
-			printf("env.res_x = %d\n", env.res_y);
-			printf("env.res_y = %d\n", env.res_x);
 			int x = 0;
 			while (x <= env.res_x)
 			{
-				printf("Processing pixel(%d, %d)...\n", x, y);
+				/*printf("Processing pixel(%d, %d)...\n", x, y);*/
 				ray = canvas_to_viewport(x, y);
-				printf("Processing pixel(%d, %d)...\n", x, y);
 				closest_object = trace_ray(&env.cameras->origin, &ray);
+				/*printf("closest object is %p\n", closest_object);*/
 				closest_object_color = get_object_color(closest_object);
 				pixel_color = get_color_as_int(closest_object_color);
 				mlx_pixel_put(mlx_ptr, window, x, y, pixel_color);
@@ -95,13 +93,11 @@ t_vec3		canvas_to_viewport(int x, int y)
 {
 	t_vec3 ray;
 
-	printf("hello from canvas_to_viewport\n");
-	ray.x = env.res_x * 0.5 + x;
+	ray.x = -env.res_x * 0.5 + x;
 	ray.y = env.res_y * 0.5 - y;
-
-	ray.x = ray.x * 1 / env.res_x;
-	ray.y = ray.y * 1 / env.res_y;
 	ray.z = 1;
+
+	/*printf("Corresponding to viewport coordinates (%f,%f)\n", ray.x, ray.y);*/
 
 	return (ray);
 }
@@ -112,23 +108,15 @@ t_object	*trace_ray(t_vec3 *eye, t_vec3 *ray)
 	t_object	*current_object = env.objects;
 	bool		has_hit;
 
-	printf("Hello from trace_ray\n");
 	has_hit = false;
 	while (current_object != NULL)
 	{
-		printf("Current obj is %p\n", env.objects);
-		printf("Next obj is %p\n", env.objects->next);
-
 		has_hit = intersect_ray_with_object(eye, ray, current_object);
 		if (has_hit)
 		{
 			closest_object = current_object;
 		}
 		current_object = current_object->next;
-	}
-	if (closest_object == NULL)
-	{
-		return NULL;
 	}
 	return closest_object;
 }
@@ -168,7 +156,7 @@ bool		intersect_ray_with_sphere(t_vec3 *eye,  t_vec3 *ray, t_sphere *sphere)
 	t1 = (-b + sqrt(discriminant)) / (2 * a);
 	t2 = (-b - sqrt(discriminant)) / (2 * a);
 
-	if ((1 < t1 && t1 > INFINITY ) || (1 < t2 && t2 > INFINITY))
+	if ((1 < t1 && t1 < INFINITY ) || (1 < t2 && t2 < INFINITY))
 		return (1);
 	else
 		return (0);
@@ -271,7 +259,8 @@ void prints(struct s_object *object)
 		sphere = object->data;
 
 		printf("Sphere:\t\t");
-		printf("Center is at (%.1f, %.1f, %.1f)\t", sphere->center.x, sphere->center.y, sphere->center.x);
+		printf("Center is at (%.1f, %.1f, %.1f)\t", sphere->center.x, sphere->center.y, sphere->center.z);
+		printf("Diameter is %.1f\t", sphere->diameter);
 		printf("RGB is (%d, %d, %d)\t", sphere->color.red, sphere->color.green, sphere->color.blue);
 		printf("\n");
 	}

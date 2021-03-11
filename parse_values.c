@@ -76,7 +76,7 @@ double parse_double_or_die(char **input)
 		}
 		(*input)++;
 	}
-//	printf("RESULT is %f\n", neg ? -ret : ret);
+	printf("RESULT is %f\n", neg ? -ret : ret);
 	return (neg ? -ret : ret);
 }
 

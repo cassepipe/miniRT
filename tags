@@ -1,133 +1,102 @@
-CYLINDER	structs.h	53
-MINI_RT_H	minirt.h	2
-Mmain	main.c	/^int			main(int argc, char *argv[])$/
-PLANE	structs.h	54
-SPHERE	structs.h	55
-SQUARE	structs.h	56
-STRUCTS_H	structs.h	2
-TRIANGLE	structs.h	57
-a	structs.h	22
-ambl_color	structs.h	106
-ambl_ratio	structs.h	105
-b	structs.h	23
-blue	structs.h	15
-c	structs.h	24
-cameras	structs.h	108
-canvas_to_viewport	main.c	/^t_vec3		canvas_to_viewport(int x, int y)$/
-center	structs.h	33
-center	structs.h	67
-center	structs.h	79
-center	structs.h	86
-color	structs.h	48
-color	structs.h	69
-color	structs.h	75
-color	structs.h	82
-color	structs.h	90
-color	structs.h	97
-data	structs.h	62
-diameter	structs.h	68
-diameter	structs.h	88
-die	error.c	/^void die(const char* error_text)$/
-dir	structs.h	29
-direction	structs.h	40
-dot_product	main.c	/^double dot_product(t_vec3 u, t_vec3 v)$/
-e_objid	structs.h	52
-env	main.c	3
-fov	structs.h	41
-free_camera_list	error.c	/^void free_camera_list(t_cam *camera)$/
-free_env	error.c	/^void free_env(t_env *env)$/
-free_light_list	error.c	/^void free_light_list(t_light *light)$/
-free_object_list	error.c	/^void free_object_list(t_object *object)$/
-get_color_as_int	main.c	/^int			get_color_as_int(t_color *color)$/
-get_object_color	main.c	/^t_color *get_object_color(t_object *object)$/
-green	structs.h	14
-height	structs.h	34
-height	structs.h	89
-id	structs.h	61
-init_env	main.c	/^void		init_env(t_env *env)$/
-intersect_ray_with_object	main.c	/^bool		intersect_ray_with_object(t_vec3 *eye, t_vec/
-intersect_ray_with_sphere	main.c	/^bool		intersect_ray_with_sphere(t_vec3 *eye,  t_ve/
-is_in	parse_values.c	/^int		is_in(char c, const char *set)$/
-k	structs.h	25
-len	structs.h	114
-lights	structs.h	107
-make_vector_substracting_2_points	main.c	/^t_vec3		make_vector_substracting_2_points(t_vec3 p/
-new_vec3	main.c	/^t_vec3 new_vec3(double x, double y, double z)$/
-next	structs.h	42
-next	structs.h	49
-next	structs.h	63
-objects	structs.h	109
-orientation	structs.h	74
-orientation	structs.h	80
-orientation	structs.h	87
-origin	structs.h	39
-origin	structs.h	46
-p1	structs.h	94
-p2	structs.h	95
-p3	structs.h	96
-parse_ambl	parse.c	/^void	parse_ambl(char **input)$/
-parse_cam	parse.c	/^void parse_cam(char **input)$/
-parse_color	parse_values.c	/^t_color	parse_color(char **input)$/
-parse_cy	parse_objects.c	/^void parse_cy(char **input)$/
-parse_double	parse_values.c	/^double	parse_double(char **input)$/
-parse_double_or_die	parse_values.c	/^double parse_double_or_die(char **input)$/
-parse_file_into_env	parse.c	/^void parse_file_into_env()$/
-parse_int	parse_values.c	/^int		parse_int(char**input)$/
-parse_int_or_die	parse_values.c	/^int parse_int_or_die(char **input)$/
-parse_light	parse.c	/^void parse_light(char **input)$/
-parse_pl	parse_objects.c	/^void parse_pl(char **input)$/
-parse_res	parse.c	/^void parse_res(char **input)$/
-parse_sp	parse_objects.c	/^void parse_sp(char **input)$/
-parse_sq	parse_objects.c	/^void parse_sq(char **input)$/
-parse_tr	parse_objects.c	/^void parse_tr(char **input)$/
-parse_vec	parse_values.c	/^t_vec3	parse_vec(char **input)$/
-prints	main.c	/^void prints(struct s_object *object)$/
-ratio	structs.h	47
-red	structs.h	13
-res_x	structs.h	103
-res_y	structs.h	104
-s_cam	structs.h	38
-s_color	structs.h	12
-s_cylinder	structs.h	85
-s_env	structs.h	100
-s_fat_token	structs.h	112
-s_light	structs.h	45
-s_object	structs.h	60
-s_plane	structs.h	72
-s_quaternion	structs.h	21
-s_ray	structs.h	28
-s_sphere	structs.h	66
-s_square	structs.h	78
-s_triangle	structs.h	93
-s_vec3	structs.h	6
-s_viewplane	structs.h	32
-scene_path	structs.h	102
-side_len	structs.h	81
-skip_blank	parse_values.c	/^void	skip_blank(char **input)$/
-skip_blank_and_one_comma	parse_values.c	/^void	skip_blank_and_one_comma(char **input)$/
-skip_set	parse_values.c	/^void	skip_set(char **input, const char *set)$/
-some_point	structs.h	73
-t_cam	structs.h	43
-t_color	structs.h	16
-t_cylinder	structs.h	91
-t_env	structs.h	110
-t_light	structs.h	50
-t_matrix3x3	structs.h	18
-t_matrix4x4	structs.h	19
-t_object	structs.h	64
-t_plane	structs.h	76
-t_quaternion	structs.h	26
-t_ray	structs.h	30
-t_sphere	structs.h	70
-t_square	structs.h	83
-t_triangle	structs.h	98
-t_vec3	structs.h	10
-t_viewplane	structs.h	36
-token	structs.h	113
-token_func	structs.h	/^	void		(*token_func)(char** input);$/
-token_table	parse.c	7
-trace_ray	main.c	/^t_object	*trace_ray(t_vec3 *eye, t_vec3 *ray)$/
-width	structs.h	35
-x	structs.h	7
-y	structs.h	8
-z	structs.h	9
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+Test	tests/tests.c	/^Test(minirt, parsing)$/;"	f
+canvas_to_viewport	main.c	/^t_vec3		canvas_to_viewport(int x, int y)$/;"	f
+die	error.c	/^void die(const char* error_text)$/;"	f
+diralloc	libft/ft_split.c	/^static char			**diralloc(const char *s, char c)$/;"	f	file:
+dot_product	main.c	/^double dot_product(t_vec3 u, t_vec3 v)$/;"	f
+env	main.c	/^t_env	env;$/;"	v
+free_camera_list	error.c	/^void free_camera_list(t_cam *camera)$/;"	f
+free_env	error.c	/^void free_env(t_env *env)$/;"	f
+free_light_list	error.c	/^void free_light_list(t_light *light)$/;"	f
+free_object_list	error.c	/^void free_object_list(t_object *object)$/;"	f
+ft_10powerof	libft/ft_itoa.c	/^static long	ft_10powerof(long n)$/;"	f	file:
+ft_10powerof	libft/ft_putnbr_fd.c	/^static long	ft_10powerof(long n)$/;"	f	file:
+ft_atoi	libft/ft_atoi.c	/^int			ft_atoi(const char *nptr)$/;"	f
+ft_bzero	libft/ft_bzero.c	/^void	ft_bzero(void *s, size_t n)$/;"	f
+ft_calloc	libft/ft_calloc.c	/^void	*ft_calloc(size_t count, size_t size)$/;"	f
+ft_isalnum	libft/ft_isalnum.c	/^int	ft_isalnum(int c)$/;"	f
+ft_isalpha	libft/ft_isalpha.c	/^int	ft_isalpha(int c)$/;"	f
+ft_isascii	libft/ft_isascii.c	/^int	ft_isascii(int c)$/;"	f
+ft_isdigit	libft/ft_isdigit.c	/^int	ft_isdigit(int c)$/;"	f
+ft_isprint	libft/ft_isprint.c	/^int	ft_isprint(int c)$/;"	f
+ft_isspace	libft/ft_isspace.c	/^int	ft_isspace(int c)$/;"	f
+ft_itoa	libft/ft_itoa.c	/^char		*ft_itoa(int n)$/;"	f
+ft_lstadd_back	libft/ft_lstadd_back.c	/^void	ft_lstadd_back(t_list **lst, t_list *new)$/;"	f
+ft_lstadd_front	libft/ft_lstadd_front.c	/^void	ft_lstadd_front(t_list **lst, t_list *new)$/;"	f
+ft_lstclear	libft/ft_lstclear.c	/^void	ft_lstclear(t_list **lst, void (*del)(void*))$/;"	f
+ft_lstdelone	libft/ft_lstdelone.c	/^void	ft_lstdelone(t_list *lst, void (*del)(void*))$/;"	f
+ft_lstiter	libft/ft_lstiter.c	/^void	ft_lstiter(t_list *lst, void (*f)(void *))$/;"	f
+ft_lstlast	libft/ft_lstlast.c	/^t_list	*ft_lstlast(t_list *lst)$/;"	f
+ft_lstmap	libft/ft_lstmap.c	/^t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))$/;"	f
+ft_lstnew	libft/ft_lstnew.c	/^t_list	*ft_lstnew(void *content)$/;"	f
+ft_lstsize	libft/ft_lstsize.c	/^int	ft_lstsize(t_list *lst)$/;"	f
+ft_memccpy	libft/ft_memccpy.c	/^void	*ft_memccpy(void *dest, const void *src, int c, size_t n)$/;"	f
+ft_memchr	libft/ft_memchr.c	/^void	*ft_memchr(const void *s, int c, size_t n)$/;"	f
+ft_memcmp	libft/ft_memcmp.c	/^int	ft_memcmp(const void *s1, const void *s2, size_t n)$/;"	f
+ft_memcpy	libft/ft_memcpy.c	/^void	*ft_memcpy(void *dest, const void *src, size_t n)$/;"	f
+ft_memmove	libft/ft_memmove.c	/^void	*ft_memmove(void *dst, const void *src, size_t len)$/;"	f
+ft_memset	libft/ft_memset.c	/^void	*ft_memset(void *s, int c, size_t n)$/;"	f
+ft_putchar_fd	libft/ft_putchar_fd.c	/^void	ft_putchar_fd(char c, int fd)$/;"	f
+ft_putendl_fd	libft/ft_putendl_fd.c	/^void	ft_putendl_fd(char *s, int fd)$/;"	f
+ft_putnbr_fd	libft/ft_putnbr_fd.c	/^void		ft_putnbr_fd(int n, int fd)$/;"	f
+ft_putstr_fd	libft/ft_putstr_fd.c	/^void	ft_putstr_fd(char *s, int fd)$/;"	f
+ft_split	libft/ft_split.c	/^char				**ft_split(char const *s, char c)$/;"	f
+ft_strchr	libft/ft_strchr.c	/^char	*ft_strchr(const char *s, int c)$/;"	f
+ft_strdup	libft/ft_strdup.c	/^char	*ft_strdup(const char *s)$/;"	f
+ft_strjoin	libft/ft_strjoin.c	/^char	*ft_strjoin(char const *s1, char const *s2)$/;"	f
+ft_strjoin_and_free	libft/ft_strjoin_and_free.c	/^char	*ft_strjoin_and_free(char const *s1, char const *s2)$/;"	f
+ft_strlcat	libft/ft_strlcat.c	/^size_t	ft_strlcat(char *dst, const char *src, size_t size)$/;"	f
+ft_strlcpy	libft/ft_strlcpy.c	/^size_t	ft_strlcpy(char *dst, const char *src, size_t size)$/;"	f
+ft_strlen	libft/ft_strlen.c	/^size_t	ft_strlen(const char *s)$/;"	f
+ft_strmapi	libft/ft_strmapi.c	/^char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))$/;"	f
+ft_strncmp	libft/ft_strncmp.c	/^int	ft_strncmp(const char *l, const char *r, size_t n)$/;"	f
+ft_strndup	libft/ft_split.c	/^static char			*ft_strndup(const char *s, size_t n)$/;"	f	file:
+ft_strndup	libft/ft_strtrim.c	/^static char	*ft_strndup(const char *s, size_t n)$/;"	f	file:
+ft_strndup	libft/ft_substr.c	/^static char	*ft_strndup(const char *s, size_t n)$/;"	f	file:
+ft_strnstr	libft/ft_strnstr.c	/^char	*ft_strnstr(const char *big, const char *little, size_t len)$/;"	f
+ft_strrchr	libft/ft_strrchr.c	/^char	*ft_strrchr(const char *s, int c)$/;"	f
+ft_strtrim	libft/ft_strtrim.c	/^char		*ft_strtrim(char const *s1, char const *set)$/;"	f
+ft_substr	libft/ft_substr.c	/^char		*ft_substr(char const *s, unsigned int start, size_t len)$/;"	f
+ft_tolower	libft/ft_tolower.c	/^int	ft_tolower(int c)$/;"	f
+ft_toupper	libft/ft_toupper.c	/^int	ft_toupper(int c)$/;"	f
+get_color_as_int	main.c	/^int			get_color_as_int(t_color *color)$/;"	f
+get_next_line	libft/get_next_line.c	/^int			get_next_line(int fd, char **line)$/;"	f
+get_object_color	main.c	/^t_color *get_object_color(t_object *object)$/;"	f
+grow_buffer_until_newline	libft/get_next_line.c	/^static int	grow_buffer_until_newline(int fd, char **buffer,$/;"	f	file:
+init_env	main.c	/^void		init_env(t_env *env)$/;"	f
+intersect_ray_with_object	main.c	/^bool		intersect_ray_with_object(t_vec3 *eye, t_vec3 *ray, t_object *object)$/;"	f
+intersect_ray_with_sphere	main.c	/^bool		intersect_ray_with_sphere(t_vec3 *eye,  t_vec3 *ray, t_sphere *sphere)$/;"	f
+is_in	parse_values.c	/^int		is_in(char c, const char *set)$/;"	f
+is_in_set	libft/ft_strtrim.c	/^static int	is_in_set(char c, char const *set)$/;"	f	file:
+main	main.c	/^int			main(int argc, char *argv[])$/;"	f
+make_vector_substracting_2_points	main.c	/^t_vec3		make_vector_substracting_2_points(t_vec3 point1, t_vec3 point2)$/;"	f
+new_vec3	main.c	/^t_vec3 new_vec3(double x, double y, double z)$/;"	f
+next_sep	libft/ft_split.c	/^static const char	*next_sep(const char *str, char sep)$/;"	f	file:
+next_word	libft/ft_split.c	/^static const char	*next_word(const char *str, char sep)$/;"	f	file:
+parse_ambl	parse.c	/^void	parse_ambl(char **input)$/;"	f
+parse_cam	parse.c	/^void parse_cam(char **input)$/;"	f
+parse_color	parse_values.c	/^t_color	parse_color(char **input)$/;"	f
+parse_cy	parse_objects.c	/^void parse_cy(char **input)$/;"	f
+parse_double	parse_values.c	/^double	parse_double(char **input)$/;"	f
+parse_double_or_die	parse_values.c	/^double parse_double_or_die(char **input)$/;"	f
+parse_file_into_env	parse.c	/^void parse_file_into_env()$/;"	f
+parse_int	parse_values.c	/^int		parse_int(char**input)$/;"	f
+parse_int_or_die	parse_values.c	/^int parse_int_or_die(char **input)$/;"	f
+parse_light	parse.c	/^void parse_light(char **input)$/;"	f
+parse_pl	parse_objects.c	/^void parse_pl(char **input)$/;"	f
+parse_res	parse.c	/^void parse_res(char **input)$/;"	f
+parse_sp	parse_objects.c	/^void parse_sp(char **input)$/;"	f
+parse_sq	parse_objects.c	/^void parse_sq(char **input)$/;"	f
+parse_tr	parse_objects.c	/^void parse_tr(char **input)$/;"	f
+parse_vec	parse_values.c	/^t_vec3	parse_vec(char **input)$/;"	f
+prints	main.c	/^void prints(struct s_object *object)$/;"	f
+skip_blank	parse_values.c	/^void	skip_blank(char **input)$/;"	f
+skip_blank_and_one_comma	parse_values.c	/^void	skip_blank_and_one_comma(char **input)$/;"	f
+skip_set	parse_values.c	/^void	skip_set(char **input, const char *set)$/;"	f
+token_table	parse.c	/^static struct s_fat_token token_table[] =$/;"	v	typeref:struct:s_fat_token	file:
+trace_ray	main.c	/^t_object	*trace_ray(t_vec3 *eye, t_vec3 *ray)$/;"	f

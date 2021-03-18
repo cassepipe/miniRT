@@ -5,14 +5,15 @@ t_env	env;
 void		prints(struct s_object*);
 t_vec3		new_vec3(double x, double y, double z);
 t_vec3		canvas_to_viewport(int x, int y);
-t_object	*trace_ray(t_vec3 *eye, t_vec3 *D);
-bool		intersect_ray_with_object(t_vec3 *eye, t_vec3 *ray, t_object *object);
-bool		intersect_ray_with_sphere(t_vec3 *eye, t_vec3 *ray, t_sphere *sphere);
-t_color		*get_object_color(t_object *object);
-int			get_color_as_int(t_color *color);
+t_color		trace_ray(t_vec3 *eye, t_vec3 *D);
+bool		intersect_ray_with_object(t_vec3 *eye, t_vec3 *ray, t_object *object, double *solution);
+bool		intersect_ray_with_sphere(t_vec3 *eye, t_vec3 *ray, t_sphere *sphere, double *solution);
+t_color		get_object_color(t_object *object);
+int			get_color_as_int(t_color color);
 t_vec3		make_vector_substracting_2_points(t_vec3 point1, t_vec3 point2);
 double		dot_product(t_vec3 u, t_vec3 v);
 void		init_env(t_env *env);
+t_color		compute_ray_color(t_vec3 *ray, t_vec3 *eye, t_object *object, double *parameter);
 
 void		init_env(t_env *env)
 {
@@ -52,8 +53,7 @@ int			main(int argc, char *argv[])
 	//Rendering
 
 	t_vec3 ray;
-	t_object *closest_object;
-	t_color *closest_object_color;
+	t_color closest_object_color;
 	int pixel_color;
 		int y = 0;
 		while ( y <= env.res_y)
@@ -63,9 +63,7 @@ int			main(int argc, char *argv[])
 			{
 				/*printf("Processing pixel(%d, %d)...\n", x, y);*/
 				ray = canvas_to_viewport(x, y);
-				closest_object = trace_ray(&env.cameras->origin, &ray);
-				/*printf("closest object is %p\n", closest_object);*/
-				closest_object_color = get_object_color(closest_object);
+				closest_object_color = trace_ray(&env.cameras->origin, &ray);
 				pixel_color = get_color_as_int(closest_object_color);
 				mlx_pixel_put(mlx_ptr, window, x, y, pixel_color);
 				x++;
@@ -78,13 +76,11 @@ int			main(int argc, char *argv[])
 	return (0);
 }
 
-int			get_color_as_int(t_color *color)
+int			get_color_as_int(t_color color)
 {
 	int color_int;
 
-	if (color == NULL)
-		return (0xFFFFFF);
-	color_int = color->red << 16 |  color->green << 8 | color->blue;
+	color_int = color.red << 16 |  color.green << 8 | color.blue;
 
 	return (color_int);
 }
@@ -104,38 +100,50 @@ t_vec3		canvas_to_viewport(int x, int y)
 	return (ray);
 }
 
-t_object	*trace_ray(t_vec3 *eye, t_vec3 *ray)
+t_color		trace_ray(t_vec3 *eye, t_vec3 *ray)
 {
-	t_object	*closest_object = NULL;
-	t_object	*current_object = env.objects;
+	t_object	*closest_object;
+	t_object	*current_object;
 	bool		has_hit;
+	double		parameter;
 
+	closest_object = NULL;
+	current_object = env.objects;
 	has_hit = false;
 	while (current_object != NULL)
 	{
-		has_hit = intersect_ray_with_object(eye, ray, current_object);
+		has_hit = intersect_ray_with_object(eye, ray, current_object, &parameter);
 		if (has_hit)
 		{
 			closest_object = current_object;
 		}
 		current_object = current_object->next;
 	}
-	return closest_object;
+	if (closest_object == NULL)
+		return (struct s_color){255,255,255};
+
+	return get_object_color(closest_object);
+	/*return compute_ray_color(ray, eye, closest_object, parameter);*/
 }
 
-bool		intersect_ray_with_object(t_vec3 *eye, t_vec3 *ray, t_object *object)
+/*t_color	compute_ray_color(t_vec3 *ray, t_vec3 *eye, t_object *object, double *parameter)
+{
+
+}*/
+
+bool		intersect_ray_with_object(t_vec3 *eye, t_vec3 *ray, t_object *object, double *solution)
 {
 	if (object->id == SPHERE)
-		return	(intersect_ray_with_sphere(eye, ray, (t_sphere*)(object->data)));
+		return	(intersect_ray_with_sphere(eye, ray, (t_sphere*)(object->data), solution));
 	else
 		die("Intersection impossible : Unrecognized object type");
 	return (0);
 }
 
-bool		intersect_ray_with_sphere(t_vec3 *eye,  t_vec3 *ray, t_sphere *sphere)
+bool		intersect_ray_with_sphere(t_vec3 * O,  t_vec3 *ray, t_sphere *sphere, double *solution)
 {
 	double	radius;
-	t_vec3	Ceye;
+	t_vec3	CO;
 	double	a;
 	double	b;
 	double	c;
@@ -145,11 +153,11 @@ bool		intersect_ray_with_sphere(t_vec3 *eye,  t_vec3 *ray, t_sphere *sphere)
 
 	printf("For ray [%f, %f, %f]\n", ray->x, ray->y, ray->z);
 	radius = sphere->diameter * 0.5;
-	Ceye = make_vector_substracting_2_points(*eye, sphere->center);
+	CO = make_vector_substracting_2_points(*O, sphere->center);
 
 	a = dot_product(*ray, *ray);
-	b = 2 * dot_product(Ceye, *ray);
-	c = dot_product(Ceye, Ceye) - radius*radius;
+	b = 2 * dot_product(CO, *ray);
+	c = dot_product(CO, CO) - radius*radius;
 
 	discriminant = b*b - 4*a*c;
 
@@ -165,7 +173,13 @@ bool		intersect_ray_with_sphere(t_vec3 *eye,  t_vec3 *ray, t_sphere *sphere)
 	printf("t1 = %f\n\n", t1);
 	printf("t2 = %f\n\n", t2);
 
-	if ((1 < t1 && t1 < INFINITY ) || (1 < t2 && t2 < INFINITY))
+	if (t1 > 1 && t1 < INFINITY)
+		*solution = t1;
+	if (t2 > 1  && t2 < INFINITY && t2 < *solution)
+		*solution = t2;
+
+
+	if ((t1 > 1 && t1 < INFINITY ) || (t2 > 1 && t2 < INFINITY))
 		return (1);
 	else
 		return (0);
@@ -190,22 +204,19 @@ double dot_product(t_vec3 u, t_vec3 v)
 	return (u.x * v.x + u.y * v.y +  u.z * v.z);
 }
 
-t_color *get_object_color(t_object *object)
+t_color get_object_color(t_object *object)
 {
-	if (object == NULL)
-		return (NULL);
 	if (object->id == SPHERE)
-		return &((t_sphere*)object->data)->color;
+		return ((t_sphere*)object->data)->color;
 	if (object->id == CYLINDER)
-		return &((t_sphere*)object->data)->color;
+		return ((t_sphere*)object->data)->color;
 	if (object->id == SQUARE)
-		return &((t_sphere*)object->data)->color;
+		return ((t_sphere*)object->data)->color;
 	if (object->id == PLANE)
-		return &((t_sphere*)object->data)->color;
+		return ((t_sphere*)object->data)->color;
 	if (object->id == TRIANGLE)
-		return &((t_sphere*)object->data)->color;
+		return ((t_sphere*)object->data)->color;
 	die("Wrong object id while in get_obj_color");
-	return (NULL);
 }
 
 

@@ -150,6 +150,7 @@ bool		intersect_ray_with_sphere(t_vec3 * O,  t_vec3 *ray, t_sphere *sphere, doub
 	double	discriminant;
 	double  t1;
 	double  t2;
+	bool	has_hit;
 
 	printf("For ray [%f, %f, %f]\n", ray->x, ray->y, ray->z);
 	radius = sphere->diameter * 0.5;
@@ -173,17 +174,18 @@ bool		intersect_ray_with_sphere(t_vec3 * O,  t_vec3 *ray, t_sphere *sphere, doub
 	printf("t1 = %f\n\n", t1);
 	printf("t2 = %f\n\n", t2);
 
+	has_hit = false;
 	if (t1 > 1 && t1 < INFINITY)
+	{
 		*solution = t1;
+		has_hit = true;
+	}
 	if (t2 > 1  && t2 < INFINITY && t2 < *solution)
+	{
 		*solution = t2;
-
-
-	if ((t1 > 1 && t1 < INFINITY ) || (t2 > 1 && t2 < INFINITY))
-		return (1);
-	else
-		return (0);
-
+		has_hit = true;
+	}
+	return (has_hit);
 }
 
 t_vec3		make_vector_substracting_2_points(t_vec3 point1, t_vec3 point2)

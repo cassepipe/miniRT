@@ -93,7 +93,7 @@ t_vec3		canvas_to_viewport(int x, int y)
 
 	ray.x = -env.res_x * 0.5 + x;
 	ray.y = env.res_y * 0.5 - y;
-	ray.z = -1;
+	ray.z = 1;
 
 	ray.x = ray.x / env.res_x;
 	ray.y = ray.y / env.res_y;
@@ -292,9 +292,9 @@ t_vec3		make_vector_substracting_2_points(t_vec3 point1, t_vec3 point2)
 {
 	t_vec3 vector;
 
-	vector.x = point2.x - point1.x;
-	vector.y = point2.y - point1.y;
-	vector.z = point2.z - point1.z;
+	vector.x = point1.x - point2.x;
+	vector.y = point1.y - point2.y;
+	vector.z = point1.z - point2.z;
 
 	return vector;
 

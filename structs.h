@@ -102,7 +102,7 @@ typedef struct s_env
 	char				*scene_path;	
 	int					res_x;
 	int					res_y;
-	int					ambl_ratio;
+	double				ambl_ratio;
 	t_color				ambl_color;
 	struct s_light		*lights;
 	struct s_cam		*cameras;

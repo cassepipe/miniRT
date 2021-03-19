@@ -6,7 +6,7 @@
 #    By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/23 16:37:33 by tpouget           #+#    #+#              #
-#    Updated: 2021/03/08 18:08:49 by tpouget          ###   ########.fr        #
+#    Updated: 2021/03/19 17:36:47 by tpouget          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,13 +37,13 @@ SANITIZER		=	 -fsanitize=address
 
 all:			miniRT
 
-miniRT:			${OBJECTFILES} ${HEADERS} libft Makefile
+miniRT:			${OBJECTFILES} ${HEADERS} libft/libft.a Makefile
 				${CC} ${SANITIZER} ${OBJECTFILES} -Llibft -lft -lm -lmlx -lXext -lX11 -o $@
 
-test:			${HEADERS} ${TEST_OBJECTS} libft tests/tests.c
+test:			${HEADERS} ${TEST_OBJECTS} libft/libft.a tests/tests.c
 				${CC} ${TEST_OBJECTS} tests/tests.c -Llibft -lft -lm -lmlx -lXext - lX11 -lcriterion -o $@
 
-libft:		
+libft/libft.a:		
 				make -C libft libft.a
 				
 obj/%.o:		%.c	

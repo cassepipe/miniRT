@@ -6,6 +6,8 @@
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 Test	tests/tests.c	/^Test(minirt, parsing)$/;"	f
 canvas_to_viewport	main.c	/^t_vec3		canvas_to_viewport(int x, int y)$/;"	f
+compute_ray_color	main.c	/^t_color	compute_ray_color(t_vec3 *ray, t_vec3 *eye, t_object *object, double parameter)$/;"	f
+compute_sphere_lighting	main.c	/^t_color	compute_sphere_lighting(t_vec3 *ray, t_vec3 *eye, t_object *object, double parameter)$/;"	f
 die	error.c	/^void die(const char* error_text)$/;"	f
 diralloc	libft/ft_split.c	/^static char			**diralloc(const char *s, char c)$/;"	f	file:
 dot_product	main.c	/^double dot_product(t_vec3 u, t_vec3 v)$/;"	f
@@ -64,13 +66,13 @@ ft_strtrim	libft/ft_strtrim.c	/^char		*ft_strtrim(char const *s1, char const *se
 ft_substr	libft/ft_substr.c	/^char		*ft_substr(char const *s, unsigned int start, size_t len)$/;"	f
 ft_tolower	libft/ft_tolower.c	/^int	ft_tolower(int c)$/;"	f
 ft_toupper	libft/ft_toupper.c	/^int	ft_toupper(int c)$/;"	f
-get_color_as_int	main.c	/^int			get_color_as_int(t_color *color)$/;"	f
+get_color_as_int	main.c	/^int			get_color_as_int(t_color color)$/;"	f
 get_next_line	libft/get_next_line.c	/^int			get_next_line(int fd, char **line)$/;"	f
-get_object_color	main.c	/^t_color *get_object_color(t_object *object)$/;"	f
+get_object_color	main.c	/^t_color get_object_color(t_object *object)$/;"	f
 grow_buffer_until_newline	libft/get_next_line.c	/^static int	grow_buffer_until_newline(int fd, char **buffer,$/;"	f	file:
 init_env	main.c	/^void		init_env(t_env *env)$/;"	f
-intersect_ray_with_object	main.c	/^bool		intersect_ray_with_object(t_vec3 *eye, t_vec3 *ray, t_object *object)$/;"	f
-intersect_ray_with_sphere	main.c	/^bool		intersect_ray_with_sphere(t_vec3 * O,  t_vec3 *ray, t_sphere *sphere)$/;"	f
+intersect_ray_with_object	main.c	/^bool		intersect_ray_with_object(t_vec3 *eye, t_vec3 *ray, t_object *object, double *solution)$/;"	f
+intersect_ray_with_sphere	main.c	/^bool		intersect_ray_with_sphere(t_vec3 * O,  t_vec3 *ray, t_sphere *sphere, double *solution)$/;"	f
 is_in	parse_values.c	/^int		is_in(char c, const char *set)$/;"	f
 is_in_set	libft/ft_strtrim.c	/^static int	is_in_set(char c, char const *set)$/;"	f	file:
 main	main.c	/^int			main(int argc, char *argv[])$/;"	f
@@ -99,4 +101,4 @@ skip_blank	parse_values.c	/^void	skip_blank(char **input)$/;"	f
 skip_blank_and_one_comma	parse_values.c	/^void	skip_blank_and_one_comma(char **input)$/;"	f
 skip_set	parse_values.c	/^void	skip_set(char **input, const char *set)$/;"	f
 token_table	parse.c	/^static struct s_fat_token token_table[] =$/;"	v	typeref:struct:s_fat_token	file:
-trace_ray	main.c	/^t_object	*trace_ray(t_vec3 *eye, t_vec3 *ray)$/;"	f
+trace_ray	main.c	/^t_color		trace_ray(t_vec3 *eye, t_vec3 *ray)$/;"	f

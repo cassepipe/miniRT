@@ -13,7 +13,9 @@ int			get_color_as_int(t_color color);
 t_vec3		make_vector_substracting_2_points(t_vec3 point1, t_vec3 point2);
 double		dot_product(t_vec3 u, t_vec3 v);
 void		init_env(t_env *env);
-t_color		compute_ray_color(t_vec3 *ray, t_vec3 *eye, t_object *object, double *parameter);
+t_color		compute_ray_color(t_vec3 *ray, t_vec3 *eye, t_object *object, double parameter);
+t_color		compute_sphere_lighting(t_vec3 *ray, t_vec3 *eye, t_sphere *sphere, double parameter);
+double		compute_lighting(t_vec3 hit_point, t_vec3 normal);
 
 void		init_env(t_env *env)
 {
@@ -61,7 +63,7 @@ int			main(int argc, char *argv[])
 			int x = 0;
 			while (x <= env.res_x)
 			{
-				/*printf("Processing pixel(%d, %d)...\n", x, y);*/
+				printf("Processing pixel(%d, %d)...\n", x, y);
 				ray = canvas_to_viewport(x, y);
 				closest_object_color = trace_ray(&env.cameras->origin, &ray);
 				pixel_color = get_color_as_int(closest_object_color);
@@ -112,6 +114,7 @@ t_color		trace_ray(t_vec3 *eye, t_vec3 *ray)
 	has_hit = false;
 	while (current_object != NULL)
 	{
+		printf("Current object is %p\n", current_object);
 		has_hit = intersect_ray_with_object(eye, ray, current_object, &parameter);
 		if (has_hit)
 		{
@@ -122,14 +125,111 @@ t_color		trace_ray(t_vec3 *eye, t_vec3 *ray)
 	if (closest_object == NULL)
 		return (struct s_color){255,255,255};
 
-	return get_object_color(closest_object);
-	/*return compute_ray_color(ray, eye, closest_object, parameter);*/
+	/*return get_object_color(closest_object);*/
+	return compute_ray_color(ray, eye, closest_object, parameter);
 }
 
-/*t_color	compute_ray_color(t_vec3 *ray, t_vec3 *eye, t_object *object, double *parameter)
+t_color	compute_ray_color(t_vec3 *ray, t_vec3 *eye, t_object *object, double parameter)
 {
+	if (object->id == SPHERE)
+		return	(compute_sphere_lighting(ray, eye, (t_sphere*)(object->data), parameter));
+	else
+		die("Could not compute light: Unrecognized object type");
+}
 
-}*/
+t_vec3	scale_by(t_vec3 vector, double scalar)
+{
+	t_vec3 result;
+
+	result.x = vector.x * scalar;
+	result.y = vector.y * scalar;
+	result.z = vector.z * scalar;
+
+	return (result);
+}
+
+t_color	scale_color_by(t_color color, double scalar)
+{
+	t_color result;
+
+	result.red = color.red * scalar;
+	result.green = color.green * scalar;
+	result.blue = color.blue * scalar;
+
+	return (result);
+}
+
+t_vec3	add_vec(t_vec3 v1, t_vec3 v2)
+{
+	t_vec3 result;
+
+	result.x = v1.x + v2.x;
+	result.y = v1.y + v2.y;
+	result.z = v1.z + v2.z;
+
+	return (result);
+}
+
+double	vec_len(t_vec3	v)
+{
+	return sqrt(v.x*v.x + v.y*v.y + v.z*v.z);
+}
+
+t_vec3 normalize(t_vec3 v)
+{
+	double len;
+	t_vec3 result;
+
+	len = vec_len(v);
+
+	result.x = v.x / len;
+	result.y = v.y / len;
+	result.z = v.z / len;
+
+	return (result);
+}
+
+double 	compute_lighting(t_vec3 hit_point, t_vec3 normal)
+{
+	double	i;
+	t_light *light;
+	t_vec3	light_vector;
+	double	n_dot_l;
+
+	i = env.ambl_ratio;
+	printf("ambl ratio is %f\n", i);
+	light = env.lights;
+	while (light != NULL && i < 1)
+	{
+		light_vector = make_vector_substracting_2_points(light->origin, hit_point);
+
+			n_dot_l = dot_product(light_vector, normal);
+			if (n_dot_l > 0)
+			{
+				i += light->ratio * n_dot_l/(vec_len(normal) * vec_len(light_vector));
+			}
+		light = light->next;
+	}
+	if (i > 1)
+		return (1);
+	printf("returning ratio %.1f\n", i);
+	return (i);
+}
+
+
+t_color	compute_sphere_lighting(t_vec3 *ray, t_vec3 *eye, t_sphere *sphere, double parameter)
+{
+		t_vec3 hit_point;
+		t_vec3 normal;
+
+		hit_point = scale_by(*ray, parameter);
+		hit_point = add_vec(*eye, hit_point);
+
+		normal = make_vector_substracting_2_points(hit_point, sphere->center);  // Compute sphere normal at intersection
+		normal = normalize(normal);
+
+		return (scale_color_by(sphere->color, compute_lighting(hit_point, normal)));
+}
 
 bool		intersect_ray_with_object(t_vec3 *eye, t_vec3 *ray, t_object *object, double *solution)
 {

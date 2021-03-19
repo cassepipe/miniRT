@@ -6,7 +6,7 @@
 #    By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/23 16:37:33 by tpouget           #+#    #+#              #
-#    Updated: 2021/03/19 17:36:47 by tpouget          ###   ########.fr        #
+#    Updated: 2021/03/19 17:47:54 by tpouget          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,8 +46,11 @@ test:			${HEADERS} ${TEST_OBJECTS} libft/libft.a tests/tests.c
 libft/libft.a:		
 				make -C libft libft.a
 				
-obj/%.o:		%.c	
+obj/%.o:		%.c	| obj
 				${CC} ${CFLAGS} -c $< -o $@
+
+obj:			
+				mkdir obj
 
 clean:			
 				rm -rf obj/*.o

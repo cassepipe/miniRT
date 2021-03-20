@@ -6,8 +6,8 @@ void		prints(struct s_object*);
 t_vec3		new_vec3(double x, double y, double z);
 t_vec3		canvas_to_viewport(int x, int y);
 t_color		trace_ray(t_vec3 *eye, t_vec3 *D);
-bool		intersect_ray_with_object(t_vec3 *eye, t_vec3 *ray, t_object *object, double *solution);
-bool		intersect_ray_with_sphere(t_vec3 *eye, t_vec3 *ray, t_sphere *sphere, double *solution);
+bool		intersect_ray_with_object(t_vec3 *eye, t_vec3 *ray, t_object *object, double *solution, double tmin, double tmax);
+bool		intersect_ray_with_sphere(t_vec3 *eye, t_vec3 *ray, t_sphere *sphere, double *solution, double tmin, double tmax);
 t_color		get_object_color(t_object *object);
 int			get_color_as_int(t_color color);
 t_vec3		make_vector_substracting_2_points(t_vec3 point1, t_vec3 point2);
@@ -131,7 +131,7 @@ t_color		trace_ray(t_vec3 *eye, t_vec3 *ray)
 	while (current_object != NULL)
 	{
 		printf("Current object is %p\n", current_object);
-		has_hit = intersect_ray_with_object(eye, ray, current_object, &parameter);
+		has_hit = intersect_ray_with_object(eye, ray, current_object, &parameter, 1, INFINITY);
 		if (has_hit)
 		{
 			closest_object = current_object;
@@ -247,16 +247,17 @@ t_color	compute_sphere_lighting(t_vec3 *ray, t_vec3 *eye, t_sphere *sphere, doub
 		return (scale_color_by(sphere->color, compute_lighting(hit_point, normal)));
 }
 
-bool		intersect_ray_with_object(t_vec3 *eye, t_vec3 *ray, t_object *object, double *solution)
+bool		intersect_ray_with_object(t_vec3 *eye, t_vec3 *ray, t_object *object, double *solution, double tmin, double tmax)
 {
 	if (object->id == SPHERE)
-		return	(intersect_ray_with_sphere(eye, ray, (t_sphere*)(object->data), solution));
+		return	(intersect_ray_with_sphere(eye, ray, (t_sphere*)(object->data), solution, tmin, tmax));
 	else
 		die("Intersection impossible : Unrecognized object type");
 	return (0);
 }
 
-bool		intersect_ray_with_sphere(t_vec3 * O,  t_vec3 *ray, t_sphere *sphere, double *solution)
+bool		intersect_ray_with_sphere(t_vec3 * O,  t_vec3 *ray, t_sphere *sphere, double *solution,
+										double tmin, double tmax)
 {
 	double	radius;
 	t_vec3	CO;
@@ -291,12 +292,12 @@ bool		intersect_ray_with_sphere(t_vec3 * O,  t_vec3 *ray, t_sphere *sphere, doub
 	printf("t2 = %f\n\n", t2);
 
 	has_hit = false;
-	if (t1 > 1 && t1 < INFINITY)
+	if (t1 > tmin && t1 < tmax)
 	{
 		*solution = t1;
 		has_hit = true;
 	}
-	if (t2 > 1  && t2 < INFINITY && t2 < *solution)
+	if (t2 > tmin  && t2 < tmax && t2 < *solution)
 	{
 		*solution = t2;
 		has_hit = true;

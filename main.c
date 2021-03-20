@@ -16,6 +16,7 @@ void		init_env(t_env *env);
 t_color		compute_ray_color(t_vec3 *ray, t_vec3 *eye, t_object *object, double parameter);
 t_color		compute_sphere_lighting(t_vec3 *ray, t_vec3 *eye, t_sphere *sphere, double parameter);
 double		compute_lighting(t_vec3 hit_point, t_vec3 normal);
+void		put_pixel_to_image(struct s_image *image, int x, int y, int color);
 
 void		init_env(t_env *env)
 {
@@ -26,6 +27,11 @@ void		init_env(t_env *env)
 
 int			main(int argc, char *argv[])
 {
+
+	void *mlx_ptr;
+	void *window;
+	struct s_image image;
+
 	if (argc != 2)
 	{
 		perror("You have not provided any arguments");
@@ -45,12 +51,13 @@ int			main(int argc, char *argv[])
 	}
 
 	//minilibx
-	void *mlx_ptr;
-	void *window;
 	mlx_ptr = mlx_init();
 	if (mlx_ptr == NULL)
 		die("Failed to set up connection to X server");
 	window = mlx_new_window(mlx_ptr, env.res_x, env.res_y, "miniRT");
+
+	image.mlx_handle = mlx_new_image(mlx_ptr, env.res_x, env.res_y);
+	image.data = mlx_get_data_addr(image.mlx_handle, &image.bits_per_pixel, &image.line_len, &image.endianness);
 
 	//Rendering
 
@@ -67,15 +74,24 @@ int			main(int argc, char *argv[])
 				ray = canvas_to_viewport(x, y);
 				closest_object_color = trace_ray(&env.cameras->origin, &ray);
 				pixel_color = get_color_as_int(closest_object_color);
-				mlx_pixel_put(mlx_ptr, window, x, y, pixel_color);
+				put_pixel_to_image(&image, x, y, pixel_color);
 				x++;
 			}
 			y++;
 		}
 
+	mlx_put_image_to_window(mlx_ptr, window, image.mlx_handle, 0, 0);
 	mlx_loop(mlx_ptr);
 
 	return (0);
+}
+
+void	put_pixel_to_image(struct s_image *image, int x, int y, int color)
+{
+	char *dest;
+
+	dest = image->data + y * image->line_len + x * (image->bits_per_pixel/8);
+	*(unsigned int*)dest = color;
 }
 
 int			get_color_as_int(t_color color)

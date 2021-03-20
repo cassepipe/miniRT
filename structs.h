@@ -115,4 +115,13 @@ struct s_fat_token {
 	void		(*token_func)(char** input);
 };
 
+struct s_image {
+	void	*mlx_handle;
+	char	*data;
+	int		bits_per_pixel;
+	int		line_len;
+	int		endianness;
+}	t_image;
+
+
 #endif

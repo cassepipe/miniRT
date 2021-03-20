@@ -128,6 +128,7 @@ t_color		trace_ray(t_vec3 *eye, t_vec3 *ray)
 	closest_object = NULL;
 	current_object = env.objects;
 	has_hit = false;
+	parameter = INFINITY;
 	while (current_object != NULL)
 	{
 		printf("Current object is %p\n", current_object);
@@ -269,7 +270,7 @@ bool		intersect_ray_with_sphere(t_vec3 * O,  t_vec3 *ray, t_sphere *sphere, doub
 	double  t2;
 	bool	has_hit;
 
-	printf("For ray [%f, %f, %f]\n", ray->x, ray->y, ray->z);
+	/*printf("For ray [%f, %f, %f]\n", ray->x, ray->y, ray->z);*/
 	radius = sphere->diameter * 0.5;
 	CO = make_vector_substracting_2_points(*O, sphere->center);
 
@@ -279,7 +280,7 @@ bool		intersect_ray_with_sphere(t_vec3 * O,  t_vec3 *ray, t_sphere *sphere, doub
 
 	discriminant = b*b - 4*a*c;
 
-	printf("discriminant = %f\n", discriminant);
+	/*printf("discriminant = %f\n", discriminant);*/
 	if (discriminant < 0)
 	{
 		return 0;
@@ -288,11 +289,11 @@ bool		intersect_ray_with_sphere(t_vec3 * O,  t_vec3 *ray, t_sphere *sphere, doub
 	t1 = (-b + sqrt(discriminant)) / (2 * a);
 	t2 = (-b - sqrt(discriminant)) / (2 * a);
 
-	printf("t1 = %f\n\n", t1);
-	printf("t2 = %f\n\n", t2);
+	/*printf("t1 = %f\n\n", t1);*/
+	/*printf("t2 = %f\n\n", t2);*/
 
 	has_hit = false;
-	if (t1 > tmin && t1 < tmax)
+	if (t1 > tmin && t1 < tmax && t1 < *solution)
 	{
 		*solution = t1;
 		has_hit = true;

@@ -38,6 +38,7 @@ t_color		compute_sphere_lighting(t_vec3 *ray, t_vec3 *eye, t_sphere *sphere, dou
 double		compute_lighting(t_vec3 hit_point, t_vec3 normal);
 void		put_pixel_to_image(struct s_image *image, int x, int y, int color);
 double		vec_len(t_vec3	v);
+bool		trace_light(t_vec3 *origin, t_vec3 *ray);
 
 t_vec3	scale_by(t_vec3 vector, double scalar);
 t_color	scale_color_by(t_color color, double scalar);

@@ -115,7 +115,7 @@ t_color		trace_ray(t_vec3 *eye, t_vec3 *ray)
 	parameter = INFINITY;
 	while (current_object != NULL)
 	{
-		printf("Current object is %p\n", current_object);
+		//printf("Current object is %p\n", current_object);
 		has_hit = intersect_ray_with_object(eye, ray, current_object, &parameter, 1, INFINITY);
 		if (has_hit)
 		{
@@ -128,6 +128,28 @@ t_color		trace_ray(t_vec3 *eye, t_vec3 *ray)
 
 	/*return get_object_color(closest_object);*/
 	return compute_ray_color(ray, eye, closest_object, parameter);
+}
+
+bool	trace_light(t_vec3 *hit_point, t_vec3 *ray)
+{
+	t_object	*current_object;
+	bool		has_hit;
+	double		parameter;
+
+	current_object = env.objects;
+	has_hit = false;
+	parameter = 1;
+	while (current_object != NULL)
+	{
+		//printf("Current object is %p\n", current_object);
+		has_hit = intersect_ray_with_object(hit_point, ray, current_object, &parameter, 0.00001, 1);
+		if (has_hit)
+		{
+			return true;
+		}
+		current_object = current_object->next;
+	}
+	return false;
 }
 
 t_color	compute_ray_color(t_vec3 *ray, t_vec3 *eye, t_object *object, double parameter)
@@ -155,7 +177,8 @@ double 	compute_lighting(t_vec3 hit_point, t_vec3 normal)
 			n_dot_l = dot_product(light_vector, normal);
 			if (n_dot_l > 0)
 			{
-				i += light->ratio * n_dot_l/(vec_len(normal) * vec_len(light_vector));
+				if (!trace_light(&hit_point, &light_vector))
+					i += light->ratio * n_dot_l/(vec_len(normal) * vec_len(light_vector));
 			}
 		light = light->next;
 	}

@@ -56,6 +56,7 @@ int			main(int argc, char *argv[])
 			{
 				printf("Processing pixel(%d, %d)...\n", x, y);
 				ray = canvas_to_viewport(x, y);
+				ray = apply_rotation_to_ray(ray, env.cameras->cam_to_world);
 				closest_object_color = trace_ray(&env.cameras->origin, &ray);
 				pixel_color = get_color_as_int(closest_object_color);
 				put_pixel_to_image(&image, x, y, pixel_color);
@@ -68,6 +69,29 @@ int			main(int argc, char *argv[])
 	mlx_loop(mlx_ptr);
 
 	return (0);
+}
+
+t_vec3	apply_rotation_to_ray(t_vec3 ray, t_matrix3x3 rot_matrix)
+{
+	t_vec3 result;
+
+	result.x = ray.x*rot_matrix.right.x + ray.y*rot_matrix.right.y + ray.z*rot_matrix.right.z;
+	result.y = ray.x*rot_matrix.up.x + ray.y*rot_matrix.up.y + ray.z*rot_matrix.up.z;
+	result.z = ray.x*rot_matrix.forward.x + ray.y*rot_matrix.forward.y + ray.z*rot_matrix.forward.z;
+
+	return (result);
+}
+
+t_matrix3x3	compute_cam_to_world_matrix(t_vec3 camera_direction)
+{
+	t_matrix3x3 result;
+
+	result.forward = normalize(camera_direction);
+	result.right = normalize(cross_product(result.forward, (struct s_vec3){0,1,0} ));
+	result.up = normalize(cross_product(result.forward, result.right));
+
+	return (result);
+
 }
 
 void	put_pixel_to_image(struct s_image *image, int x, int y, int color)

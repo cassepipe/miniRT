@@ -15,8 +15,11 @@ typedef struct s_color {
 	int blue;
 } t_color;
 
-typedef double t_matrix3x3[3][3];
-typedef double t_matrix4x4[4][4];
+typedef struct s_matrix3x3 {
+	t_vec3 forward;
+	t_vec3 right;
+	t_vec3 up;
+} t_matrix3x3;
 
 typedef struct s_quaternion {
 	double a;
@@ -39,6 +42,7 @@ typedef struct s_cam {
 	t_vec3			origin;
 	t_vec3			direction;
 	double			fov;
+	t_matrix3x3		cam_to_world;
 	struct s_cam	*next;
 } t_cam;
 

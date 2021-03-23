@@ -75,6 +75,7 @@ void parse_cam(char **input)
 	new_cam->origin = parse_vec(input);
 	new_cam->direction = parse_vec(input);
 	new_cam->fov = parse_double(input);
+	new_cam->cam_to_world = compute_cam_to_world_matrix(new_cam->direction);
 	new_cam->next = env.cameras;
 	env.cameras = new_cam;
 }

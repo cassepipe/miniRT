@@ -71,7 +71,7 @@ t_vec3		make_vector_substracting_2_points(t_vec3 point1, t_vec3 point2)
 	vector.y = point1.y - point2.y;
 	vector.z = point1.z - point2.z;
 
-	return vector;
+	return (vector);
 
 }
 
@@ -81,3 +81,14 @@ double dot_product(t_vec3 u, t_vec3 v)
 	return (u.x * v.x + u.y * v.y +  u.z * v.z);
 }
 
+t_vec3	cross_product(t_vec3 a, struct s_vec3 b)
+{
+	t_vec3 result;
+
+	result.x  = a.y*b.z - a.z*b.y;
+	result.y  = a.z*b.x - a.x*b.z;
+	result.z  = a.x*b.y - a.y*b.x;
+
+	return (result);
+
+}

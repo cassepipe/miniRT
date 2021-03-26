@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 12:52:48 by tpouget           #+#    #+#             */
-/*   Updated: 2021/03/26 14:36:23 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/03/26 15:24:17 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,6 +252,8 @@ t_color	compute_ray_color(t_vec3 *ray, t_vec3 *eye, t_object *object, double par
 {
 	if (object->id == SPHERE)
 		return	(compute_sphere_lighting(ray, eye, (t_sphere*)(object->data), parameter));
+	if (object->id == CYLINDER)
+		return	(compute_cylinder_lighting(ray, eye, (t_cylinder*)(object->data), parameter));
 	else
 		die("Could not compute light: Unrecognized object type");
 }
@@ -298,11 +300,27 @@ t_color	compute_sphere_lighting(t_vec3 *ray, t_vec3 *eye, t_sphere *sphere, doub
 
 		return (scale_color_by(sphere->color, compute_lighting(hit_point, normal)));
 }
+t_color	compute_cylinder_lighting(t_vec3 *ray, t_vec3 *eye, t_cylinder *cylinder, double parameter)
+{
+		/*t_vec3 hit_point;*/
+		/*t_vec3 normal;*/
+
+		/*hit_point = scale_by(*ray, parameter);*/
+		/*hit_point = add_vec(*eye, hit_point);*/
+
+		/*normal = make_vector_substracting_2_points(hit_point, cylinder->center);   Compute sphere normal at intersection*/
+		/*normal = normalize(normal);*/
+
+		/*return (scale_color_by(cylinder->color, compute_lighting(hit_point, normal)));*/
+		return cylinder->color;
+}
 
 bool		intersect_ray_with_object(t_vec3 *eye, t_vec3 *ray, t_object *object, double *solution, double tmin, double tmax)
 {
 	if (object->id == SPHERE)
 		return	(intersect_ray_with_sphere(eye, ray, (t_sphere*)(object->data), solution, tmin, tmax));
+	if (object->id == CYLINDER)
+		return	(intersect_ray_with_cylinder(eye, ray, (t_cylinder*)(object->data), solution, tmin, tmax));
 	else
 		die("Intersection impossible : Unrecognized object type");
 	return (0);
@@ -371,6 +389,8 @@ bool		intersect_ray_with_cylinder(t_vec3 * eye,  t_vec3 *ray, t_cylinder *cylind
 	double	discriminant;
 	double  t1;
 	double  t2;
+	double  t3;
+	double  t4;
 	bool	has_hit;
 	int	hit_caps;
 
@@ -413,18 +433,30 @@ bool		intersect_ray_with_cylinder(t_vec3 * eye,  t_vec3 *ray, t_cylinder *cylind
 			has_hit = true;
 		}
 	}
-	if ((z1 > zmin && z1 < zmax) || (z1 < zmin && z2 > zmax))
+	if ((z2 > zmin && z2 < zmax) || (z2 < zmin && z2 > zmax))
 	{
 		hit_caps++;
 		if (t2 > tmin  && t2 < tmax && t2 < *solution)
 		{
 			*solution = t2;
 			has_hit = true;
-			hit_caps++;
 		}
 	}
 	if (hit_caps == 1)
-		;
+	{
+		t3 = (zmin - eye->z) / ray->z;
+		t4 = (zmax - eye->z) / ray->z;
+		if (t3 > tmin && t3 < tmax && t3 < *solution)
+		{
+			*solution = t3;
+			has_hit = true;
+		}
+		if (t4 > tmin && t4 < tmax && t4 < *solution)
+		{
+			*solution = t4;
+			has_hit = true;
+		}
+	}
 
 	return (has_hit);
 }

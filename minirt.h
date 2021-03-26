@@ -37,6 +37,7 @@ double		dot_product(t_vec3 u, t_vec3 v);
 void		init_env(t_env *env);
 t_color		compute_ray_color(t_vec3 *ray, t_vec3 *eye, t_object *object, double parameter);
 t_color		compute_sphere_lighting(t_vec3 *ray, t_vec3 *eye, t_sphere *sphere, double parameter);
+t_color		compute_cylinder_lighting(t_vec3 *ray, t_vec3 *eye, t_cylinder *cylinder, double parameter);
 double		compute_lighting(t_vec3 hit_point, t_vec3 normal);
 void		put_pixel_to_image(struct s_image *image, int x, int y, int color);
 double		vec_len(t_vec3	v);

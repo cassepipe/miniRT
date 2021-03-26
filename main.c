@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 12:52:48 by tpouget           #+#    #+#             */
-/*   Updated: 2021/03/23 15:34:55 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/03/26 14:36:23 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,16 +200,20 @@ t_color		trace_ray(t_vec3 *eye, t_vec3 *ray)
 	t_object	*current_object;
 	bool		has_hit;
 	double		parameter;
+	double		previous_parameter;
 
 	closest_object = NULL;
 	current_object = env.objects;
 	has_hit = false;
 	parameter = INFINITY;
+	previous_parameter = INFINITY;
+
 	while (current_object != NULL)
 	{
 		//printf("Current object is %p\n", current_object);
+		previous_parameter  = parameter;
 		has_hit = intersect_ray_with_object(eye, ray, current_object, &parameter, 1, INFINITY);
-		if (has_hit)
+		if (has_hit && parameter <= previous_parameter)
 		{
 			closest_object = current_object;
 		}
@@ -350,6 +354,78 @@ bool		intersect_ray_with_sphere(t_vec3 * O,  t_vec3 *ray, t_sphere *sphere, doub
 		*solution = t2;
 		has_hit = true;
 	}
+	return (has_hit);
+}
+
+bool		intersect_ray_with_cylinder(t_vec3 * eye,  t_vec3 *ray, t_cylinder *cylinder, double *solution,
+										double tmin, double tmax)
+{
+	double	radius;
+	double	a;
+	double	b;
+	double	c;
+	double z1;
+	double z2;
+	double zmin;
+	double zmax;
+	double	discriminant;
+	double  t1;
+	double  t2;
+	bool	has_hit;
+	int	hit_caps;
+
+	/*printf("For ray [%f, %f, %f]\n", ray->x, ray->y, ray->z);*/
+	radius = cylinder->diameter * 0.5;
+
+	a = ray->x*ray->x + ray->y*ray->y;
+	b = 2 * eye->x * ray->x + 2 * eye->y * ray->y;
+	c = eye->x * eye->x + eye->y * eye->y - radius * radius;
+
+	discriminant = b*b - 4*a*c;
+
+	/*printf("discriminant = %f\n", discriminant);*/
+	if (discriminant < 0)
+	{
+		return 0;
+	}
+
+	t1 = (-b + sqrt(discriminant)) / (2 * a);
+	t2 = (-b - sqrt(discriminant)) / (2 * a);
+
+	z1 = eye->z + t1 * ray->z;
+	z2 = eye->z + t2 * ray->z;
+
+	cylinder->orientation = normalize(cylinder->orientation);
+	zmin = cylinder->center.z;
+	zmax = cylinder->center.z + cylinder->orientation.z * cylinder->height; //Cylinder height does not necessarily correpond to z axis.
+
+	/*printf("t1 = %f\n\n", t1);*/
+	/*printf("t2 = %f\n\n", t2);*/
+
+	has_hit = false;
+	hit_caps = 0;
+	if ((z1 > zmin && z1 < zmax) || (z1 < zmin && z2 > zmax))
+	{
+		hit_caps++;
+		if (t1 > tmin && t1 < tmax && t1 < *solution)
+		{
+			*solution = t1;
+			has_hit = true;
+		}
+	}
+	if ((z1 > zmin && z1 < zmax) || (z1 < zmin && z2 > zmax))
+	{
+		hit_caps++;
+		if (t2 > tmin  && t2 < tmax && t2 < *solution)
+		{
+			*solution = t2;
+			has_hit = true;
+			hit_caps++;
+		}
+	}
+	if (hit_caps == 1)
+		;
+
 	return (has_hit);
 }
 

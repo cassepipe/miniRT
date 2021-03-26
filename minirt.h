@@ -28,6 +28,8 @@ t_vec3		canvas_to_viewport(int x, int y);
 t_color		trace_ray(t_vec3 *eye, t_vec3 *D);
 bool		intersect_ray_with_object(t_vec3 *eye, t_vec3 *ray, t_object *object, double *solution, double tmin, double tmax);
 bool		intersect_ray_with_sphere(t_vec3 *eye, t_vec3 *ray, t_sphere *sphere, double *solution, double tmin, double tmax);
+bool		intersect_ray_with_cylinder(t_vec3 * O,  t_vec3 *ray, t_cylinder *sphere, double *solution,
+										double tmin, double tmax);
 t_color		get_object_color(t_object *object);
 int			get_color_as_int(t_color color);
 t_vec3		make_vector_substracting_2_points(t_vec3 point1, t_vec3 point2);

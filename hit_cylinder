@@ -1,0 +1,102 @@
+#include "minirt.h"
+
+bool		intersect_ray_with_cylinder(t_vec3 * eye,  t_vec3 *ray, t_cylinder *cylinder, double *solution,
+										double tmin, double tmax)
+{
+	double	radius;
+	double	a;
+	double	b;
+	double	c;
+	double z1;
+	double z2;
+	double zmin;
+	double zmax;
+	double	discriminant;
+	double  t1;
+	double  t2;
+	double  t3;
+	double  t4;
+	t_vec3 CO;
+	bool	has_hit;
+	int	hit_caps;
+	double DdotD;
+	double DdotV;
+	double DdotCO;
+	double COdotCO;
+	double COdotV;
+
+	radius = cylinder->diameter * 0.5;
+
+	//Normalizing
+	*ray = normalize(*ray);
+	cylinder->orientation = normalize(cylinder->orientation);
+
+	CO = substract_vec3(*eye, cylinder->base);
+
+	DdotD = autodot(*ray);
+	DdotV = dot(*ray, cylinder->orientation);
+	DdotCO = dot(*ray, CO);
+	COdotCO = autodot(CO);
+	COdotV = dot(CO, cylinder->orientation);
+
+	a = DdotD - sq(DdotV);
+
+	b = 2 * DdotCO - DdotV * COdotV;
+
+	c = COdotCO - sq(COdotV) - sq(radius);
+
+
+	discriminant = b*b - 4*a*c;
+
+	if (discriminant < 0)
+	{
+		return 0;
+	}
+
+	t1 = (-b + sqrt(discriminant)) / (2 * a);
+	t2 = (-b - sqrt(discriminant)) / (2 * a);
+
+	z1 = eye->z + t1 * ray->z;
+	z2 = eye->z + t2 * ray->z;
+
+	zmin = cylinder->base.z;
+	zmax = cylinder->base.z + cylinder->orientation.z * cylinder->height; //Cylinder height does not necessarily correpond to z axis.
+
+	has_hit = false;
+	hit_caps = 0;
+	//if ((z1 > zmin && z1 < zmax) || (z1 < zmin && z2 > zmax))
+	{
+		hit_caps++;
+		if (t1 > tmin && t1 < tmax && t1 < *solution)
+		{
+			*solution = t1;
+			has_hit = true;
+		}
+	}
+	//if ((z2 > zmin && z2 < zmax) || (z2 < zmin && z2 > zmax))
+	{
+		hit_caps++;
+		if (t2 > tmin  && t2 < tmax && t2 < *solution)
+		{
+			*solution = t2;
+			has_hit = true;
+		}
+	}
+	/*if (hit_caps == 1)*/
+	/*{*/
+		/*t3 = (zmin - eye->z) / ray->z;*/
+		/*t4 = (zmax - eye->z) / ray->z;*/
+		/*if (t3 > tmin && t3 < tmax && t3 < *solution)*/
+		/*{*/
+			/**solution = t3;*/
+			/*has_hit = true;*/
+		/*}*/
+		/*if (t4 > tmin && t4 < tmax && t4 < *solution)*/
+		/*{*/
+			/**solution = t4;*/
+			/*has_hit = true;*/
+		/*}*/
+	/*}*/
+
+	return (has_hit);
+}

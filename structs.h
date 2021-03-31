@@ -87,7 +87,7 @@ typedef	struct s_square {
 } t_square;
 
 typedef	struct s_cylinder {
-	t_vec3		center;
+	t_vec3		base;
 	t_vec3		orientation;
 	double		diameter;
 	double		height;

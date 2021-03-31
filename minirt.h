@@ -28,12 +28,11 @@ t_vec3		canvas_to_viewport(int x, int y);
 t_color		trace_ray(t_vec3 *eye, t_vec3 *D);
 bool		intersect_ray_with_object(t_vec3 *eye, t_vec3 *ray, t_object *object, double *solution, double tmin, double tmax);
 bool		intersect_ray_with_sphere(t_vec3 *eye, t_vec3 *ray, t_sphere *sphere, double *solution, double tmin, double tmax);
-bool		intersect_ray_with_cylinder(t_vec3 * O,  t_vec3 *ray, t_cylinder *sphere, double *solution,
-										double tmin, double tmax);
+bool		intersect_ray_with_cylinder(t_vec3 *eye, t_vec3 *ray, t_cylinder *cylinder, double *t, double tmin, double tmax);
 t_color		get_object_color(t_object *object);
 int			get_color_as_int(t_color color);
-t_vec3		make_vector_substracting_2_points(t_vec3 point1, t_vec3 point2);
-double		dot_product(t_vec3 u, t_vec3 v);
+t_vec3		substract_vec3(t_vec3 point1, t_vec3 point2);
+double		dot(t_vec3 u, t_vec3 v);
 void		init_env(t_env *env);
 t_color		compute_ray_color(t_vec3 *ray, t_vec3 *eye, t_object *object, double parameter);
 t_color		compute_sphere_lighting(t_vec3 *ray, t_vec3 *eye, t_sphere *sphere, double parameter);
@@ -51,7 +50,8 @@ t_vec3	add_vec(t_vec3 v1, t_vec3 v2);
 t_vec3	normalize(t_vec3 v);
 t_vec3	new_vec3(double x, double y, double z);
 t_vec3	make_vector_substracting_2_points(t_vec3 point1, t_vec3 point2);
-double	dot_product(t_vec3 u, t_vec3 v);
 t_vec3	cross_product(t_vec3 v1, t_vec3 v2);
+double	sq(double value);
+double	autodot(t_vec3 v);
 
 #endif

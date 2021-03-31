@@ -63,7 +63,7 @@ t_vec3 new_vec3(double x, double y, double z)
 	return (vector);
 }
 
-t_vec3		make_vector_substracting_2_points(t_vec3 point1, t_vec3 point2)
+t_vec3		substract_vec3(t_vec3 point1, t_vec3 point2)
 {
 	t_vec3 vector;
 
@@ -75,7 +75,7 @@ t_vec3		make_vector_substracting_2_points(t_vec3 point1, t_vec3 point2)
 
 }
 
-double dot_product(t_vec3 u, t_vec3 v)
+double dot(t_vec3 u, t_vec3 v)
 {
 
 	return (u.x * v.x + u.y * v.y +  u.z * v.z);

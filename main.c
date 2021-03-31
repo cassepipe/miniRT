@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 12:52:48 by tpouget           #+#    #+#             */
-/*   Updated: 2021/03/26 15:24:17 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/03/31 18:52:24 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int			main(int argc, char *argv[])
 			{
 				//printf("Processing pixel(%d, %d)...\n", x, y);
 				ray = canvas_to_viewport(x, y);
+				ray = normalize(ray);
 				ray = apply_rotation_to_ray(ray, env.cameras->cam_to_world);
 				closest_object_color = trace_ray(&env.cameras->origin, &ray);
 				pixel_color = get_color_as_int(closest_object_color);
@@ -129,9 +130,9 @@ t_vec3			mult_matrix3x3_vec3(t_matrix3x3 mat, t_vec3 v)
 	t_matrix3x3	tmp_mat;
 
 	tmp_mat = transpose_mat3x3(mat);
-	result.x = dot_product(tmp_mat.right, v);
-	result.y = dot_product(tmp_mat.up, v);
-	result.z = dot_product(tmp_mat.forward, v);
+	result.x = dot(tmp_mat.right, v);
+	result.y = dot(tmp_mat.up, v);
+	result.z = dot(tmp_mat.forward, v);
 	return (result);
 }
 
@@ -270,9 +271,9 @@ double 	compute_lighting(t_vec3 hit_point, t_vec3 normal)
 	light = env.lights;
 	while (light != NULL && i < 1)
 	{
-		light_vector = make_vector_substracting_2_points(light->origin, hit_point);
+		light_vector = substract_vec3(light->origin, hit_point);
 
-			n_dot_l = dot_product(light_vector, normal);
+			n_dot_l = dot(light_vector, normal);
 			if (n_dot_l > 0)
 			{
 				if (!trace_light(&hit_point, &light_vector))
@@ -295,23 +296,37 @@ t_color	compute_sphere_lighting(t_vec3 *ray, t_vec3 *eye, t_sphere *sphere, doub
 		hit_point = scale_by(*ray, parameter);
 		hit_point = add_vec(*eye, hit_point);
 
-		normal = make_vector_substracting_2_points(hit_point, sphere->center);  // Compute sphere normal at intersection
+		normal = substract_vec3(hit_point, sphere->center);  // Compute sphere normal at intersection
 		normal = normalize(normal);
 
 		return (scale_color_by(sphere->color, compute_lighting(hit_point, normal)));
 }
+
 t_color	compute_cylinder_lighting(t_vec3 *ray, t_vec3 *eye, t_cylinder *cylinder, double parameter)
 {
-		/*t_vec3 hit_point;*/
-		/*t_vec3 normal;*/
+		t_vec3 hit_point;
+		t_vec3 normal;
+		double m;
+		t_vec3 CO;
+		t_vec3 AC;
+		t_vec3 CP;
 
-		/*hit_point = scale_by(*ray, parameter);*/
-		/*hit_point = add_vec(*eye, hit_point);*/
+		CO = substract_vec3(*eye, cylinder->base);
 
-		/*normal = make_vector_substracting_2_points(hit_point, cylinder->center);   Compute sphere normal at intersection*/
-		/*normal = normalize(normal);*/
+		hit_point = scale_by(*ray, parameter);
+		hit_point = add_vec(*eye, hit_point);
 
-		/*return (scale_color_by(cylinder->color, compute_lighting(hit_point, normal)));*/
+		m = dot(*ray, cylinder->orientation) ;
+		m = m * parameter;
+		m = m + dot(CO, *ray);
+
+		AC = scale_by(cylinder->orientation, -m);
+		CP =  substract_vec3(hit_point, cylinder->orientation);
+
+		normal = add_vec(AC, CP);
+		normal = normalize(normal);
+
+		return (scale_color_by(cylinder->color, compute_lighting(hit_point, normal)));
 		return cylinder->color;
 }
 
@@ -320,7 +335,9 @@ bool		intersect_ray_with_object(t_vec3 *eye, t_vec3 *ray, t_object *object, doub
 	if (object->id == SPHERE)
 		return	(intersect_ray_with_sphere(eye, ray, (t_sphere*)(object->data), solution, tmin, tmax));
 	if (object->id == CYLINDER)
+	{
 		return	(intersect_ray_with_cylinder(eye, ray, (t_cylinder*)(object->data), solution, tmin, tmax));
+	}
 	else
 		die("Intersection impossible : Unrecognized object type");
 	return (0);
@@ -341,11 +358,11 @@ bool		intersect_ray_with_sphere(t_vec3 * O,  t_vec3 *ray, t_sphere *sphere, doub
 
 	/*printf("For ray [%f, %f, %f]\n", ray->x, ray->y, ray->z);*/
 	radius = sphere->diameter * 0.5;
-	CO = make_vector_substracting_2_points(*O, sphere->center);
+	CO = substract_vec3(*O, sphere->center);
 
-	a = dot_product(*ray, *ray);
-	b = 2 * dot_product(CO, *ray);
-	c = dot_product(CO, CO) - radius*radius;
+	a = dot(*ray, *ray);
+	b = 2 * dot(CO, *ray);
+	c = dot(CO, CO) - radius*radius;
 
 	discriminant = b*b - 4*a*c;
 
@@ -375,91 +392,116 @@ bool		intersect_ray_with_sphere(t_vec3 * O,  t_vec3 *ray, t_sphere *sphere, doub
 	return (has_hit);
 }
 
-bool		intersect_ray_with_cylinder(t_vec3 * eye,  t_vec3 *ray, t_cylinder *cylinder, double *solution,
-										double tmin, double tmax)
+double	autodot(t_vec3 v)
 {
-	double	radius;
-	double	a;
-	double	b;
-	double	c;
-	double z1;
-	double z2;
-	double zmin;
-	double zmax;
-	double	discriminant;
-	double  t1;
-	double  t2;
-	double  t3;
-	double  t4;
-	bool	has_hit;
-	int	hit_caps;
-
-	/*printf("For ray [%f, %f, %f]\n", ray->x, ray->y, ray->z);*/
-	radius = cylinder->diameter * 0.5;
-
-	a = ray->x*ray->x + ray->y*ray->y;
-	b = 2 * eye->x * ray->x + 2 * eye->y * ray->y;
-	c = eye->x * eye->x + eye->y * eye->y - radius * radius;
-
-	discriminant = b*b - 4*a*c;
-
-	/*printf("discriminant = %f\n", discriminant);*/
-	if (discriminant < 0)
-	{
-		return 0;
-	}
-
-	t1 = (-b + sqrt(discriminant)) / (2 * a);
-	t2 = (-b - sqrt(discriminant)) / (2 * a);
-
-	z1 = eye->z + t1 * ray->z;
-	z2 = eye->z + t2 * ray->z;
-
-	cylinder->orientation = normalize(cylinder->orientation);
-	zmin = cylinder->center.z;
-	zmax = cylinder->center.z + cylinder->orientation.z * cylinder->height; //Cylinder height does not necessarily correpond to z axis.
-
-	/*printf("t1 = %f\n\n", t1);*/
-	/*printf("t2 = %f\n\n", t2);*/
-
-	has_hit = false;
-	hit_caps = 0;
-	if ((z1 > zmin && z1 < zmax) || (z1 < zmin && z2 > zmax))
-	{
-		hit_caps++;
-		if (t1 > tmin && t1 < tmax && t1 < *solution)
-		{
-			*solution = t1;
-			has_hit = true;
-		}
-	}
-	if ((z2 > zmin && z2 < zmax) || (z2 < zmin && z2 > zmax))
-	{
-		hit_caps++;
-		if (t2 > tmin  && t2 < tmax && t2 < *solution)
-		{
-			*solution = t2;
-			has_hit = true;
-		}
-	}
-	if (hit_caps == 1)
-	{
-		t3 = (zmin - eye->z) / ray->z;
-		t4 = (zmax - eye->z) / ray->z;
-		if (t3 > tmin && t3 < tmax && t3 < *solution)
-		{
-			*solution = t3;
-			has_hit = true;
-		}
-		if (t4 > tmin && t4 < tmax && t4 < *solution)
-		{
-			*solution = t4;
-			has_hit = true;
-		}
-	}
-
-	return (has_hit);
+	return (dot(v, v));
 }
+
+double sq(double value)
+{
+	return (value * value);
+}
+
+/*bool		intersect_ray_with_cylinder(t_vec3 * eye,  t_vec3 *ray, t_cylinder *cylinder, double *solution,*/
+										/*double tmin, double tmax)*/
+/*{*/
+	/*double	radius;*/
+	/*double	a;*/
+	/*double	b;*/
+	/*double	c;*/
+	/*double z1;*/
+	/*double z2;*/
+	/*double zmin;*/
+	/*double zmax;*/
+	/*double	discriminant;*/
+	/*double  t1;*/
+	/*double  t2;*/
+	/*double  t3;*/
+	/*double  t4;*/
+	/*t_vec3 CO;*/
+	/*bool	has_hit;*/
+	/*int	hit_caps;*/
+	/*double DdotD;*/
+	/*double DdotV;*/
+	/*double DdotCO;*/
+	/*double COdotCO;*/
+	/*double COdotV;*/
+
+	/*radius = cylinder->diameter * 0.5;*/
+
+	/*//Normalizing*/
+	/**ray = normalize(*ray);*/
+	/*cylinder->orientation = normalize(cylinder->orientation);*/
+
+	/*CO = substract_vec3(*eye, cylinder->base);*/
+
+	/*DdotD = autodot(*ray);*/
+	/*DdotV = dot(*ray, cylinder->orientation);*/
+	/*DdotCO = dot(*ray, CO);*/
+	/*COdotCO = autodot(CO);*/
+	/*COdotV = dot(CO, cylinder->orientation);*/
+
+	/*a = DdotD - sq(DdotV);*/
+
+	/*b = 2 * DdotCO - DdotV * COdotV;*/
+
+	/*c = COdotCO - sq(COdotV) - sq(radius);*/
+
+
+	/*discriminant = b*b - 4*a*c;*/
+
+	/*if (discriminant < 0)*/
+	/*{*/
+		/*return 0;*/
+	/*}*/
+
+	/*t1 = (-b + sqrt(discriminant)) / (2 * a);*/
+	/*t2 = (-b - sqrt(discriminant)) / (2 * a);*/
+
+	/*z1 = eye->z + t1 * ray->z;*/
+	/*z2 = eye->z + t2 * ray->z;*/
+
+	/*zmin = cylinder->base.z;*/
+	/*zmax = cylinder->base.z + cylinder->orientation.z * cylinder->height; //Cylinder height does not necessarily correpond to z axis.*/
+
+	/*has_hit = false;*/
+	/*hit_caps = 0;*/
+	/*//if ((z1 > zmin && z1 < zmax) || (z1 < zmin && z2 > zmax))*/
+	/*{*/
+		/*hit_caps++;*/
+		/*if (t1 > tmin && t1 < tmax && t1 < *solution)*/
+		/*{*/
+			/**solution = t1;*/
+			/*has_hit = true;*/
+		/*}*/
+	/*}*/
+	/*//if ((z2 > zmin && z2 < zmax) || (z2 < zmin && z2 > zmax))*/
+	/*{*/
+		/*hit_caps++;*/
+		/*if (t2 > tmin  && t2 < tmax && t2 < *solution)*/
+		/*{*/
+			/**solution = t2;*/
+			/*has_hit = true;*/
+		/*}*/
+	/*}*/
+	/*[>if (hit_caps == 1)<]*/
+	/*[>{<]*/
+		/*[>t3 = (zmin - eye->z) / ray->z;<]*/
+		/*[>t4 = (zmax - eye->z) / ray->z;<]*/
+		/*[>if (t3 > tmin && t3 < tmax && t3 < *solution)<]*/
+		/*[>{<]*/
+			/*[>*solution = t3;<]*/
+			/*[>has_hit = true;<]*/
+		/*[>}<]*/
+		/*[>if (t4 > tmin && t4 < tmax && t4 < *solution)<]*/
+		/*[>{<]*/
+			/*[>*solution = t4;<]*/
+			/*[>has_hit = true;<]*/
+		/*[>}<]*/
+	/*[>}<]*/
+
+	/*return (has_hit);*/
+/*}*/
 
 t_color get_object_color(t_object *object)
 {
@@ -502,7 +544,7 @@ void prints(struct s_object *object)
 		cyl = object->data;
 
 		printf("Cylinder:\t");
-		printf("Center is at (%.1f, %.1f, %.1f)\t", cyl->center.x, cyl->center.y, cyl->center.x);
+		printf("Center is at (%.1f, %.1f, %.1f)\t", cyl->base.x, cyl->base.y, cyl->base.z);
 		printf("Orientation vector is (%.1f, %.1f, %.1f)\t", cyl->orientation.x, cyl->orientation.y, cyl->orientation.z);
 		printf("Diameter is %.1f\t", cyl->diameter);
 		printf("Height is %.1f\t", cyl->height);

@@ -6,15 +6,18 @@
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 Test	tests/tests.c	/^Test(minirt, parsing)$/;"	f
 add_vec	vector_operation.c	/^t_vec3	add_vec(t_vec3 v1, t_vec3 v2)$/;"	f
+apply_rotation_to_ray	main.c	/^t_vec3	apply_rotation_to_ray(t_vec3 ray, t_matrix3x3 rot_matrix)$/;"	f
+autodot	main.c	/^double	autodot(t_vec3 v)$/;"	f
 canvas_to_viewport	main.c	/^t_vec3		canvas_to_viewport(int x, int y)$/;"	f
 compute_cam_to_world_matrix	main.c	/^t_matrix3x3	compute_cam_to_world_matrix(t_vec3 camera_direction)$/;"	f
+compute_cylinder_lighting	main.c	/^t_color	compute_cylinder_lighting(t_vec3 *ray, t_vec3 *eye, t_cylinder *cylinder, double parameter)$/;"	f
 compute_lighting	main.c	/^double 	compute_lighting(t_vec3 hit_point, t_vec3 normal)$/;"	f
 compute_ray_color	main.c	/^t_color	compute_ray_color(t_vec3 *ray, t_vec3 *eye, t_object *object, double parameter)$/;"	f
 compute_sphere_lighting	main.c	/^t_color	compute_sphere_lighting(t_vec3 *ray, t_vec3 *eye, t_sphere *sphere, double parameter)$/;"	f
 cross_product	vector_operation.c	/^t_vec3	cross_product(t_vec3 a, struct s_vec3 b)$/;"	f
 die	error.c	/^void die(const char* error_text)$/;"	f
 diralloc	libft/ft_split.c	/^static char			**diralloc(const char *s, char c)$/;"	f	file:
-dot_product	vector_operation.c	/^double dot_product(t_vec3 u, t_vec3 v)$/;"	f
+dot	vector_operation.c	/^double dot(t_vec3 u, t_vec3 v)$/;"	f
 env	main.c	/^t_env	env;$/;"	v
 free_camera_list	error.c	/^void free_camera_list(t_cam *camera)$/;"	f
 free_env	error.c	/^void free_env(t_env *env)$/;"	f
@@ -73,14 +76,18 @@ ft_toupper	libft/ft_toupper.c	/^int	ft_toupper(int c)$/;"	f
 get_color_as_int	main.c	/^int			get_color_as_int(t_color color)$/;"	f
 get_next_line	libft/get_next_line.c	/^int			get_next_line(int fd, char **line)$/;"	f
 get_object_color	main.c	/^t_color get_object_color(t_object *object)$/;"	f
+get_quad_coef	inspiration.c	/^t_vec3		get_quad_coef(t_vec3 dir, t_vec3 oc, double radius)$/;"	f
+get_quad_roots	inspiration.c	/^bool		get_quad_roots(double *root1, double *root2, t_vec3 quad_coef)$/;"	f
 grow_buffer_until_newline	libft/get_next_line.c	/^static int	grow_buffer_until_newline(int fd, char **buffer,$/;"	f	file:
 init_env	main.c	/^void		init_env(t_env *env)$/;"	f
+intersect_ray_with_cylinder	inspiration.c	/^bool			intersect_ray_with_cylinder(t_vec3 *eye, t_ray *ray, t_cylinder *cylinder, double *t, double tmin, double tmax)$/;"	f
 intersect_ray_with_object	main.c	/^bool		intersect_ray_with_object(t_vec3 *eye, t_vec3 *ray, t_object *object, double *solution, double tmin, double tmax)$/;"	f
 intersect_ray_with_sphere	main.c	/^bool		intersect_ray_with_sphere(t_vec3 * O,  t_vec3 *ray, t_sphere *sphere, double *solution,$/;"	f
+invert_matrix3x3	main.c	/^t_matrix3x3		invert_matrix3x3(t_matrix3x3 matrix)$/;"	f
 is_in	parse_values.c	/^int		is_in(char c, const char *set)$/;"	f
 is_in_set	libft/ft_strtrim.c	/^static int	is_in_set(char c, char const *set)$/;"	f	file:
 main	main.c	/^int			main(int argc, char *argv[])$/;"	f
-make_vector_substracting_2_points	vector_operation.c	/^t_vec3		make_vector_substracting_2_points(t_vec3 point1, t_vec3 point2)$/;"	f
+mult_matrix3x3_vec3	main.c	/^t_vec3			mult_matrix3x3_vec3(t_matrix3x3 mat, t_vec3 v)$/;"	f
 new_vec3	vector_operation.c	/^t_vec3 new_vec3(double x, double y, double z)$/;"	f
 next_sep	libft/ft_split.c	/^static const char	*next_sep(const char *str, char sep)$/;"	f	file:
 next_word	libft/ft_split.c	/^static const char	*next_word(const char *str, char sep)$/;"	f	file:
@@ -101,6 +108,7 @@ parse_sp	parse_objects.c	/^void parse_sp(char **input)$/;"	f
 parse_sq	parse_objects.c	/^void parse_sq(char **input)$/;"	f
 parse_tr	parse_objects.c	/^void parse_tr(char **input)$/;"	f
 parse_vec	parse_values.c	/^t_vec3	parse_vec(char **input)$/;"	f
+pre_compute_coef	inspiration.c	/^static t_vec3	pre_compute_coef(t_vec3 v1, t_vec3 v2)$/;"	f	file:
 prints	main.c	/^void prints(struct s_object *object)$/;"	f
 put_pixel_to_image	main.c	/^void	put_pixel_to_image(struct s_image *image, int x, int y, int color)$/;"	f
 scale_by	vector_operation.c	/^t_vec3	scale_by(t_vec3 vector, double scalar)$/;"	f
@@ -108,7 +116,12 @@ scale_color_by	vector_operation.c	/^t_color	scale_color_by(t_color color, double
 skip_blank	parse_values.c	/^void	skip_blank(char **input)$/;"	f
 skip_blank_and_one_comma	parse_values.c	/^void	skip_blank_and_one_comma(char **input)$/;"	f
 skip_set	parse_values.c	/^void	skip_set(char **input, const char *set)$/;"	f
+solve_cylinder	inspiration.c	/^static bool		solve_cylinder(t_cylinder *cylinder, t_ray *ray, t_vec3 quad_coef, double *t)$/;"	f	file:
+sq	main.c	/^double sq(double value)$/;"	f
+squareof	main.c	/^double squareof(x)$/;"	f
+substract_vec3	vector_operation.c	/^t_vec3		substract_vec3(t_vec3 point1, t_vec3 point2)$/;"	f
 token_table	parse.c	/^static struct s_fat_token token_table[] =$/;"	v	typeref:struct:s_fat_token	file:
 trace_light	main.c	/^bool	trace_light(t_vec3 *hit_point, t_vec3 *ray)$/;"	f
 trace_ray	main.c	/^t_color		trace_ray(t_vec3 *eye, t_vec3 *ray)$/;"	f
+transpose_mat3x3	main.c	/^t_matrix3x3		transpose_mat3x3(t_matrix3x3 mat)$/;"	f
 vec_len	vector_operation.c	/^double	vec_len(t_vec3	v)$/;"	f

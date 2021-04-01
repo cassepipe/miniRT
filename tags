@@ -76,16 +76,17 @@ ft_toupper	libft/ft_toupper.c	/^int	ft_toupper(int c)$/;"	f
 get_color_as_int	main.c	/^int			get_color_as_int(t_color color)$/;"	f
 get_next_line	libft/get_next_line.c	/^int			get_next_line(int fd, char **line)$/;"	f
 get_object_color	main.c	/^t_color get_object_color(t_object *object)$/;"	f
-get_quad_coef	inspiration.c	/^t_vec3		get_quad_coef(t_vec3 dir, t_vec3 oc, double radius)$/;"	f
-get_quad_roots	inspiration.c	/^bool		get_quad_roots(double *root1, double *root2, t_vec3 quad_coef)$/;"	f
+get_quad_coef	intersect_cylinder.c	/^t_vec3		get_quad_coef(t_vec3 dir, t_vec3 oc, double radius)$/;"	f
+get_quad_roots	intersect_cylinder.c	/^bool		get_quad_roots(double *root1, double *root2, t_vec3 quad_coef)$/;"	f
 grow_buffer_until_newline	libft/get_next_line.c	/^static int	grow_buffer_until_newline(int fd, char **buffer,$/;"	f	file:
 init_env	main.c	/^void		init_env(t_env *env)$/;"	f
-intersect_ray_with_cylinder	inspiration.c	/^bool			intersect_ray_with_cylinder(t_vec3 *eye, t_ray *ray, t_cylinder *cylinder, double *t, double tmin, double tmax)$/;"	f
+intersect_ray_with_cylinder	intersect_cylinder.c	/^bool			intersect_ray_with_cylinder(t_vec3 *eye, t_vec3 *ray, t_cylinder *cylinder, double *t, double tmin, double tmax)$/;"	f
 intersect_ray_with_object	main.c	/^bool		intersect_ray_with_object(t_vec3 *eye, t_vec3 *ray, t_object *object, double *solution, double tmin, double tmax)$/;"	f
 intersect_ray_with_sphere	main.c	/^bool		intersect_ray_with_sphere(t_vec3 * O,  t_vec3 *ray, t_sphere *sphere, double *solution,$/;"	f
 invert_matrix3x3	main.c	/^t_matrix3x3		invert_matrix3x3(t_matrix3x3 matrix)$/;"	f
 is_in	parse_values.c	/^int		is_in(char c, const char *set)$/;"	f
 is_in_set	libft/ft_strtrim.c	/^static int	is_in_set(char c, char const *set)$/;"	f	file:
+is_inside_cyl	intersect_cylinder.c	/^static bool		is_inside_cyl(t_vec3 *eye, t_cylinder *cylinder, t_vec3 *ray, double t)$/;"	f	file:
 main	main.c	/^int			main(int argc, char *argv[])$/;"	f
 mult_matrix3x3_vec3	main.c	/^t_vec3			mult_matrix3x3_vec3(t_matrix3x3 mat, t_vec3 v)$/;"	f
 new_vec3	vector_operation.c	/^t_vec3 new_vec3(double x, double y, double z)$/;"	f
@@ -108,7 +109,7 @@ parse_sp	parse_objects.c	/^void parse_sp(char **input)$/;"	f
 parse_sq	parse_objects.c	/^void parse_sq(char **input)$/;"	f
 parse_tr	parse_objects.c	/^void parse_tr(char **input)$/;"	f
 parse_vec	parse_values.c	/^t_vec3	parse_vec(char **input)$/;"	f
-pre_compute_coef	inspiration.c	/^static t_vec3	pre_compute_coef(t_vec3 v1, t_vec3 v2)$/;"	f	file:
+pre_compute_coef	intersect_cylinder.c	/^static t_vec3	pre_compute_coef(t_vec3 v1, t_vec3 v2)$/;"	f	file:
 prints	main.c	/^void prints(struct s_object *object)$/;"	f
 put_pixel_to_image	main.c	/^void	put_pixel_to_image(struct s_image *image, int x, int y, int color)$/;"	f
 scale_by	vector_operation.c	/^t_vec3	scale_by(t_vec3 vector, double scalar)$/;"	f
@@ -116,7 +117,7 @@ scale_color_by	vector_operation.c	/^t_color	scale_color_by(t_color color, double
 skip_blank	parse_values.c	/^void	skip_blank(char **input)$/;"	f
 skip_blank_and_one_comma	parse_values.c	/^void	skip_blank_and_one_comma(char **input)$/;"	f
 skip_set	parse_values.c	/^void	skip_set(char **input, const char *set)$/;"	f
-solve_cylinder	inspiration.c	/^static bool		solve_cylinder(t_cylinder *cylinder, t_ray *ray, t_vec3 quad_coef, double *t)$/;"	f	file:
+solve_cylinder	intersect_cylinder.c	/^static bool		solve_cylinder(t_vec3 *eye, t_cylinder *cylinder, t_vec3 *ray, t_vec3 quad_coef, double *t)$/;"	f	file:
 sq	main.c	/^double sq(double value)$/;"	f
 squareof	main.c	/^double squareof(x)$/;"	f
 substract_vec3	vector_operation.c	/^t_vec3		substract_vec3(t_vec3 point1, t_vec3 point2)$/;"	f

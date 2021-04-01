@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 12:52:48 by tpouget           #+#    #+#             */
-/*   Updated: 2021/03/31 18:52:24 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/03/31 20:43:16 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -316,12 +316,12 @@ t_color	compute_cylinder_lighting(t_vec3 *ray, t_vec3 *eye, t_cylinder *cylinder
 		hit_point = scale_by(*ray, parameter);
 		hit_point = add_vec(*eye, hit_point);
 
-		m = dot(*ray, cylinder->orientation) ;
+		m = dot(*ray, cylinder->dir) ;
 		m = m * parameter;
 		m = m + dot(CO, *ray);
 
-		AC = scale_by(cylinder->orientation, -m);
-		CP =  substract_vec3(hit_point, cylinder->orientation);
+		AC = scale_by(cylinder->dir, -m);
+		CP =  substract_vec3(hit_point, cylinder->dir);
 
 		normal = add_vec(AC, CP);
 		normal = normalize(normal);
@@ -431,15 +431,15 @@ double sq(double value)
 
 	/*//Normalizing*/
 	/**ray = normalize(*ray);*/
-	/*cylinder->orientation = normalize(cylinder->orientation);*/
+	/*cylinder->dir = normalize(cylinder->dir);*/
 
 	/*CO = substract_vec3(*eye, cylinder->base);*/
 
 	/*DdotD = autodot(*ray);*/
-	/*DdotV = dot(*ray, cylinder->orientation);*/
+	/*DdotV = dot(*ray, cylinder->dir);*/
 	/*DdotCO = dot(*ray, CO);*/
 	/*COdotCO = autodot(CO);*/
-	/*COdotV = dot(CO, cylinder->orientation);*/
+	/*COdotV = dot(CO, cylinder->dir);*/
 
 	/*a = DdotD - sq(DdotV);*/
 
@@ -462,7 +462,7 @@ double sq(double value)
 	/*z2 = eye->z + t2 * ray->z;*/
 
 	/*zmin = cylinder->base.z;*/
-	/*zmax = cylinder->base.z + cylinder->orientation.z * cylinder->height; //Cylinder height does not necessarily correpond to z axis.*/
+	/*zmax = cylinder->base.z + cylinder->dir.z * cylinder->height; //Cylinder height does not necessarily correpond to z axis.*/
 
 	/*has_hit = false;*/
 	/*hit_caps = 0;*/
@@ -533,7 +533,7 @@ void prints(struct s_object *object)
 
 		printf("Square:\t\t");
 		printf("Center is at (%.1f, %.1f, %.1f)\t", square->center.x, square->center.y, square->center.x);
-		printf("Orientation vector is (%.1f, %.1f, %.1f)\t", square->orientation.x, square->orientation.y, square->orientation.z);
+		printf("Orientation vector is (%.1f, %.1f, %.1f)\t", square->dir.x, square->dir.y, square->dir.z);
 		printf("Side lenght is %.1f\t", square->side_len);
 		printf("RGB is (%d, %d, %d)\t", square->color.red, square->color.green, square->color.blue);
 		printf("\n");
@@ -545,7 +545,7 @@ void prints(struct s_object *object)
 
 		printf("Cylinder:\t");
 		printf("Center is at (%.1f, %.1f, %.1f)\t", cyl->base.x, cyl->base.y, cyl->base.z);
-		printf("Orientation vector is (%.1f, %.1f, %.1f)\t", cyl->orientation.x, cyl->orientation.y, cyl->orientation.z);
+		printf("Orientation vector is (%.1f, %.1f, %.1f)\t", cyl->dir.x, cyl->dir.y, cyl->dir.z);
 		printf("Diameter is %.1f\t", cyl->diameter);
 		printf("Height is %.1f\t", cyl->height);
 		printf("RGB is (%d, %d, %d)\t", cyl->color.red, cyl->color.green, cyl->color.blue);

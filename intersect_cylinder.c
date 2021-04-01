@@ -2,9 +2,10 @@
 
 
 t_vec3		get_quad_coef(t_vec3 dir, t_vec3 oc, double radius);
-static bool		solve_cylinder(t_cylinder *cylinder, t_vec3 *ray, t_vec3 quad_coef, double *t);
+static bool		solve_cylinder(t_vec3 *eye, t_cylinder *cylinder, t_vec3 *ray, t_vec3 quad_coef, double *t);
 static t_vec3	pre_compute_coef(t_vec3 v1, t_vec3 v2);
 bool		get_quad_roots(double *root1, double *root2, t_vec3 quad_coef);
+static bool		is_inside_cyl(t_vec3 *eye, t_cylinder *cylinder, t_vec3 *ray, double t);
 
 t_vec3		get_quad_coef(t_vec3 dir, t_vec3 oc, double radius)
 {
@@ -16,7 +17,24 @@ t_vec3		get_quad_coef(t_vec3 dir, t_vec3 oc, double radius)
 	return (result);
 }
 
-static bool		solve_cylinder(t_cylinder *cylinder, t_vec3 *ray, t_vec3 quad_coef, double *t)
+static bool		is_inside_cyl(t_vec3 *eye, t_cylinder *cylinder, t_vec3 *ray, double t)
+{
+	t_vec3		hit_point;
+	t_vec3		top;
+	t_vec3		base_to_hit_point;
+	t_vec3		top_to_hit_point;
+
+	hit_point = add_vec(*eye, scale_by(*ray, t));
+	top = add_vec(cylinder->base, scale_by(cylinder->dir, cylinder->height));
+	base_to_hit_point = substract_vec3(hit_point, cylinder->base);
+	top_to_hit_point = substract_vec3(hit_point, top);
+
+	return ((dot(cylinder->dir, base_to_hit_point) > 0.0)
+			&& (dot(cylinder->dir, top_to_hit_point) < 0.0));
+}
+
+
+static bool		solve_cylinder(t_vec3 *eye, t_cylinder *cylinder, t_vec3 *ray, t_vec3 quad_coef, double *t)
 {
 	double		root1;
 	double		root2;
@@ -27,12 +45,12 @@ static bool		solve_cylinder(t_cylinder *cylinder, t_vec3 *ray, t_vec3 quad_coef,
 	retvalue = false;
 	if (get_quad_roots(&root1, &root2, quad_coef))
 	{
-		if ((root1 > 1))
+		if ((root1 > 1) && is_inside_cyl(eye, cylinder, ray, root1))
 		{
 			*t = root1;
 			retvalue = true;
 		}
-		if ((root2 > 1))
+		if ((root2 > 1) && is_inside_cyl(eye, cylinder, ray, root2))
 		{
 			if (root2 < root1)
 			{
@@ -57,10 +75,10 @@ bool			intersect_ray_with_cylinder(t_vec3 *eye, t_vec3 *ray, t_cylinder *cylinde
 	t_vec3		ocdir;
 
 	oc = substract_vec3(*eye, cylinder->base);
-	dir = pre_compute_coef(*ray, cylinder->orientation);
-	ocdir = pre_compute_coef(oc, cylinder->orientation);
+	dir = pre_compute_coef(*ray, cylinder->dir);
+	ocdir = pre_compute_coef(oc, cylinder->dir);
 	quad_coef = get_quad_coef(dir, ocdir, cylinder->diameter * 0.5);
-	return (solve_cylinder(cylinder, ray, quad_coef, t));
+	return (solve_cylinder(eye, cylinder, ray, quad_coef, t));
 }
 
 bool		get_quad_roots(double *root1, double *root2, t_vec3 quad_coef)
@@ -70,7 +88,7 @@ bool		get_quad_roots(double *root1, double *root2, t_vec3 quad_coef)
 	discr = sq(quad_coef.y) - (4 * quad_coef.x * quad_coef.z);
 	if (discr < 0.0)
 		return (false);
-	*root1 = (-quad_coef.y + sqrt(discr)) / (2 * quad_coef.x);
-	*root2 = (-quad_coef.y - sqrt(discr)) / (2 * quad_coef.x);
+	*root1 = (-quad_coef.y + sqrt(discr)) / (2 * quad_coef.x - 0.00001);
+	*root2 = (-quad_coef.y - sqrt(discr)) / (2 * quad_coef.x - 0.00001);
 	return (true);
 }

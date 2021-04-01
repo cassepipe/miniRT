@@ -51,7 +51,7 @@ void parse_sq(char **input)
 
 	new_square = malloc(sizeof(t_square));
 	new_square->center = parse_vec(input);
-	new_square->orientation = parse_vec(input);
+	new_square->dir = parse_vec(input);
 	new_square->side_len = parse_double(input);
 	new_square->color = parse_color(input);
 
@@ -70,7 +70,7 @@ void parse_cy(char **input)
 	printf("Parsing cylinder...\n");
 	new_cylinder = malloc(sizeof(t_square));
 	new_cylinder->base = parse_vec(input);
-	new_cylinder->orientation = normalize(parse_vec(input));
+	new_cylinder->dir = normalize(parse_vec(input));
 	new_cylinder->diameter = parse_double(input);
 	new_cylinder->height = parse_double(input);
 	new_cylinder->color = parse_color(input);

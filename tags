@@ -10,10 +10,11 @@ apply_rotation_to_ray	main.c	/^t_vec3	apply_rotation_to_ray(t_vec3 ray, t_matrix
 autodot	main.c	/^double	autodot(t_vec3 v)$/;"	f
 canvas_to_viewport	main.c	/^t_vec3		canvas_to_viewport(int x, int y)$/;"	f
 compute_cam_to_world_matrix	main.c	/^t_matrix3x3	compute_cam_to_world_matrix(t_vec3 camera_direction)$/;"	f
-compute_cylinder_lighting	main.c	/^t_color	compute_cylinder_lighting(t_vec3 *ray, t_vec3 *eye, t_cylinder *cylinder, double parameter)$/;"	f
-compute_lighting	main.c	/^double 	compute_lighting(t_vec3 hit_point, t_vec3 normal)$/;"	f
-compute_ray_color	main.c	/^t_color	compute_ray_color(t_vec3 *ray, t_vec3 *eye, t_object *object, double parameter)$/;"	f
-compute_sphere_lighting	main.c	/^t_color	compute_sphere_lighting(t_vec3 *ray, t_vec3 *eye, t_sphere *sphere, double parameter)$/;"	f
+compute_cylinder_lighting	lighting.c	/^t_color	compute_cylinder_lighting(t_vec3 *ray, t_vec3 *eye, t_cylinder *cylinder, double parameter)$/;"	f
+compute_lighting	lighting.c	/^double 	compute_lighting(t_vec3 hit_point, t_vec3 normal)$/;"	f
+compute_plane_lighting	lighting.c	/^t_color	compute_plane_lighting(t_vec3 *ray, t_vec3 *eye, t_plane *plane, double parameter)$/;"	f
+compute_ray_color	lighting.c	/^t_color	compute_ray_color(t_vec3 *ray, t_vec3 *eye, t_object *object, double parameter)$/;"	f
+compute_sphere_lighting	lighting.c	/^t_color	compute_sphere_lighting(t_vec3 *ray, t_vec3 *eye, t_sphere *sphere, double parameter)$/;"	f
 cross_product	vector_operation.c	/^t_vec3	cross_product(t_vec3 a, struct s_vec3 b)$/;"	f
 die	error.c	/^void die(const char* error_text)$/;"	f
 diralloc	libft/ft_split.c	/^static char			**diralloc(const char *s, char c)$/;"	f	file:
@@ -82,13 +83,14 @@ grow_buffer_until_newline	libft/get_next_line.c	/^static int	grow_buffer_until_n
 init_env	main.c	/^void		init_env(t_env *env)$/;"	f
 intersect_ray_with_cylinder	intersect_cylinder.c	/^bool			intersect_ray_with_cylinder(t_vec3 *eye, t_vec3 *ray, t_cylinder *cylinder, double *t, double tmin, double tmax)$/;"	f
 intersect_ray_with_object	main.c	/^bool		intersect_ray_with_object(t_vec3 *eye, t_vec3 *ray, t_object *object, double *solution, double tmin, double tmax)$/;"	f
-intersect_ray_with_sphere	main.c	/^bool		intersect_ray_with_sphere(t_vec3 * O,  t_vec3 *ray, t_sphere *sphere, double *solution,$/;"	f
-invert_matrix3x3	main.c	/^t_matrix3x3		invert_matrix3x3(t_matrix3x3 matrix)$/;"	f
+intersect_ray_with_plane	intersect_plane.c	/^bool	intersect_ray_with_plane(t_vec3 *eye, t_vec3 *ray, t_plane *plane, double *t, double tmin, double tmax)$/;"	f
+intersect_ray_with_sphere	intersect_sphere.c	/^bool		intersect_ray_with_sphere(t_vec3 * O,  t_vec3 *ray, t_sphere *sphere, double *solution,$/;"	f
+invert_matrix3x3	matrices.c	/^t_matrix3x3		invert_matrix3x3(t_matrix3x3 matrix)$/;"	f
 is_in	parse_values.c	/^int		is_in(char c, const char *set)$/;"	f
 is_in_set	libft/ft_strtrim.c	/^static int	is_in_set(char c, char const *set)$/;"	f	file:
 is_inside_cyl	intersect_cylinder.c	/^static bool		is_inside_cyl(t_vec3 *eye, t_cylinder *cylinder, t_vec3 *ray, double t)$/;"	f	file:
 main	main.c	/^int			main(int argc, char *argv[])$/;"	f
-mult_matrix3x3_vec3	main.c	/^t_vec3			mult_matrix3x3_vec3(t_matrix3x3 mat, t_vec3 v)$/;"	f
+mult_matrix3x3_vec3	matrices.c	/^t_vec3			mult_matrix3x3_vec3(t_matrix3x3 mat, t_vec3 v)$/;"	f
 new_vec3	vector_operation.c	/^t_vec3 new_vec3(double x, double y, double z)$/;"	f
 next_sep	libft/ft_split.c	/^static const char	*next_sep(const char *str, char sep)$/;"	f	file:
 next_word	libft/ft_split.c	/^static const char	*next_word(const char *str, char sep)$/;"	f	file:
@@ -117,12 +119,11 @@ scale_color_by	vector_operation.c	/^t_color	scale_color_by(t_color color, double
 skip_blank	parse_values.c	/^void	skip_blank(char **input)$/;"	f
 skip_blank_and_one_comma	parse_values.c	/^void	skip_blank_and_one_comma(char **input)$/;"	f
 skip_set	parse_values.c	/^void	skip_set(char **input, const char *set)$/;"	f
-solve_cylinder	intersect_cylinder.c	/^static bool		solve_cylinder(t_vec3 *eye, t_cylinder *cylinder, t_vec3 *ray, t_vec3 quad_coef, double *t)$/;"	f	file:
+solve_cylinder	intersect_cylinder.c	/^static bool		solve_cylinder(t_vec3 *eye, t_cylinder *cylinder, t_vec3 *ray, t_vec3 quad_coef, double *t,$/;"	f	file:
 sq	main.c	/^double sq(double value)$/;"	f
-squareof	main.c	/^double squareof(x)$/;"	f
 substract_vec3	vector_operation.c	/^t_vec3		substract_vec3(t_vec3 point1, t_vec3 point2)$/;"	f
 token_table	parse.c	/^static struct s_fat_token token_table[] =$/;"	v	typeref:struct:s_fat_token	file:
 trace_light	main.c	/^bool	trace_light(t_vec3 *hit_point, t_vec3 *ray)$/;"	f
 trace_ray	main.c	/^t_color		trace_ray(t_vec3 *eye, t_vec3 *ray)$/;"	f
-transpose_mat3x3	main.c	/^t_matrix3x3		transpose_mat3x3(t_matrix3x3 mat)$/;"	f
+transpose_mat3x3	matrices.c	/^t_matrix3x3		transpose_mat3x3(t_matrix3x3 mat)$/;"	f
 vec_len	vector_operation.c	/^double	vec_len(t_vec3	v)$/;"	f

@@ -20,6 +20,8 @@
 
 # include "libft/libft.h"
 
+#define EPSILON 0.00001
+
 extern t_env env;
 
 void		prints(struct s_object*);
@@ -29,6 +31,7 @@ t_color		trace_ray(t_vec3 *eye, t_vec3 *D);
 bool		intersect_ray_with_object(t_vec3 *eye, t_vec3 *ray, t_object *object, double *solution, double tmin, double tmax);
 bool		intersect_ray_with_sphere(t_vec3 *eye, t_vec3 *ray, t_sphere *sphere, double *solution, double tmin, double tmax);
 bool		intersect_ray_with_cylinder(t_vec3 *eye, t_vec3 *ray, t_cylinder *cylinder, double *t, double tmin, double tmax);
+bool		intersect_ray_with_plane(t_vec3 *eye, t_vec3 *ray, t_plane *plane, double *t, double tmin, double tmax);
 t_color		get_object_color(t_object *object);
 int			get_color_as_int(t_color color);
 t_vec3		substract_vec3(t_vec3 point1, t_vec3 point2);
@@ -37,6 +40,7 @@ void		init_env(t_env *env);
 t_color		compute_ray_color(t_vec3 *ray, t_vec3 *eye, t_object *object, double parameter);
 t_color		compute_sphere_lighting(t_vec3 *ray, t_vec3 *eye, t_sphere *sphere, double parameter);
 t_color		compute_cylinder_lighting(t_vec3 *ray, t_vec3 *eye, t_cylinder *cylinder, double parameter);
+t_color		compute_plane_lighting(t_vec3 *ray, t_vec3 *eye, t_plane *plane, double parameter);
 double		compute_lighting(t_vec3 hit_point, t_vec3 normal);
 void		put_pixel_to_image(struct s_image *image, int x, int y, int color);
 double		vec_len(t_vec3	v);
@@ -53,5 +57,9 @@ t_vec3	make_vector_substracting_2_points(t_vec3 point1, t_vec3 point2);
 t_vec3	cross_product(t_vec3 v1, t_vec3 v2);
 double	sq(double value);
 double	autodot(t_vec3 v);
+
+t_matrix3x3		transpose_mat3x3(t_matrix3x3 mat);
+t_matrix3x3		invert_matrix3x3(t_matrix3x3 matrix);
+t_vec3			mult_matrix3x3_vec3(t_matrix3x3 mat, t_vec3 v);
 
 #endif

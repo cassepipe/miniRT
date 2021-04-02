@@ -75,7 +75,7 @@ typedef	struct s_sphere {
 
 typedef	struct s_plane {
 	t_vec3		some_point;
-	t_vec3		orientation;
+	t_vec3		normal;
 	t_color		color;
 } t_plane;
 

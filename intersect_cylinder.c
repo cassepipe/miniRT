@@ -2,7 +2,7 @@
 
 
 t_vec3		get_quad_coef(t_vec3 dir, t_vec3 oc, double radius);
-static bool		solve_cylinder(t_vec3 *eye, t_cylinder *cylinder, t_vec3 *ray, t_vec3 quad_coef, double *t);
+static bool		solve_cylinder(t_vec3 *eye, t_cylinder *cylinder, t_vec3 *ray, t_vec3 quad_coef, double *t, double tmin, double tmax);
 static t_vec3	pre_compute_coef(t_vec3 v1, t_vec3 v2);
 bool		get_quad_roots(double *root1, double *root2, t_vec3 quad_coef);
 static bool		is_inside_cyl(t_vec3 *eye, t_cylinder *cylinder, t_vec3 *ray, double t);
@@ -34,7 +34,8 @@ static bool		is_inside_cyl(t_vec3 *eye, t_cylinder *cylinder, t_vec3 *ray, doubl
 }
 
 
-static bool		solve_cylinder(t_vec3 *eye, t_cylinder *cylinder, t_vec3 *ray, t_vec3 quad_coef, double *t)
+static bool		solve_cylinder(t_vec3 *eye, t_cylinder *cylinder, t_vec3 *ray, t_vec3 quad_coef, double *t,
+	   							double tmin, double tmax)
 {
 	double		root1;
 	double		root2;
@@ -45,12 +46,12 @@ static bool		solve_cylinder(t_vec3 *eye, t_cylinder *cylinder, t_vec3 *ray, t_ve
 	retvalue = false;
 	if (get_quad_roots(&root1, &root2, quad_coef))
 	{
-		if ((root1 > 1) && is_inside_cyl(eye, cylinder, ray, root1))
+		if (root1 > tmin && root1 < tmax && is_inside_cyl(eye, cylinder, ray, root1))
 		{
 			*t = root1;
 			retvalue = true;
 		}
-		if ((root2 > 1) && is_inside_cyl(eye, cylinder, ray, root2))
+		if (root2 > tmin && root2 < tmax && is_inside_cyl(eye, cylinder, ray, root2))
 		{
 			if (root2 < root1)
 			{
@@ -78,7 +79,7 @@ bool			intersect_ray_with_cylinder(t_vec3 *eye, t_vec3 *ray, t_cylinder *cylinde
 	dir = pre_compute_coef(*ray, cylinder->dir);
 	ocdir = pre_compute_coef(oc, cylinder->dir);
 	quad_coef = get_quad_coef(dir, ocdir, cylinder->diameter * 0.5);
-	return (solve_cylinder(eye, cylinder, ray, quad_coef, t));
+	return (solve_cylinder(eye, cylinder, ray, quad_coef, t, tmin, tmax));
 }
 
 bool		get_quad_roots(double *root1, double *root2, t_vec3 quad_coef)
@@ -88,7 +89,7 @@ bool		get_quad_roots(double *root1, double *root2, t_vec3 quad_coef)
 	discr = sq(quad_coef.y) - (4 * quad_coef.x * quad_coef.z);
 	if (discr < 0.0)
 		return (false);
-	*root1 = (-quad_coef.y + sqrt(discr)) / (2 * quad_coef.x - 0.00001);
-	*root2 = (-quad_coef.y - sqrt(discr)) / (2 * quad_coef.x - 0.00001);
+	*root1 = (-quad_coef.y + sqrt(discr)) / (2 * quad_coef.x);
+	*root2 = (-quad_coef.y - sqrt(discr)) / (2 * quad_coef.x);
 	return (true);
 }

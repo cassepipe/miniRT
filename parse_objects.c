@@ -28,7 +28,7 @@ void parse_pl(char **input)
 	printf("Parsing plane...\n");
 	new_plane = malloc(sizeof(t_plane));
 	new_plane->some_point = parse_vec(input);
-	new_plane->orientation = parse_vec(input);
+	new_plane->normal = parse_vec(input);
 	new_plane->color = parse_color(input);
 
 	printf("env.objects is %p\n", env.objects);

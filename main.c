@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 12:52:48 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/02 10:11:37 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/03 11:23:18 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 t_env	env;
 
-void		init_env(t_env *env)
+void		init_env()
 {
-	env->objects = NULL;
-	env->cameras = NULL;
-	env->lights = NULL;
+	env.objects = NULL;
+	env.cameras = NULL;
+	env.lights = NULL;
 }
 
 int			main(int argc, char *argv[])
@@ -36,9 +36,10 @@ int			main(int argc, char *argv[])
 
 	env.scene_path = argv[1];
 
-	init_env(&env);
+	init_env();
 	parse_file_into_env();
 
+	//Check parsing
 	struct s_object *cur = env.objects;
 	while (cur)
 	{
@@ -46,17 +47,17 @@ int			main(int argc, char *argv[])
 		cur = cur->next;
 	}
 
-	//minilibx
+	//Create window
 	mlx_ptr = mlx_init();
 	if (mlx_ptr == NULL)
 		die("Failed to set up connection to X server");
 	window = mlx_new_window(mlx_ptr, env.res_x, env.res_y, "miniRT");
 
+	//Create image
 	image.mlx_handle = mlx_new_image(mlx_ptr, env.res_x, env.res_y);
 	image.data = mlx_get_data_addr(image.mlx_handle, &image.bits_per_pixel, &image.line_len, &image.endianness);
 
 	//Rendering
-
 	t_vec3 ray;
 	t_color closest_object_color;
 	int pixel_color;
@@ -79,10 +80,34 @@ int			main(int argc, char *argv[])
 		}
 
 	mlx_put_image_to_window(mlx_ptr, window, image.mlx_handle, 0, 0);
+
+	//Hooking
+	mlx_key_hook(window, &handle_keypress, NULL);
+	mlx_hook(window, DESTROY_NOTIFY, STRUCTURE_NOTIFY_MASK , &cleanup_and_quit, NULL);
+
+	//Looping
 	mlx_loop(mlx_ptr);
 
 	return (0);
 }
+
+int		cleanup_and_quit()
+{
+		free_env(&env);
+		exit(EXIT_SUCCESS);
+		return (0);
+}
+
+int		handle_keypress(int keycode, void *params)
+{
+	if (keycode == ESC)
+	{
+		free_env(&env);
+		exit(EXIT_SUCCESS);
+	}
+	return (0);
+}
+
 
 t_vec3	apply_rotation_to_ray(t_vec3 ray, t_matrix3x3 rot_matrix)
 {

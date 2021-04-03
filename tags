@@ -9,6 +9,7 @@ add_vec	vector_operation.c	/^t_vec3	add_vec(t_vec3 v1, t_vec3 v2)$/;"	f
 apply_rotation_to_ray	main.c	/^t_vec3	apply_rotation_to_ray(t_vec3 ray, t_matrix3x3 rot_matrix)$/;"	f
 autodot	main.c	/^double	autodot(t_vec3 v)$/;"	f
 canvas_to_viewport	main.c	/^t_vec3		canvas_to_viewport(int x, int y)$/;"	f
+cleanup_and_quit	main.c	/^int		cleanup_and_quit()$/;"	f
 compute_cam_to_world_matrix	main.c	/^t_matrix3x3	compute_cam_to_world_matrix(t_vec3 camera_direction)$/;"	f
 compute_cylinder_lighting	lighting.c	/^t_color	compute_cylinder_lighting(t_vec3 *ray, t_vec3 *eye, t_cylinder *cylinder, double parameter)$/;"	f
 compute_lighting	lighting.c	/^double 	compute_lighting(t_vec3 hit_point, t_vec3 normal)$/;"	f
@@ -80,7 +81,8 @@ get_object_color	main.c	/^t_color get_object_color(t_object *object)$/;"	f
 get_quad_coef	intersect_cylinder.c	/^t_vec3		get_quad_coef(t_vec3 dir, t_vec3 oc, double radius)$/;"	f
 get_quad_roots	intersect_cylinder.c	/^bool		get_quad_roots(double *root1, double *root2, t_vec3 quad_coef)$/;"	f
 grow_buffer_until_newline	libft/get_next_line.c	/^static int	grow_buffer_until_newline(int fd, char **buffer,$/;"	f	file:
-init_env	main.c	/^void		init_env(t_env *env)$/;"	f
+handle_keypress	main.c	/^int		handle_keypress(int keycode, void *params)$/;"	f
+init_env	main.c	/^void		init_env()$/;"	f
 intersect_ray_with_cylinder	intersect_cylinder.c	/^bool			intersect_ray_with_cylinder(t_vec3 *eye, t_vec3 *ray, t_cylinder *cylinder, double *t, double tmin, double tmax)$/;"	f
 intersect_ray_with_object	main.c	/^bool		intersect_ray_with_object(t_vec3 *eye, t_vec3 *ray, t_object *object, double *solution, double tmin, double tmax)$/;"	f
 intersect_ray_with_plane	intersect_plane.c	/^bool	intersect_ray_with_plane(t_vec3 *eye, t_vec3 *ray, t_plane *plane, double *t, double tmin, double tmax)$/;"	f

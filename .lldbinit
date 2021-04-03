@@ -1,3 +1,0 @@
-target create miniRT
-settings set target.run-args example.rt
-process launch --stop-at-entry

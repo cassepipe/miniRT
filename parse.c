@@ -34,7 +34,7 @@ void parse_file_into_env()
 		i = 0;
 		while (i < sizeof(token_table)/sizeof(token_table[0]))
 		{
-			if (*input == '\0' || *input == '\n')
+			if (*input == '\0' || *input == '\n' || *input == '"')
 				break;
 			if (!ft_strncmp(token_table[i].token, input , token_table[i].len))
 			{

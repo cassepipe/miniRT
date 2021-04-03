@@ -1,12 +1,5 @@
 #include "minirt.h"
 
-extern t_env env;
-
-void free_env(t_env *env);
-void free_object_list(t_object *objects);
-void free_light_list(t_light *lights);
-void free_camera_list(t_cam *cameras);
-
 void free_camera_list(t_cam *camera)
 {
 	t_cam *next_object;

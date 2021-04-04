@@ -6,7 +6,7 @@
 #    By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/23 16:37:33 by tpouget           #+#    #+#              #
-#    Updated: 2021/03/19 17:47:54 by tpouget          ###   ########.fr        #
+#    Updated: 2021/04/04 16:58:51 by tpouget          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,7 +59,7 @@ fclean:			clean
 				rm -rf miniRT
 				rm -rf test
 
-re:				fclean $(filter-out re, $(MAKECMDGOALS))
+re:				fclean all
 
 .PHONY:			
 				${PHONY}	

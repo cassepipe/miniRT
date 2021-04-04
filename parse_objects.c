@@ -31,17 +31,11 @@ void parse_pl(char **input)
 	new_plane->normal = parse_vec(input);
 	new_plane->color = parse_color(input);
 
-	printf("env.objects is %p\n", env.objects);
-	if (env.objects)
-		printf("env.objects->next is %p\n", env.objects->next);
 	new_object = malloc(sizeof(t_object));
 	new_object->id = PLANE;
 	new_object->data = new_plane;
 	new_object->next = env.objects;
 	env.objects = new_object;
-	printf("env.objects is %p\n", env.objects);
-	if (env.objects)
-		printf("env.objects->next is %p\n", env.objects->next);
 }
 
 void parse_sq(char **input)
@@ -75,17 +69,11 @@ void parse_cy(char **input)
 	new_cylinder->height = parse_double(input);
 	new_cylinder->color = parse_color(input);
 
-	printf("env.objects is %p\n", env.objects);
-	if (env.objects)
-		printf("env.objects->next is %p\n", env.objects->next);
 	new_object = malloc(sizeof(t_object));
 	new_object->id = CYLINDER;
 	new_object->data = new_cylinder;
 	new_object->next = env.objects;
 	env.objects = new_object;
-	printf("env.objects is %p\n", env.objects);
-	if (env.objects)
-		printf("env.objects->next is %p\n", env.objects->next);
 }
 
 void parse_tr(char **input)

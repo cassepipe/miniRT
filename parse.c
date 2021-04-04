@@ -27,6 +27,8 @@ void parse_file_into_env()
 	char		*to_free;
 
 	fd = open(env.scene_path, O_RDONLY);
+	if (fd < 0)
+		die("This file does not seem to exist");
 	while (get_next_line(fd, &input))
 	{
 		to_free = input;
@@ -44,12 +46,12 @@ void parse_file_into_env()
 			}
 			i++;
 		}
-		if (i == sizeof(token_table)/sizeof(token_table[0]))
-			perror("Format error in .rt file : Invalid object token");
 		free(to_free);
+		if (i == sizeof(token_table)/sizeof(token_table[0]))
+			die("Format error in .rt file : Invalid object token");
 	}
 	free(input);
-	return;
+	close(fd);
 }
 
 void	parse_ambl(char **input)

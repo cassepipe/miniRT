@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 12:52:48 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/04 17:38:46 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/04 18:09:38 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ void		init_env()
 
 int			main(int argc, char *argv[])
 {
-
-	struct s_image image;
 
 	if (argc != 2)
 	{
@@ -52,8 +50,10 @@ int			main(int argc, char *argv[])
 	env.window = mlx_new_window(env.mlx_session, env.res_x, env.res_y, "miniRT");
 
 	//Create image
-	image.mlx_handle = mlx_new_image(env.mlx_session, env.res_x, env.res_y);
-	image.data = mlx_get_data_addr(image.mlx_handle, &image.bits_per_pixel, &image.line_len, &image.endianness);
+	struct s_image img;
+	env.images = &img;
+	env.images->mlx_handle = mlx_new_image(env.mlx_session, env.res_x, env.res_y);
+	env.images->data = mlx_get_data_addr(env.images->mlx_handle, &env.images->bits_per_pixel, &env.images->line_len, &env.images->endianness);
 
 	//Rendering
 	t_vec3 ray;
@@ -71,13 +71,13 @@ int			main(int argc, char *argv[])
 				ray = apply_rotation_to_ray(ray, env.cameras->cam_to_world);
 				closest_object_color = trace_ray(&env.cameras->origin, &ray);
 				pixel_color = get_color_as_int(closest_object_color);
-				put_pixel_to_image(&image, x, y, pixel_color);
+				put_pixel_to_image(env.images, x, y, pixel_color);
 				x++;
 			}
 			y++;
 		}
 
-	mlx_put_image_to_window(env.mlx_session, env.window, image.mlx_handle, 0, 0);
+	mlx_put_image_to_window(env.mlx_session, env.window, env.images->mlx_handle, 0, 0);
 
 	//Hooking
 	mlx_key_hook(env.window, &handle_keypress, NULL);

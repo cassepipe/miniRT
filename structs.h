@@ -106,12 +106,14 @@ typedef struct s_env
 	void				*mlx_session;
 	void				*window;
 	char				*scene_path;	
+	int					number_of_cams;
 	int					res_x;
 	int					res_y;
 	double				ambl_ratio;
 	t_color				ambl_color;
 	struct s_light		*lights;
 	struct s_cam		*cameras;
+	struct s_image		*images;
 	struct s_object		*objects;
 } t_env;
 
@@ -122,11 +124,12 @@ struct s_fat_token {
 };
 
 struct s_image {
-	void	*mlx_handle;
-	char	*data;
-	int		bits_per_pixel;
-	int		line_len;
-	int		endianness;
+	void			*mlx_handle;
+	char			*data;
+	int				bits_per_pixel;
+	int				line_len;
+	int				endianness;
+	struct 	s_image	*next;
 }	t_image;
 
 

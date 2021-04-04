@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 12:52:48 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/03 11:23:18 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/04 17:38:46 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ void		init_env()
 int			main(int argc, char *argv[])
 {
 
-	void *mlx_ptr;
-	void *window;
 	struct s_image image;
 
 	if (argc != 2)
@@ -48,13 +46,13 @@ int			main(int argc, char *argv[])
 	}
 
 	//Create window
-	mlx_ptr = mlx_init();
-	if (mlx_ptr == NULL)
+	env.mlx_session = mlx_init();
+	if (env.mlx_session == NULL)
 		die("Failed to set up connection to X server");
-	window = mlx_new_window(mlx_ptr, env.res_x, env.res_y, "miniRT");
+	env.window = mlx_new_window(env.mlx_session, env.res_x, env.res_y, "miniRT");
 
 	//Create image
-	image.mlx_handle = mlx_new_image(mlx_ptr, env.res_x, env.res_y);
+	image.mlx_handle = mlx_new_image(env.mlx_session, env.res_x, env.res_y);
 	image.data = mlx_get_data_addr(image.mlx_handle, &image.bits_per_pixel, &image.line_len, &image.endianness);
 
 	//Rendering
@@ -79,14 +77,14 @@ int			main(int argc, char *argv[])
 			y++;
 		}
 
-	mlx_put_image_to_window(mlx_ptr, window, image.mlx_handle, 0, 0);
+	mlx_put_image_to_window(env.mlx_session, env.window, image.mlx_handle, 0, 0);
 
 	//Hooking
-	mlx_key_hook(window, &handle_keypress, NULL);
-	mlx_hook(window, DESTROY_NOTIFY, STRUCTURE_NOTIFY_MASK , &cleanup_and_quit, NULL);
+	mlx_key_hook(env.window, &handle_keypress, NULL);
+	mlx_hook(env.window, DESTROY_NOTIFY, STRUCTURE_NOTIFY_MASK , &cleanup_and_quit, NULL);
 
 	//Looping
-	mlx_loop(mlx_ptr);
+	mlx_loop(env.mlx_session);
 
 	return (0);
 }

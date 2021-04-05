@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 12:52:48 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/04 18:10:27 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/05 12:31:18 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,33 @@ void		init_env()
 	env.objects = NULL;
 	env.cameras = NULL;
 	env.lights = NULL;
+	env.number_of_cams = 0;
+}
+
+void		render(struct s_image *image)
+{
+	t_vec3 ray;
+	t_color closest_object_color;
+	int pixel_color;
+		int y = 0;
+		while ( y <= env.res_y)
+		{
+			int x = 0;
+			while (x <= env.res_x)
+			{
+				//printf("Processing pixel(%d, %d)...\n", x, y);
+				ray = canvas_to_viewport(x, y);
+				ray = normalize(ray);
+				ray = apply_rotation_to_ray(ray, env.cameras->cam_to_world);
+				closest_object_color = trace_ray(&env.cameras->origin, &ray);
+				pixel_color = get_color_as_int(closest_object_color);
+				put_pixel_to_image(image, x, y, pixel_color);
+				x++;
+			}
+			y++;
+		}
+
+	mlx_put_image_to_window(env.mlx_session, env.window, env.images->mlx_handle, 0, 0);
 }
 
 int			main(int argc, char *argv[])
@@ -50,11 +77,7 @@ int			main(int argc, char *argv[])
 	env.window = mlx_new_window(env.mlx_session, env.res_x, env.res_y, "miniRT");
 
 	//Create image
-	struct s_image img;
-	env.images = &img;
 	create_images();
-	env.images->mlx_handle = mlx_new_image(env.mlx_session, env.res_x, env.res_y);
-	env.images->data = mlx_get_data_addr(env.images->mlx_handle, &env.images->bits_per_pixel, &env.images->line_len, &env.images->endianness);
 
 	//Rendering
 	t_vec3 ray;
@@ -99,6 +122,11 @@ int		cleanup_and_quit()
 
 int		handle_keypress(int keycode, void *params)
 {
+	if (keycode == SPACE)
+	{
+		free_env(&env);
+		exit(EXIT_SUCCESS);
+	}
 	if (keycode == ESC)
 	{
 		free_env(&env);

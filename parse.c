@@ -80,6 +80,7 @@ void parse_cam(char **input)
 	new_cam->cam_to_world = compute_cam_to_world_matrix(new_cam->direction);
 	new_cam->next = env.cameras;
 	env.cameras = new_cam;
+	env.number_of_cams++;
 }
 
 void parse_light(char **input)

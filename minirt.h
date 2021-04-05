@@ -21,7 +21,9 @@
 # include "libft/libft.h"
 
 #define EPSILON 				0.00001
-#define ESC						65307
+#define ESC						0xff1b
+#define SPACE					0x20	
+#define TAB						0xff09
 #define DESTROY_NOTIFY			17	
 #define	STRUCTURE_NOTIFY_MASK 	1L << 17
 

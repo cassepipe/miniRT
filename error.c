@@ -28,7 +28,7 @@ void free_image_list(struct s_image *image)
 {
 	struct s_image *next_object;
 
-	while (1 + env.number_of_cams--)
+	while (env.number_of_cams--)
 	{
 		next_object = image->next;
 		mlx_destroy_image(env.mlx_session, image->mlx_handle);

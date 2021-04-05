@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/23 12:52:48 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/05 14:33:09 by tpouget          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minirt.h"
 
 t_env	env;
@@ -22,7 +10,7 @@ void		init_env()
 	env.number_of_cams = 0;
 }
 
-void		render(struct s_image *image)
+void		render(struct s_image image, t_cam cam)
 {
 	t_vec3 ray;
 	t_color closest_object_color;
@@ -42,21 +30,21 @@ void		render(struct s_image *image)
 				ray = apply_rotation_to_ray(ray, env.cameras->cam_to_world);
 				closest_object_color = trace_ray(&env.cameras->origin, &ray);
 				pixel_color = get_color_as_int(closest_object_color);
-				put_pixel_to_image(image, x, y, pixel_color);
+				put_pixel_to_image(&image, x, y, pixel_color);
 				x++;
 			}
 			y++;
 		}
 }
 
-void		render_image_list(struct s_image *image)
+void		render_image_list(struct s_image *images)
 {
 	int i;
 	i = 0;
 	while(i < env.number_of_cams)
 	{
-		render(image);
-		image++;
+		render(images[i]);
+		i++;
 	}
 }
 
@@ -92,26 +80,7 @@ int			main(int argc, char *argv[])
 	create_images();
 
 	//Rendering
-	t_vec3 ray;
-	t_color closest_object_color;
-	int pixel_color;
-		int y = 0;
-		while ( y <= env.res_y)
-		{
-			int x = 0;
-			while (x <= env.res_x)
-			{
-				//printf("Processing pixel(%d, %d)...\n", x, y);
-				ray = canvas_to_viewport(x, y);
-				ray = normalize(ray);
-				ray = apply_rotation_to_ray(ray, env.cameras->cam_to_world);
-				closest_object_color = trace_ray(&env.cameras->origin, &ray);
-				pixel_color = get_color_as_int(closest_object_color);
-				put_pixel_to_image(env.images, x, y, pixel_color);
-				x++;
-			}
-			y++;
-		}
+	render_image_list(env.images);
 
 	mlx_put_image_to_window(env.mlx_session, env.window, env.images->mlx_handle, 0, 0);
 

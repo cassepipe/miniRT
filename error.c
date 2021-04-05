@@ -26,10 +26,13 @@ void free_light_list(t_light *light)
 
 void free_image_list(struct s_image *image)
 {
-	int i = 0;
-	while (i < env.number_of_cams)
+	struct s_image *next_object;
+
+	while (env.number_of_cams--)
 	{
-		mlx_destroy_image(env.mlx_session, image[i].mlx_handle);
+		next_object = image->next;
+		mlx_destroy_image(env.mlx_session, image->mlx_handle);
+		image = next_object;
 	}
 	free(env.images);
 }
@@ -58,7 +61,7 @@ void free_env(t_env *env)
 
 void die(const char* error_text)
 {
-	mlx_destroy_window(env.mlx_session, env.window);
+//	mlx_destroy_window(env.mlx_session, env.window);
 	free_env(&env);
 	fprintf(stderr, error_text);
 	exit(EXIT_FAILURE);

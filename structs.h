@@ -126,6 +126,7 @@ struct s_fat_token {
 struct s_image {
 	void			*mlx_handle;
 	char			*data;
+	t_cam			*cam;
 	int				bits_per_pixel;
 	int				line_len;
 	int				endianness;

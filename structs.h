@@ -114,6 +114,7 @@ typedef struct s_env
 	struct s_light		*lights;
 	struct s_cam		*cameras;
 	struct s_image		*images;
+	struct s_image		*displayed_image;
 	struct s_object		*objects;
 } t_env;
 

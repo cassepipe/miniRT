@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 12:52:48 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/05 12:31:18 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/05 14:33:09 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,13 @@ void		render(struct s_image *image)
 	t_vec3 ray;
 	t_color closest_object_color;
 	int pixel_color;
-		int y = 0;
+	int	y;
+	int x;
+
+		y = 0;
 		while ( y <= env.res_y)
 		{
-			int x = 0;
+			x = 0;
 			while (x <= env.res_x)
 			{
 				//printf("Processing pixel(%d, %d)...\n", x, y);
@@ -44,8 +47,17 @@ void		render(struct s_image *image)
 			}
 			y++;
 		}
+}
 
-	mlx_put_image_to_window(env.mlx_session, env.window, env.images->mlx_handle, 0, 0);
+void		render_image_list(struct s_image *image)
+{
+	int i;
+	i = 0;
+	while(i < env.number_of_cams)
+	{
+		render(image);
+		image++;
+	}
 }
 
 int			main(int argc, char *argv[])
@@ -124,8 +136,8 @@ int		handle_keypress(int keycode, void *params)
 {
 	if (keycode == SPACE)
 	{
-		free_env(&env);
-		exit(EXIT_SUCCESS);
+		env.images = env.images->next;
+		mlx_put_image_to_window(env.mlx_session, env.window, env.images->mlx_handle, 0, 0);
 	}
 	if (keycode == ESC)
 	{

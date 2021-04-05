@@ -119,6 +119,7 @@ pre_compute_coef	intersect_cylinder.c	/^static t_vec3	pre_compute_coef(t_vec3 v1
 prints	main.c	/^void prints(struct s_object *object)$/;"	f
 put_pixel_to_image	main.c	/^void	put_pixel_to_image(struct s_image *image, int x, int y, int color)$/;"	f
 render	main.c	/^void		render(struct s_image *image)$/;"	f
+render_image_list	main.c	/^void		render_image_list(struct s_image *image)$/;"	f
 scale_by	vector_operation.c	/^t_vec3	scale_by(t_vec3 vector, double scalar)$/;"	f
 scale_color_by	vector_operation.c	/^t_color	scale_color_by(t_color color, double scalar)$/;"	f
 skip_blank	parse_values.c	/^void	skip_blank(char **input)$/;"	f

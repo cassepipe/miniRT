@@ -32,9 +32,9 @@ void free_image_list(struct s_image *image)
 	{
 		next_object = image->next;
 		mlx_destroy_image(env.mlx_session, image->mlx_handle);
-		free(image);
 		image = next_object;
 	}
+	free(env.images);
 }
 
 void free_object_list(t_object *object)

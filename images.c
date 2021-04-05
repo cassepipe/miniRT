@@ -8,7 +8,6 @@ void    create_images()
 	img_buf = malloc(sizeof(t_image) * env.number_of_cams);
 	if (!img_buf)
 		die("malloc failed");
-	img_buf[env.number_of_cams - 1].next = img_buf;
 	i = 0;
 	while(i < env.number_of_cams)
 	{
@@ -20,6 +19,7 @@ void    create_images()
 		img_buf[i].next = &img_buf[i+1];
 		i++;
 	}
+	img_buf[env.number_of_cams - 1].next = img_buf;
 	env.images = img_buf;
 }
 	/*env.images->mlx_handle = mlx_new_image(env.mlx_session, env.res_x, env.res_y);

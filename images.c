@@ -25,9 +25,5 @@ void    create_images()
 	}
 	img_buf[env.number_of_cams - 1].next = img_buf;
 	env.images = img_buf;
+	env.displayed_image = env.images;
 }
-	/*env.images->mlx_handle = mlx_new_image(env.mlx_session, env.res_x, env.res_y);
-	env.images->data = mlx_get_data_addr(env.images->mlx_handle,
-										&env.images->bits_per_pixel,
-										&env.images->line_len,
-										&env.images->endianness);*/

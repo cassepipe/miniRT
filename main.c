@@ -105,8 +105,8 @@ int		handle_keypress(int keycode, void *params)
 {
 	if (keycode == SPACE)
 	{
-		env.images = env.images->next;
-		mlx_put_image_to_window(env.mlx_session, env.window, env.images->mlx_handle, 0, 0);
+		env.displayed_image = env.displayed_image->next;
+		mlx_put_image_to_window(env.mlx_session, env.window, env.displayed_image->mlx_handle, 0, 0);
 	}
 	if (keycode == ESC)
 	{

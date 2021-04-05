@@ -40,6 +40,7 @@ int			get_color_as_int(t_color color);
 t_vec3		substract_vec3(t_vec3 point1, t_vec3 point2);
 double		dot(t_vec3 u, t_vec3 v);
 void		init_env();
+void		create_images();
 t_color		compute_ray_color(t_vec3 *ray, t_vec3 *eye, t_object *object, double parameter);
 t_color		compute_sphere_lighting(t_vec3 *ray, t_vec3 *eye, t_sphere *sphere, double parameter);
 t_color		compute_cylinder_lighting(t_vec3 *ray, t_vec3 *eye, t_cylinder *cylinder, double parameter);

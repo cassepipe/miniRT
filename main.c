@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 12:52:48 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/04 18:09:38 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/04 18:10:27 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int			main(int argc, char *argv[])
 	//Create image
 	struct s_image img;
 	env.images = &img;
+	create_images();
 	env.images->mlx_handle = mlx_new_image(env.mlx_session, env.res_x, env.res_y);
 	env.images->data = mlx_get_data_addr(env.images->mlx_handle, &env.images->bits_per_pixel, &env.images->line_len, &env.images->endianness);
 

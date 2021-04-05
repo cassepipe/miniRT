@@ -24,6 +24,7 @@ dot	vector_operation.c	/^double dot(t_vec3 u, t_vec3 v)$/;"	f
 env	main.c	/^t_env	env;$/;"	v
 free_camera_list	error.c	/^void free_camera_list(t_cam *camera)$/;"	f
 free_env	error.c	/^void free_env(t_env *env)$/;"	f
+free_image_list	error.c	/^void free_image_list(struct s_image *image)$/;"	f
 free_light_list	error.c	/^void free_light_list(t_light *light)$/;"	f
 free_object_list	error.c	/^void free_object_list(t_object *object)$/;"	f
 ft_10powerof	libft/ft_itoa.c	/^static long	ft_10powerof(long n)$/;"	f	file:

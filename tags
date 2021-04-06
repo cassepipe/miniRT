@@ -13,7 +13,7 @@ cleanup_and_quit	main.c	/^int		cleanup_and_quit()$/;"	f
 compute_cam_to_world_matrix	main.c	/^t_matrix3x3	compute_cam_to_world_matrix(t_vec3 camera_direction)$/;"	f
 compute_cylinder_lighting	lighting.c	/^t_color	compute_cylinder_lighting(t_vec3 *ray, t_vec3 *eye, t_cylinder *cylinder, double parameter)$/;"	f
 compute_lighting	lighting.c	/^double 	compute_lighting(t_vec3 hit_point, t_vec3 normal)$/;"	f
-compute_plane_lighting	lighting.c	/^t_color	compute_plane_lighting(t_vec3 *ray, t_vec3 *eye, t_plane *plane, double parameter)$/;"	f
+compute_plane_lighting	intersect_plane.c	/^t_color	compute_plane_lighting(t_vec3 *ray, t_vec3 *eye, t_plane *plane, double parameter)$/;"	f
 compute_ray_color	lighting.c	/^t_color	compute_ray_color(t_vec3 *ray, t_vec3 *eye, t_object *object, double parameter)$/;"	f
 compute_sphere_lighting	lighting.c	/^t_color	compute_sphere_lighting(t_vec3 *ray, t_vec3 *eye, t_sphere *sphere, double parameter)$/;"	f
 create_images	images.c	/^void    create_images()$/;"	f

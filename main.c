@@ -7,6 +7,7 @@ void		init_env()
 	env.objects = NULL;
 	env.cameras = NULL;
 	env.lights = NULL;
+	env.images = NULL;
 	env.number_of_cams = 0;
 }
 

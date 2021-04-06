@@ -10,6 +10,7 @@ t_color	compute_ray_color(t_vec3 *ray, t_vec3 *eye, t_object *object, double par
 		return	(compute_plane_lighting(ray, eye, (t_plane*)(object->data), parameter));
 	else
 		die("Could not compute light: Unrecognized object type");
+	return (struct s_color){255,255,255};
 }
 
 double 	compute_lighting(t_vec3 hit_point, t_vec3 normal)
@@ -86,12 +87,3 @@ t_color	compute_cylinder_lighting(t_vec3 *ray, t_vec3 *eye, t_cylinder *cylinder
 		return (scale_color_by(cylinder->color, compute_lighting(hit_point, normal)));
 }
 
-t_color	compute_plane_lighting(t_vec3 *ray, t_vec3 *eye, t_plane *plane, double parameter)
-{
-		t_vec3 hit_point;
-
-		hit_point = scale_by(*ray, parameter);
-		hit_point = add_vec(*eye, hit_point);
-
-		return (scale_color_by(plane->color, compute_lighting(hit_point, plane->normal)));
-}

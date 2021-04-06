@@ -16,3 +16,18 @@ bool	intersect_ray_with_plane(t_vec3 *eye, t_vec3 *ray, t_plane *plane, double *
 
 	return false;
 }
+
+t_color	compute_plane_lighting(t_vec3 *ray, t_vec3 *eye, t_plane *plane, double parameter)
+{
+		t_vec3 hit_point;
+
+		hit_point = scale_by(*ray, parameter);
+		hit_point = add_vec(*eye, hit_point);
+
+		if (dot(plane->normal, *ray) < 0)
+			return (scale_color_by(plane->color,
+									compute_lighting(hit_point,
+													scale_by(plane->normal, -1))));
+		else
+			return (scale_color_by(plane->color, compute_lighting(hit_point, plane->normal)));
+}

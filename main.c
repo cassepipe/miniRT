@@ -190,8 +190,10 @@ t_color		trace_ray(t_vec3 *eye, t_vec3 *ray)
 		if (has_hit)
 		{
 			if (t > 1 && t < closest_t)
+			{
 				closest_t = t;
-			closest_object = current_object;
+				closest_object = current_object;
+			}
 		}
 		current_object = current_object->next;
 	}

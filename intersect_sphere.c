@@ -1,6 +1,6 @@
 #include "minirt.h"
 
-bool		intersect_ray_with_sphere(t_vec3 * O,  t_vec3 *ray, t_sphere *sphere, double *solution,
+bool		intersect_ray_with_sphere(t_vec3 * O,  t_vec3 *ray, t_sphere *sphere, double *t,
 										double tmin, double tmax)
 {
 	double	radius;
@@ -11,6 +11,7 @@ bool		intersect_ray_with_sphere(t_vec3 * O,  t_vec3 *ray, t_sphere *sphere, doub
 	double	discriminant;
 	double  t1;
 	double  t2;
+	double	solution;
 	bool	has_hit;
 
 	/*printf("For ray [%f, %f, %f]\n", ray->x, ray->y, ray->z);*/
@@ -36,15 +37,17 @@ bool		intersect_ray_with_sphere(t_vec3 * O,  t_vec3 *ray, t_sphere *sphere, doub
 	/*printf("t2 = %f\n\n", t2);*/
 
 	has_hit = false;
-	if (t1 > tmin && t1 < tmax && t1 < *solution)
+	solution = INFINITY;
+	if (t1 > tmin && t1 < tmax)
 	{
-		*solution = t1;
+		solution = t1;
 		has_hit = true;
 	}
-	if (t2 > tmin  && t2 < tmax && t2 < *solution)
+	if (t2 > tmin && t2 < tmax && t2 < solution)
 	{
-		*solution = t2;
+		solution = t2;
 		has_hit = true;
 	}
+	*t = solution;
 	return (has_hit);
 }

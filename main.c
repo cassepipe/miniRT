@@ -189,7 +189,7 @@ t_color		trace_ray(t_vec3 *eye, t_vec3 *ray)
 		has_hit = intersect_ray_with_object(eye, ray, current_object, &t, 1, INFINITY);
 		if (has_hit)
 		{
-			if (t > 1 && t < closest_t)
+			if (t >= 1 && t < closest_t)
 			{
 				closest_t = t;
 				closest_object = current_object;
@@ -200,7 +200,7 @@ t_color		trace_ray(t_vec3 *eye, t_vec3 *ray)
 	if (closest_object == NULL)
 		return (struct s_color){255,255,255};
 
-	return compute_ray_color(ray, eye, closest_object, t);
+	return compute_ray_color(ray, eye, closest_object, closest_t);
 }
 
 bool	trace_light(t_vec3 *hit_point, t_vec3 *ray)

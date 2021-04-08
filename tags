@@ -94,7 +94,7 @@ is_in	parse_values.c	/^int		is_in(char c, const char *set)$/;"	f
 is_in_set	libft/ft_strtrim.c	/^static int	is_in_set(char c, char const *set)$/;"	f	file:
 is_inside_cyl	intersect_cylinder.c	/^static bool		is_inside_cyl(t_vec3 *eye, t_cylinder *cylinder, t_vec3 *ray, double t)$/;"	f	file:
 main	main.c	/^int			main(int argc, char *argv[])$/;"	f
-mult_matrix3x3_vec3	matrices.c	/^t_vec3			mult_matrix3x3_vec3(t_matrix3x3 mat, t_vec3 v)$/;"	f
+mult_matrix3x3_vec3	matrices.c	/^t_vec3			mult_matrix3x3_vec3(t_matrix3x3 matrix, t_vec3 v)$/;"	f
 new_vec3	vector_operation.c	/^t_vec3 new_vec3(double x, double y, double z)$/;"	f
 next_sep	libft/ft_split.c	/^static const char	*next_sep(const char *str, char sep)$/;"	f	file:
 next_word	libft/ft_split.c	/^static const char	*next_word(const char *str, char sep)$/;"	f	file:
@@ -131,5 +131,5 @@ substract_vec3	vector_operation.c	/^t_vec3		substract_vec3(t_vec3 point1, t_vec3
 token_table	parse.c	/^static struct s_fat_token token_table[] =$/;"	v	typeref:struct:s_fat_token	file:
 trace_light	main.c	/^bool	trace_light(t_vec3 *hit_point, t_vec3 *ray)$/;"	f
 trace_ray	main.c	/^t_color		trace_ray(t_vec3 *eye, t_vec3 *ray)$/;"	f
-transpose_mat3x3	matrices.c	/^t_matrix3x3		transpose_mat3x3(t_matrix3x3 mat)$/;"	f
+transpose_matrix3x3	matrices.c	/^t_matrix3x3		transpose_matrix3x3(t_matrix3x3 mat)$/;"	f
 vec_len	vector_operation.c	/^double	vec_len(t_vec3	v)$/;"	f

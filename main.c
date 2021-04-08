@@ -27,7 +27,6 @@ void		render(struct s_image image)
 			{
 				//printf("Processing pixel(%d, %d)...\n", x, y);
 				ray = canvas_to_viewport(x, y);
-				ray = normalize(ray);
 				ray = apply_rotation_to_ray(ray, image.cam->cam_to_world);
 				closest_object_color = trace_ray(&image.cam->origin, &ray);
 				pixel_color = get_color_as_int(closest_object_color);

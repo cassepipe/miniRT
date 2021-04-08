@@ -1,6 +1,6 @@
 #include "minirt.h"
 
-t_matrix3x3		transpose_mat3x3(t_matrix3x3 mat)
+t_matrix3x3		transpose_matrix3x3(t_matrix3x3 mat)
 {
 	t_matrix3x3	result;
 
@@ -35,14 +35,14 @@ t_matrix3x3		invert_matrix3x3(t_matrix3x3 matrix)
 	return (result);
 }
 
-t_vec3			mult_matrix3x3_vec3(t_matrix3x3 mat, t_vec3 v)
+t_vec3			mult_matrix3x3_vec3(t_matrix3x3 matrix, t_vec3 v)
 {
 	t_vec3		result;
-	t_matrix3x3	tmp_mat;
+	t_matrix3x3	transposed;
 
-	tmp_mat = transpose_mat3x3(mat);
-	result.x = dot(tmp_mat.right, v);
-	result.y = dot(tmp_mat.up, v);
-	result.z = dot(tmp_mat.forward, v);
+	transposed = transpose_matrix3x3(matrix);
+	result.x = dot(transposed.right, v);
+	result.y = dot(transposed.up, v);
+	result.z = dot(transposed.forward, v);
 	return (result);
 }

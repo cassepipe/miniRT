@@ -126,11 +126,27 @@ t_matrix3x3	compute_cam_to_world_matrix(t_vec3 camera_direction)
 {
 	t_matrix3x3 result;
 
-	result.forward = normalize(camera_direction);
-	result.right = normalize(cross_product((struct s_vec3){0,1,0}, result.forward ));
-	result.up = normalize(cross_product(result.forward, result.right));
+	/*result.forward = normalize(camera_direction);*/
+	/*if (result.forward.y == 1)*/
+		/*return (t_matrix3x3){{1,0,0},{0,0,-1},{0,1,0}};*/
+	/*else if (result.forward.y == -1)*/
+		/*return (t_matrix3x3){{1,0,0},{0,0,1},{0,-1,0}};*/
+	/*else*/
+		/*result.right = normalize(cross_product((t_vec3){0,1,0}, result.forward ));*/
+	/*result.up = normalize(cross_product(result.forward, result.right));*/
 
-	//result = invert_matrix3x3(result);
+
+	t_vec3 arbitrary_vec;
+
+	result.forward = normalize(camera_direction);
+	if (result.forward.y == 1)
+		arbitrary_vec = (t_vec3){0,0,-1};
+	else if (result.forward.y == -1)
+		arbitrary_vec = (t_vec3){0,0,1};
+	else
+		arbitrary_vec = (t_vec3){0,1,0};
+	result.right = normalize(cross_product(arbitrary_vec, result.forward ));
+	result.up = normalize(cross_product(result.forward, result.right));
 
 	return (result);
 

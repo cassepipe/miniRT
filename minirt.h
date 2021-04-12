@@ -29,6 +29,7 @@
 
 extern t_env env;
 
+
 void		prints(struct s_object*);
 t_vec3		new_vec3(double x, double y, double z);
 t_vec3		canvas_to_viewport(int x, int y);
@@ -47,16 +48,17 @@ t_color		compute_ray_color(t_vec3 *ray, t_vec3 *eye, t_object *object, double pa
 t_color		compute_sphere_lighting(t_vec3 *ray, t_vec3 *eye, t_sphere *sphere, double parameter);
 t_color		compute_cylinder_lighting(t_vec3 *ray, t_vec3 *eye, t_cylinder *cylinder, double parameter);
 t_color		compute_plane_lighting(t_vec3 *ray, t_vec3 *eye, t_plane *plane, double parameter);
-double		compute_lighting(t_vec3 hit_point, t_vec3 normal);
+t_vec3		compute_lighting(t_vec3 hit_point, t_vec3 normal);
 void		put_pixel_to_image(struct s_image *image, int x, int y, int color);
 double		vec_len(t_vec3	v);
 bool		trace_light(t_vec3 *origin, t_vec3 *ray);
 t_matrix3x3	compute_cam_to_world_matrix(t_vec3 camera_direction);
 t_vec3		apply_rotation_to_ray(t_vec3 ray, t_matrix3x3 rot_matrix);
 
+t_vec3	add_vec(t_vec3 v, t_vec3 w);
 t_vec3	scale_by(t_vec3 vector, double scalar);
-t_color	scale_color_by(t_color color, double scalar);
-t_vec3	add_vec(t_vec3 v1, t_vec3 v2);
+t_color	apply_lighting(t_color color, t_vec3 lighting);
+t_vec3	distribute_colors(t_color color);
 t_vec3	normalize(t_vec3 v);
 t_vec3	new_vec3(double x, double y, double z);
 t_vec3	make_vector_substracting_2_points(t_vec3 point1, t_vec3 point2);

@@ -11,13 +11,13 @@ t_vec3	scale_by(t_vec3 vector, double scalar)
 	return (result);
 }
 
-t_color	scale_color_by(t_color color, double scalar)
+t_color	apply_lighting(t_color color, t_vec3 color_ratios)
 {
 	t_color result;
 
-	result.red = color.red * scalar;
-	result.green = color.green * scalar;
-	result.blue = color.blue * scalar;
+	result.red = color.red * color_ratios.x;
+	result.green = color.green * color_ratios.y;
+	result.blue = color.blue * color_ratios.z;
 
 	return (result);
 }

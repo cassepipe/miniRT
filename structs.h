@@ -48,8 +48,9 @@ typedef struct s_cam {
 
 typedef struct		s_light {
 	t_vec3			origin;
-	double			ratio;
+	double			intensity;
 	t_color			color;
+	t_vec3			color_distribution;
 	struct s_light *next;
 }					t_light;
 
@@ -109,8 +110,9 @@ typedef struct s_env
 	int					number_of_cams;
 	int					res_x;
 	int					res_y;
-	double				ambl_ratio;
+	double				ambl_intensity;
 	t_color				ambl_color;
+	t_vec3				ambl_distrib;
 	struct s_light		*lights;
 	struct s_cam		*cameras;
 	struct s_image		*images;

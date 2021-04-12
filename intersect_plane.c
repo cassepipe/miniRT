@@ -30,9 +30,9 @@ t_color	compute_plane_lighting(t_vec3 *ray, t_vec3 *eye, t_plane *plane, double 
 		hit_point = add_vec(*eye, hit_point);
 
 		if (dot(plane->normal, *ray) > 0)
-			return (scale_color_by(plane->color,
+			return (apply_lighting(plane->color,
 									compute_lighting(hit_point,
 													scale_by(plane->normal, -1))));
 		else
-			return (scale_color_by(plane->color, compute_lighting(hit_point, plane->normal)));
+			return (apply_lighting(plane->color, compute_lighting(hit_point, plane->normal)));
 }

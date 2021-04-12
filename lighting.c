@@ -9,36 +9,46 @@ t_color	compute_ray_color(t_vec3 *ray, t_vec3 *eye, t_object *object, double par
 	if (object->id == PLANE)
 		return	(compute_plane_lighting(ray, eye, (t_plane*)(object->data), parameter));
 	else
-		die("Could not compute light: Unrecognized object type");
+		die("Could not compute lighting: Unrecognized object type");
 	return (struct s_color){255,255,255};
 }
 
-double 	compute_lighting(t_vec3 hit_point, t_vec3 normal)
+static void cap_vec(t_vec3 *vec)
 {
-	double	i;
+	if (vec->x > 1)
+		vec->x = 1;
+	if (vec->y > 1)
+		vec->y = 1;
+	if (vec->z > 1)
+		vec->z = 1;
+}
+
+t_vec3 	compute_lighting(t_vec3 hit_point, t_vec3 normal)
+{
+	t_vec3	total_distrib;
+	t_vec3	temp_distrib;
 	t_light *light;
 	t_vec3	light_vector;
 	double	n_dot_l;
 
-	i = env.ambl_ratio;
-	//printf("ambl ratio is %f\n", i);
+	total_distrib = env.ambl_distrib;
 	light = env.lights;
-	while (light != NULL && i < 1)
+	while (light != NULL) //&& i < 1)
 	{
 		light_vector = substract_vec3(light->origin, hit_point);
-
-			n_dot_l = dot(light_vector, normal);
-			if (n_dot_l > 0)
+		n_dot_l = dot(light_vector, normal);
+		if (n_dot_l > 0)
+		{
+			if (!trace_light(&hit_point, &light_vector))
 			{
-				if (!trace_light(&hit_point, &light_vector))
-					i += light->ratio * n_dot_l/(vec_len(normal) * vec_len(light_vector));
+				temp_distrib = scale_by(light->color_distribution, n_dot_l/vec_len(light_vector));
+				total_distrib = add_vec(total_distrib, temp_distrib);
 			}
+		}
 		light = light->next;
+		cap_vec(&total_distrib);
 	}
-	if (i > 1)
-		return (1);
-	//printf("returning ratio %.1f\n", i);
-	return (i);
+	return (total_distrib);
 }
 
 
@@ -53,7 +63,7 @@ t_color	compute_sphere_lighting(t_vec3 *ray, t_vec3 *eye, t_sphere *sphere, doub
 		normal = substract_vec3(hit_point, sphere->center);  // Compute sphere normal at intersection
 		normal = normalize(normal);
 
-		return (scale_color_by(sphere->color, compute_lighting(hit_point, normal)));
+		return (apply_lighting(sphere->color, compute_lighting(hit_point, normal)));
 }
 
 t_color	compute_cylinder_lighting(t_vec3 *ray, t_vec3 *eye, t_cylinder *cylinder, double parameter)
@@ -84,6 +94,6 @@ t_color	compute_cylinder_lighting(t_vec3 *ray, t_vec3 *eye, t_cylinder *cylinder
 		normal = add_vec(AC, CP);
 		normal = normalize(normal);
 
-		return (scale_color_by(cylinder->color, compute_lighting(hit_point, normal)));
+		return (apply_lighting(cylinder->color, compute_lighting(hit_point, normal)));
 }
 

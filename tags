@@ -6,13 +6,15 @@
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 Test	tests/tests.c	/^Test(minirt, parsing)$/;"	f
 add_vec	vector_operation.c	/^t_vec3	add_vec(t_vec3 v1, t_vec3 v2)$/;"	f
+apply_lighting	vector_operation.c	/^t_color	apply_lighting(t_color color, t_vec3 color_ratios)$/;"	f
 apply_rotation_to_ray	main.c	/^t_vec3	apply_rotation_to_ray(t_vec3 ray, t_matrix3x3 rot_matrix)$/;"	f
 autodot	main.c	/^double	autodot(t_vec3 v)$/;"	f
 canvas_to_viewport	main.c	/^t_vec3		canvas_to_viewport(int x, int y)$/;"	f
+cap_vec	lighting.c	/^static void cap_vec(t_vec3 *vec)$/;"	f	file:
 cleanup_and_quit	main.c	/^int		cleanup_and_quit()$/;"	f
 compute_cam_to_world_matrix	main.c	/^t_matrix3x3	compute_cam_to_world_matrix(t_vec3 camera_direction)$/;"	f
 compute_cylinder_lighting	lighting.c	/^t_color	compute_cylinder_lighting(t_vec3 *ray, t_vec3 *eye, t_cylinder *cylinder, double parameter)$/;"	f
-compute_lighting	lighting.c	/^double 	compute_lighting(t_vec3 hit_point, t_vec3 normal)$/;"	f
+compute_lighting	lighting.c	/^t_vec3 	compute_lighting(t_vec3 hit_point, t_vec3 normal)$/;"	f
 compute_plane_lighting	intersect_plane.c	/^t_color	compute_plane_lighting(t_vec3 *ray, t_vec3 *eye, t_plane *plane, double parameter)$/;"	f
 compute_ray_color	lighting.c	/^t_color	compute_ray_color(t_vec3 *ray, t_vec3 *eye, t_object *object, double parameter)$/;"	f
 compute_sphere_lighting	lighting.c	/^t_color	compute_sphere_lighting(t_vec3 *ray, t_vec3 *eye, t_sphere *sphere, double parameter)$/;"	f
@@ -20,6 +22,7 @@ create_images	images.c	/^void    create_images()$/;"	f
 cross_product	vector_operation.c	/^t_vec3	cross_product(t_vec3 a, struct s_vec3 b)$/;"	f
 die	error.c	/^void die(const char* error_text)$/;"	f
 diralloc	libft/ft_split.c	/^static char			**diralloc(const char *s, char c)$/;"	f	file:
+distribute_colors	colors.c	/^t_vec3	distribute_colors(t_color color)$/;"	f
 dot	vector_operation.c	/^double dot(t_vec3 u, t_vec3 v)$/;"	f
 env	main.c	/^t_env	env;$/;"	v
 free_camera_list	error.c	/^void free_camera_list(t_cam *camera)$/;"	f
@@ -121,7 +124,6 @@ put_pixel_to_image	main.c	/^void	put_pixel_to_image(struct s_image *image, int x
 render	main.c	/^void		render(struct s_image image)$/;"	f
 render_image_list	main.c	/^void		render_image_list(struct s_image *images)$/;"	f
 scale_by	vector_operation.c	/^t_vec3	scale_by(t_vec3 vector, double scalar)$/;"	f
-scale_color_by	vector_operation.c	/^t_color	scale_color_by(t_color color, double scalar)$/;"	f
 skip_blank	parse_values.c	/^void	skip_blank(char **input)$/;"	f
 skip_blank_and_one_comma	parse_values.c	/^void	skip_blank_and_one_comma(char **input)$/;"	f
 skip_set	parse_values.c	/^void	skip_set(char **input, const char *set)$/;"	f

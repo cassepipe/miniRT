@@ -54,18 +54,34 @@ void parse_file_into_env()
 	close(fd);
 }
 
-void	parse_ambl(char **input)
-{
-	printf("Parsing ambient light...\n");
-	skip_blank(input);
-	env.ambl_ratio = parse_double(input);
-	env.ambl_color = parse_color(input);
-}
-
 void parse_res(char **input)
 {
 	env.res_x = parse_double(input);
 	env.res_y = parse_double(input);
+}
+void	parse_ambl(char **input)
+{
+	printf("Parsing ambient light...\n");
+	skip_blank(input);
+	env.ambl_intensity = parse_double(input);
+	env.ambl_color = parse_color(input);
+	env.ambl_distrib = distribute_colors(env.ambl_color);
+	env.ambl_distrib = scale_by(env.ambl_distrib, env.ambl_intensity);
+}
+
+void parse_light(char **input)
+{
+	t_light *new_light;
+
+	printf("Parsing light...\n");
+	new_light = malloc(sizeof(t_light));
+	new_light->origin = parse_vec(input);
+	new_light->intensity = parse_double(input);
+	new_light->color = parse_color(input);
+	new_light->color_distribution = distribute_colors(new_light->color);
+	new_light->color_distribution = scale_by(new_light->color_distribution, new_light->intensity);
+	new_light->next = env.lights;
+	env.lights = new_light;
 }
 
 void parse_cam(char **input)
@@ -81,17 +97,4 @@ void parse_cam(char **input)
 	new_cam->next = env.cameras;
 	env.cameras = new_cam;
 	env.number_of_cams++;
-}
-
-void parse_light(char **input)
-{
-	t_light *new_light;
-
-	printf("Parsing light...\n");
-	new_light = malloc(sizeof(t_light));
-	new_light->origin = parse_vec(input);
-	new_light->ratio = parse_double(input);
-	new_light->color = parse_color(input);
-	new_light->next = env.lights;
-	env.lights = new_light;
 }

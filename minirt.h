@@ -49,6 +49,7 @@ t_color		compute_ray_color(t_vec3 *ray, t_vec3 *eye, t_object *object, double pa
 t_color		compute_sphere_lighting(t_vec3 *ray, t_vec3 *eye, t_sphere *sphere, double parameter);
 t_color		compute_cylinder_lighting(t_vec3 *ray, t_vec3 *eye, t_cylinder *cylinder, double parameter);
 t_color		compute_plane_lighting(t_vec3 *ray, t_vec3 *eye, t_plane *plane, double parameter);
+t_color		compute_triangle_lighting(t_vec3 *ray, t_vec3 *eye, t_triangle *triangle, double parameter);
 t_vec3		compute_lighting(t_vec3 hit_point, t_vec3 normal);
 void		put_pixel_to_image(struct s_image *image, int x, int y, int color);
 double		vec_len(t_vec3	v);

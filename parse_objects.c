@@ -78,14 +78,21 @@ void parse_cy(char **input)
 
 void parse_tr(char **input)
 {
-	t_object			*new_object;
-	t_triangle		*new_triangle;
+	t_object	*new_object;
+	t_triangle	*new_triangle;
+	t_vec3		p1p2;
+	t_vec3		p1p3;
 
 	new_triangle = malloc(sizeof(t_square));
 	new_triangle->p1 = parse_vec(input);
 	new_triangle->p2 = parse_vec(input);
 	new_triangle->p3 = parse_vec(input);
 	new_triangle->color = parse_color(input);
+
+	p1p2 = substract_vec3(new_triangle->p2, new_triangle->p1);
+	p1p3 = substract_vec3(new_triangle->p3, new_triangle->p1);
+	new_triangle->normal = cross_product(p1p2, p1p3);
+	new_triangle->normal = normalize(new_triangle->normal);
 
 	new_object = malloc(sizeof(t_object));
 	new_object->id = TRIANGLE;

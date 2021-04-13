@@ -64,16 +64,10 @@ bool	is_inside_triangle(t_vec3 hit_point, t_triangle *tr)
 bool	intersect_ray_with_triangle(t_vec3 *eye, t_vec3 *ray, t_triangle *triangle, double *t, double tmin, double tmax)
 {
 	bool	has_hit;
-	t_vec3	p1p2;
-	t_vec3	p1p3;
 	t_vec3	hit_point;
 	t_plane plane;
 
-	p1p2 = substract_vec3(triangle->p2, triangle->p1);
-	p1p3 = substract_vec3(triangle->p3, triangle->p1);
-	plane.normal = cross_product(p1p2, p1p3);
-	plane.normal = normalize(plane.normal);
-
+	plane.normal = triangle->normal;
 	plane.some_point = triangle->p1;
 
 	has_hit = intersect_ray_with_plane(eye, ray, &plane, t, tmin, tmax);

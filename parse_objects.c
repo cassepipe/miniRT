@@ -89,6 +89,7 @@ void parse_tr(char **input)
 
 	new_object = malloc(sizeof(t_object));
 	new_object->id = TRIANGLE;
+	new_object->data = new_triangle;
 	new_object->next = env.objects;
 	env.objects = new_object;
 }

@@ -66,6 +66,6 @@ void die(const char* error_text)
 {
 //	mlx_destroy_window(env.mlx_session, env.window);
 	free_env(&env);
-	fprintf(stderr, error_text);
+	fputs(error_text, stderr);
 	exit(EXIT_FAILURE);
 }

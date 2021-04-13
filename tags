@@ -92,11 +92,16 @@ intersect_ray_with_cylinder	intersect_cylinder.c	/^bool			intersect_ray_with_cyl
 intersect_ray_with_object	main.c	/^bool		intersect_ray_with_object(t_vec3 *eye, t_vec3 *ray, t_object *object, double *solution, double tmin, double tmax)$/;"	f
 intersect_ray_with_plane	intersect_plane.c	/^bool	intersect_ray_with_plane(t_vec3 *eye, t_vec3 *ray, t_plane *plane, double *t, double tmin, double tmax)$/;"	f
 intersect_ray_with_sphere	intersect_sphere.c	/^bool		intersect_ray_with_sphere(t_vec3 * O,  t_vec3 *ray, t_sphere *sphere, double *t,$/;"	f
+intersect_ray_with_triangle	intersect_triangle.c	/^bool	intersect_ray_with_triangle(t_vec3 *eye, t_vec3 *ray, t_triangle *triangle, double *t, double tmin, double tmax)$/;"	f
 invert_matrix3x3	matrices.c	/^t_matrix3x3		invert_matrix3x3(t_matrix3x3 matrix)$/;"	f
 is_in	parse_values.c	/^int		is_in(char c, const char *set)$/;"	f
 is_in_set	libft/ft_strtrim.c	/^static int	is_in_set(char c, char const *set)$/;"	f	file:
+is_in_the_box	intersect_triangle.c	/^bool	is_in_the_box(t_vec3 hit_point, t_triangle *tr)$/;"	f
 is_inside_cyl	intersect_cylinder.c	/^static bool		is_inside_cyl(t_vec3 *eye, t_cylinder *cylinder, t_vec3 *ray, double t)$/;"	f	file:
+is_inside_triangle	intersect_triangle.c	/^bool	is_inside_triangle(t_vec3 hit_point, t_triangle *tr)$/;"	f
 main	main.c	/^int			main(int argc, char *argv[])$/;"	f
+max	intersect_triangle.c	/^static double max(double a, double b, double c)$/;"	f	file:
+min	intersect_triangle.c	/^static double min(double a, double b, double c)$/;"	f	file:
 mult_matrix3x3_vec3	matrices.c	/^t_vec3			mult_matrix3x3_vec3(t_matrix3x3 matrix, t_vec3 v)$/;"	f
 new_vec3	vector_operation.c	/^t_vec3 new_vec3(double x, double y, double z)$/;"	f
 next_sep	libft/ft_split.c	/^static const char	*next_sep(const char *str, char sep)$/;"	f	file:

@@ -103,6 +103,7 @@ int		cleanup_and_quit()
 
 int		handle_keypress(int keycode, void *params)
 {
+	(void)params;
 	if (keycode == SPACE)
 	{
 		env.displayed_image = env.displayed_image->next;
@@ -248,6 +249,8 @@ bool		intersect_ray_with_object(t_vec3 *eye, t_vec3 *ray, t_object *object, doub
 		return	(intersect_ray_with_cylinder(eye, ray, (t_cylinder*)(object->data), solution, tmin, tmax));
 	if (object->id == PLANE)
 		return	(intersect_ray_with_plane(eye, ray, (t_plane*)(object->data), solution, tmin, tmax));
+	if (object->id == TRIANGLE)
+		return	(intersect_ray_with_triangle(eye, ray, (t_triangle*)(object->data), solution, tmin, tmax));
 	else
 		die("Intersection impossible : Unrecognized object type");
 	return (0);
@@ -276,6 +279,7 @@ t_color get_object_color(t_object *object)
 	if (object->id == TRIANGLE)
 		return ((t_sphere*)object->data)->color;
 	die("Wrong object id while in get_obj_color");
+	return ((t_color){255,255,255});
 }
 
 void prints(struct s_object *object)

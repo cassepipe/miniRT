@@ -38,6 +38,7 @@ bool		intersect_ray_with_object(t_vec3 *eye, t_vec3 *ray, t_object *object, doub
 bool		intersect_ray_with_sphere(t_vec3 *eye, t_vec3 *ray, t_sphere *sphere, double *solution, double tmin, double tmax);
 bool		intersect_ray_with_cylinder(t_vec3 *eye, t_vec3 *ray, t_cylinder *cylinder, double *t, double tmin, double tmax);
 bool		intersect_ray_with_plane(t_vec3 *eye, t_vec3 *ray, t_plane *plane, double *t, double tmin, double tmax);
+bool		intersect_ray_with_triangle(t_vec3 *eye, t_vec3 *ray, t_triangle *triangle, double *t, double tmin, double tmax);
 t_color		get_object_color(t_object *object);
 int			get_color_as_int(t_color color);
 t_vec3		substract_vec3(t_vec3 point1, t_vec3 point2);

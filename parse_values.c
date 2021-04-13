@@ -118,11 +118,9 @@ int parse_int_or_die(char **input)
 {
 	char	*neg;
 	int		ret;
-	double  div;
 
 	neg = NULL;
 	ret = 0;
-	div = 1;
 	if (**input == '-')
 		neg = (*input)++;
 	if (!ft_isdigit(**input))

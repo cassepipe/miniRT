@@ -335,4 +335,16 @@ void prints(struct s_object *object)
 		printf("RGB is (%d, %d, %d)\t", sphere->color.red, sphere->color.green, sphere->color.blue);
 		printf("\n");
 	}
+	else if (object->id == TRIANGLE)
+	{
+		t_triangle* triangle;
+		triangle = object->data;
+
+		printf("Triangle:\t\t\n");
+		printf("Point 1 is at (%.1f, %.1f, %.1f)\t\n", triangle->p1.x, triangle->p1.y, triangle->p1.z);
+		printf("Point 2 is at (%.1f, %.1f, %.1f)\t\n", triangle->p2.x, triangle->p2.y, triangle->p2.z);
+		printf("Point 3 is at (%.1f, %.1f, %.1f)\t\n", triangle->p3.x, triangle->p3.y, triangle->p3.z);
+		printf("RGB is (%d, %d, %d)\t", triangle->color.red, triangle->color.green, triangle->color.blue);
+		printf("\n");
+	}
 }

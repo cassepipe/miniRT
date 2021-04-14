@@ -130,6 +130,6 @@ int parse_int_or_die(char **input)
 		ret = ret * 10 + (**input - '0');
 	(*input)++;
 	}
-//	printf("RESULT is %f\n", neg ? -ret : ret);
+	printf("RESULT is %i\n", neg ? -ret : ret);
 	return (neg ? -ret : ret);
 }

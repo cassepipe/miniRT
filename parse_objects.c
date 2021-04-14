@@ -62,7 +62,7 @@ void parse_cy(char **input)
 	t_cylinder		*new_cylinder;
 
 	printf("Parsing cylinder...\n");
-	new_cylinder = malloc(sizeof(t_square));
+	new_cylinder = malloc(sizeof(t_cylinder));
 	new_cylinder->base = parse_vec(input);
 	new_cylinder->dir = normalize(parse_vec(input));
 	new_cylinder->diameter = parse_double(input);
@@ -83,7 +83,8 @@ void parse_tr(char **input)
 	t_vec3		p1p2;
 	t_vec3		p1p3;
 
-	new_triangle = malloc(sizeof(t_square));
+	printf("Parsing triangle...");
+	new_triangle = malloc(sizeof(t_triangle));
 	new_triangle->p1 = parse_vec(input);
 	new_triangle->p2 = parse_vec(input);
 	new_triangle->p3 = parse_vec(input);

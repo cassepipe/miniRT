@@ -58,12 +58,19 @@ void parse_res(char **input)
 {
 	env.res_x = parse_double(input);
 	env.res_y = parse_double(input);
+	if (env.res_x > env.res_xmax)
+		env.res_x = env.res_xmax;
+	if (env.res_y > env.res_ymax)
+		env.res_y = env.res_ymax;
 }
 void	parse_ambl(char **input)
 {
 	printf("Parsing ambient light...\n");
 	skip_blank(input);
 	env.ambl_intensity = parse_double(input);
+	if (env.ambl_intensity < 0
+		|| env.ambl_intensity > 1)
+		die("Error : Light intensity not in range");
 	env.ambl_color = parse_color(input);
 	env.ambl_distrib = distribute_colors(env.ambl_color);
 	env.ambl_distrib = scale_by(env.ambl_distrib, env.ambl_intensity);
@@ -77,6 +84,9 @@ void parse_light(char **input)
 	new_light = malloc(sizeof(t_light));
 	new_light->origin = parse_vec(input);
 	new_light->intensity = parse_double(input);
+	if (new_light->intensity < 0
+		|| new_light->intensity > 1)
+		die("Error : Light intensity not in range");
 	new_light->color = parse_color(input);
 	new_light->color_distribution = distribute_colors(new_light->color);
 	new_light->color_distribution = scale_by(new_light->color_distribution, new_light->intensity);

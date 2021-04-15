@@ -60,6 +60,11 @@ int			main(int argc, char *argv[])
 	env.scene_path = argv[1];
 
 	init_env();
+
+	//Get screen size
+	mlx_get_screen_size(env.mlx_session, &env.res_xmax, &env.res_ymax);
+
+	//Parsing
 	parse_file_into_env();
 
 	//Check parsing

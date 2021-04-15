@@ -82,7 +82,7 @@ typedef	struct s_plane {
 
 typedef	struct s_square {
 	t_vec3		center;
-	t_vec3		dir;
+	t_vec3		normal;
 	double		side_len;
 	t_color		color;
 } t_square;

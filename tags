@@ -18,6 +18,8 @@ compute_lighting	lighting.c	/^t_vec3 	compute_lighting(t_vec3 hit_point, t_vec3 
 compute_plane_lighting	intersect_plane.c	/^t_color	compute_plane_lighting(t_vec3 *ray, t_vec3 *eye, t_plane *plane, double parameter)$/;"	f
 compute_ray_color	lighting.c	/^t_color	compute_ray_color(t_vec3 *ray, t_vec3 *eye, t_object *object, double parameter)$/;"	f
 compute_sphere_lighting	lighting.c	/^t_color	compute_sphere_lighting(t_vec3 *ray, t_vec3 *eye, t_sphere *sphere, double parameter)$/;"	f
+compute_square_lighting	lighting.c	/^t_color		compute_square_lighting(t_vec3 *ray, t_vec3 *eye, t_square *square, double parameter)$/;"	f
+compute_square_lighting	square.c	/^t_color		compute_square_lighting(t_vec3 *ray, t_vec3 *eye, t_square *square, double parameter)$/;"	f
 compute_triangle_lighting	lighting.c	/^t_color	compute_triangle_lighting(t_vec3 *ray, t_vec3 *eye, t_triangle *triangle, double parameter)$/;"	f
 create_images	images.c	/^void    create_images()$/;"	f
 cross_product	vector_operation.c	/^t_vec3	cross_product(t_vec3 a, struct s_vec3 b)$/;"	f
@@ -93,12 +95,14 @@ intersect_ray_with_cylinder	intersect_cylinder.c	/^bool			intersect_ray_with_cyl
 intersect_ray_with_object	main.c	/^bool		intersect_ray_with_object(t_vec3 *eye, t_vec3 *ray, t_object *object, double *solution, double tmin, double tmax)$/;"	f
 intersect_ray_with_plane	intersect_plane.c	/^bool	intersect_ray_with_plane(t_vec3 *eye, t_vec3 *ray, t_plane *plane, double *t, double tmin, double tmax)$/;"	f
 intersect_ray_with_sphere	intersect_sphere.c	/^bool		intersect_ray_with_sphere(t_vec3 * O,  t_vec3 *ray, t_sphere *sphere, double *t,$/;"	f
+intersect_ray_with_square	square.c	/^bool intersect_ray_with_square(t_vec3 *eye, t_vec3 *ray, t_square *square, double *t, double tmin, double tmax)$/;"	f
 intersect_ray_with_triangle	intersect_triangle.c	/^bool	intersect_ray_with_triangle(t_vec3 *eye, t_vec3 *ray, t_triangle *triangle, double *t, double tmin, double tmax)$/;"	f
 invert_matrix3x3	matrices.c	/^t_matrix3x3		invert_matrix3x3(t_matrix3x3 matrix)$/;"	f
 is_in	parse_values.c	/^int		is_in(char c, const char *set)$/;"	f
 is_in_set	libft/ft_strtrim.c	/^static int	is_in_set(char c, char const *set)$/;"	f	file:
 is_in_the_box	intersect_triangle.c	/^bool	is_in_the_box(t_vec3 hit_point, t_triangle *tr)$/;"	f
 is_inside_cyl	intersect_cylinder.c	/^static bool		is_inside_cyl(t_vec3 *eye, t_cylinder *cylinder, t_vec3 *ray, double t)$/;"	f	file:
+is_inside_square	square.c	/^static bool	is_inside_square(t_vec3 hit_point , t_square *square)$/;"	f	file:
 is_inside_triangle	intersect_triangle.c	/^bool	is_inside_triangle(t_vec3 hit_point, t_triangle *tr)$/;"	f
 main	main.c	/^int			main(int argc, char *argv[])$/;"	f
 max	intersect_triangle.c	/^static double max(double a, double b, double c)$/;"	f	file:

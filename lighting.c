@@ -10,6 +10,8 @@ t_color	compute_ray_color(t_vec3 *ray, t_vec3 *eye, t_object *object, double par
 		return	(compute_plane_lighting(ray, eye, (t_plane*)(object->data), parameter));
 	if (object->id == TRIANGLE)
 		return	(compute_triangle_lighting(ray, eye, (t_triangle*)(object->data), parameter));
+	if (object->id == SQUARE)
+		return	(compute_square_lighting(ray, eye, (t_square*)(object->data), parameter));
 	else
 		die("Could not compute lighting: Unrecognized object type");
 	return (struct s_color){255,255,255};
@@ -112,4 +114,19 @@ t_color	compute_triangle_lighting(t_vec3 *ray, t_vec3 *eye, t_triangle *triangle
 													scale_by(triangle->normal, -1))));
 		else
 			return (apply_lighting(triangle->color, compute_lighting(hit_point, triangle->normal)));
+}
+
+t_color		compute_square_lighting(t_vec3 *ray, t_vec3 *eye, t_square *square, double parameter)
+{
+		t_vec3 hit_point;
+
+		hit_point = scale_by(*ray, parameter);
+		hit_point = add_vec(*eye, hit_point);
+
+		if (dot(square->normal, *ray) > 0)
+			return (apply_lighting(square->color,
+									compute_lighting(hit_point,
+													scale_by(square->normal, -1))));
+		else
+			return (apply_lighting(square->color, compute_lighting(hit_point, square->normal)));
 }

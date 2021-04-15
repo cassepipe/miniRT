@@ -251,6 +251,8 @@ bool		intersect_ray_with_object(t_vec3 *eye, t_vec3 *ray, t_object *object, doub
 		return	(intersect_ray_with_plane(eye, ray, (t_plane*)(object->data), solution, tmin, tmax));
 	if (object->id == TRIANGLE)
 		return	(intersect_ray_with_triangle(eye, ray, (t_triangle*)(object->data), solution, tmin, tmax));
+	if (object->id == SQUARE)
+		return	(intersect_ray_with_square(eye, ray, (t_square*)(object->data), solution, tmin, tmax));
 	else
 		die("Intersection impossible : Unrecognized object type");
 	return (0);
@@ -295,7 +297,7 @@ void prints(struct s_object *object)
 
 		printf("Square:\t\t");
 		printf("Center is at (%.1f, %.1f, %.1f)\t", square->center.x, square->center.y, square->center.x);
-		printf("Orientation vector is (%.1f, %.1f, %.1f)\t", square->dir.x, square->dir.y, square->dir.z);
+		printf("Orientation vector is (%.1f, %.1f, %.1f)\t", square->normal.x, square->normal.y, square->normal.z);
 		printf("Side lenght is %.1f\t", square->side_len);
 		printf("RGB is (%d, %d, %d)\t", square->color.red, square->color.green, square->color.blue);
 		printf("\n");

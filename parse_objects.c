@@ -45,7 +45,7 @@ void parse_sq(char **input)
 
 	new_square = malloc(sizeof(t_square));
 	new_square->center = parse_vec(input);
-	new_square->dir = parse_vec(input);
+	new_square->normal = parse_vec(input);
 	new_square->side_len = parse_double(input);
 	new_square->color = parse_color(input);
 

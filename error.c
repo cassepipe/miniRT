@@ -12,10 +12,12 @@ void free_camera_list(t_cam *camera)
 	}
 }
 
-void free_light_list(t_light *light)
+void free_light_list()
 {
+	t_light *light;
 	t_light *next_object;
 
+	light = env.lights;
 	while (light != NULL)
 	{
 		next_object = light->next;
@@ -56,7 +58,7 @@ void free_object_list(t_object *object)
 void free_env(t_env *env)
 {
 	free_object_list(env->objects);
-	free_light_list(env->lights);
+	free_light_list();
 	free_camera_list(env->cameras);
 	free_image_list(env->images);
 }

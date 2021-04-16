@@ -26,6 +26,7 @@
 #define TAB						0xff09
 #define DESTROY_NOTIFY			17	
 #define	STRUCTURE_NOTIFY_MASK 	1L << 17
+#define BMP_HEADER_SIZE			54
 
 extern t_env env;
 
@@ -76,10 +77,11 @@ t_vec3			mult_matrix3x3_vec3(t_matrix3x3 mat, t_vec3 v);
 
 void free_env(t_env *env);
 void free_object_list(t_object *objects);
-void free_light_list(t_light *lights);
+void free_light_list();
 void free_camera_list(t_cam *cameras);
 
 int		handle_keypress(int keycode, void *params);
 int		cleanup_and_quit();
+void	create_bmp();
 
 #endif

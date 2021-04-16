@@ -11,6 +11,7 @@ apply_rotation_to_ray	main.c	/^t_vec3	apply_rotation_to_ray(t_vec3 ray, t_matrix
 autodot	main.c	/^double	autodot(t_vec3 v)$/;"	f
 canvas_to_viewport	main.c	/^t_vec3		canvas_to_viewport(int x, int y)$/;"	f
 cap_vec	lighting.c	/^static void cap_vec(t_vec3 *vec)$/;"	f	file:
+check_args	main.c	/^void		check_args(int argc, char *argv[])$/;"	f
 cleanup_and_quit	main.c	/^int		cleanup_and_quit()$/;"	f
 compute_cam_to_world_matrix	main.c	/^t_matrix3x3	compute_cam_to_world_matrix(t_vec3 camera_direction)$/;"	f
 compute_cylinder_lighting	lighting.c	/^t_color	compute_cylinder_lighting(t_vec3 *ray, t_vec3 *eye, t_cylinder *cylinder, double parameter)$/;"	f
@@ -20,6 +21,7 @@ compute_ray_color	lighting.c	/^t_color	compute_ray_color(t_vec3 *ray, t_vec3 *ey
 compute_sphere_lighting	lighting.c	/^t_color	compute_sphere_lighting(t_vec3 *ray, t_vec3 *eye, t_sphere *sphere, double parameter)$/;"	f
 compute_square_lighting	lighting.c	/^t_color		compute_square_lighting(t_vec3 *ray, t_vec3 *eye, t_square *square, double parameter)$/;"	f
 compute_triangle_lighting	lighting.c	/^t_color	compute_triangle_lighting(t_vec3 *ray, t_vec3 *eye, t_triangle *triangle, double parameter)$/;"	f
+create_bmp	main.c	/^void	create_bmp()$/;"	f
 create_images	images.c	/^void    create_images()$/;"	f
 cross_product	vector_operation.c	/^t_vec3	cross_product(t_vec3 a, struct s_vec3 b)$/;"	f
 die	error.c	/^void die(const char* error_text)$/;"	f
@@ -30,7 +32,7 @@ env	main.c	/^t_env	env;$/;"	v
 free_camera_list	error.c	/^void free_camera_list(t_cam *camera)$/;"	f
 free_env	error.c	/^void free_env(t_env *env)$/;"	f
 free_image_list	error.c	/^void free_image_list(struct s_image *image)$/;"	f
-free_light_list	error.c	/^void free_light_list(t_light *light)$/;"	f
+free_light_list	error.c	/^void free_light_list()$/;"	f
 free_object_list	error.c	/^void free_object_list(t_object *object)$/;"	f
 ft_10powerof	libft/ft_itoa.c	/^static long	ft_10powerof(long n)$/;"	f	file:
 ft_10powerof	libft/ft_putnbr_fd.c	/^static long	ft_10powerof(long n)$/;"	f	file:
@@ -82,6 +84,7 @@ ft_strtrim	libft/ft_strtrim.c	/^char		*ft_strtrim(char const *s1, char const *se
 ft_substr	libft/ft_substr.c	/^char		*ft_substr(char const *s, unsigned int start, size_t len)$/;"	f
 ft_tolower	libft/ft_tolower.c	/^int	ft_tolower(int c)$/;"	f
 ft_toupper	libft/ft_toupper.c	/^int	ft_toupper(int c)$/;"	f
+get_bmp_header	main.c	/^void	get_bmp_header(char *header)$/;"	f
 get_color_as_int	main.c	/^int			get_color_as_int(t_color color)$/;"	f
 get_next_line	libft/get_next_line.c	/^int			get_next_line(int fd, char **line)$/;"	f
 get_object_color	main.c	/^t_color get_object_color(t_object *object)$/;"	f

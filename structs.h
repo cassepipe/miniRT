@@ -108,6 +108,7 @@ typedef struct s_env
 	void				*mlx_session;
 	void				*window;
 	char				*scene_path;	
+	bool				bmp_mode;
 	int					number_of_cams;
 	int					res_x;
 	int					res_y;

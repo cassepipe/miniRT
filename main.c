@@ -9,6 +9,7 @@ void		init_env()
 	env.lights = NULL;
 	env.images = NULL;
 	env.number_of_cams = 0;
+	env.bmp_mode = false;
 }
 
 void		render(struct s_image image)
@@ -48,21 +49,40 @@ void		render_image_list(struct s_image *images)
 	}
 }
 
+void		check_args(int argc, char *argv[])
+{
+	if (argc != 2)
+	{
+		if (argc == 3)
+		{
+			if (!strcmp(argv[2], "--save"))
+				env.bmp_mode = true;
+			else
+				die("Too many arguments ");
+		}
+		else if (argc == 1)
+			die("You must provide an .rt file");
+		else
+			die("Too many arguments ");
+	}
+}
+
 int			main(int argc, char *argv[])
 {
 
-	if (argc != 2)
-	{
-		perror("You have not provided any arguments");
-		return (0);
-	}
+	init_env();
+	check_args(argc, argv);
 
 	env.scene_path = argv[1];
 
-	init_env();
+	//Init X session
+	env.mlx_session = mlx_init();
+	if (env.mlx_session == NULL)
+		die("Failed to set up connection to X server");
 
 	//Get screen size
 	mlx_get_screen_size(env.mlx_session, &env.res_xmax, &env.res_ymax);
+
 
 	//Parsing
 	parse_file_into_env();
@@ -76,9 +96,6 @@ int			main(int argc, char *argv[])
 	}
 
 	//Create window
-	env.mlx_session = mlx_init();
-	if (env.mlx_session == NULL)
-		die("Failed to set up connection to X server");
 	env.window = mlx_new_window(env.mlx_session, env.res_x, env.res_y, "miniRT");
 
 	//Create image
@@ -87,14 +104,21 @@ int			main(int argc, char *argv[])
 	//Rendering
 	render_image_list(env.images);
 
-	mlx_put_image_to_window(env.mlx_session, env.window, env.images->mlx_handle, 0, 0);
+	if (env.bmp_mode)
+	{
+		create_bmp();
+	}
+	else
+	{
+		mlx_put_image_to_window(env.mlx_session, env.window, env.images->mlx_handle, 0, 0);
 
-	//Hooking
-	mlx_key_hook(env.window, &handle_keypress, NULL);
-	mlx_hook(env.window, DESTROY_NOTIFY, STRUCTURE_NOTIFY_MASK , &cleanup_and_quit, NULL);
+		//Hooking
+		mlx_key_hook(env.window, &handle_keypress, NULL);
+		mlx_hook(env.window, DESTROY_NOTIFY, STRUCTURE_NOTIFY_MASK , &cleanup_and_quit, NULL);
 
-	//Looping
-	mlx_loop(env.mlx_session);
+		//Looping
+		mlx_loop(env.mlx_session);
+	}
 
 	return (0);
 }
@@ -122,6 +146,33 @@ int		handle_keypress(int keycode, void *params)
 	return (0);
 }
 
+void	get_bmp_header(char *header)
+{
+	header[0] = 'B';
+	header[1] = 'M';
+}
+
+void	create_bmp()
+{
+	int				fd;
+	struct s_image *image;
+	size_t			data_size;
+	char			header[BMP_HEADER_SIZE];
+
+	image = env.images;
+	data_size = env.res_x * env.res_y;
+	while (image != NULL)
+	{
+		fd = open("image.bmp", O_WRONLY | O_CREAT);
+		if (fd < 0)
+			die("Could not create bmp file\n");
+		get_bmp_header(header);
+		write(fd, header, BMP_HEADER_SIZE);
+		write(fd, image->data, data_size);
+		image = image->next;
+		close(fd);
+	}
+}
 
 t_vec3	apply_rotation_to_ray(t_vec3 ray, t_matrix3x3 rot_matrix)
 {

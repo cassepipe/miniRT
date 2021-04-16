@@ -6,7 +6,7 @@
 #    By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/23 16:37:33 by tpouget           #+#    #+#              #
-#    Updated: 2021/04/13 18:20:04 by tpouget          ###   ########.fr        #
+#    Updated: 2021/04/16 16:51:25 by tpouget          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ HEADERS			=	$(wildcard *.h)
 	
 CFLAGS			=	-Wall -Wextra -g3
 
-CC	  		  	= 	 clang
+CC	  		  	= 	 gcc
 
 SANITIZER		=	 -fsanitize=address
 

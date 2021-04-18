@@ -4,12 +4,24 @@ t_env	env;
 
 void		init_env()
 {
-	env.objects = NULL;
-	env.cameras = NULL;
-	env.lights = NULL;
-	env.images = NULL;
-	env.number_of_cams = 0;
+	env.mlx_session = NULL;
+	env.window = NULL;
+	env.scene_path = NULL;
 	env.bmp_mode = false;
+	env.number_of_cams = 0;
+	env.res_x = 0;
+	env.res_y = 0;
+	env.res_xmax = 0;
+	env.res_ymax = 0;
+	env.ambl_intensity = 0;
+	env.ambl_color = (t_color){.red = 0, .green = 0, .blue = 0};
+	env.ambl_distrib = (t_vec3){.x = 0, .y = 0, .z = 0};
+	env.lights = NULL;
+	env.cameras = NULL;
+	env.cameras = NULL;
+	env.images = NULL;
+	env.displayed_image = NULL;
+	env.objects = NULL;
 }
 
 void		render(struct s_image image)
@@ -95,9 +107,6 @@ int			main(int argc, char *argv[])
 		cur = cur->next;
 	}
 
-	//Create window
-	env.window = mlx_new_window(env.mlx_session, env.res_x, env.res_y, "miniRT");
-
 	//Create image
 	create_images();
 
@@ -110,6 +119,9 @@ int			main(int argc, char *argv[])
 	}
 	else
 	{
+		//Create window
+		env.window = mlx_new_window(env.mlx_session, env.res_x, env.res_y, "miniRT");
+
 		mlx_put_image_to_window(env.mlx_session, env.window, env.images->mlx_handle, 0, 0);
 
 		//Hooking
@@ -144,34 +156,6 @@ int		handle_keypress(int keycode, void *params)
 		exit(EXIT_SUCCESS);
 	}
 	return (0);
-}
-
-void	get_bmp_header(char *header)
-{
-	header[0] = 'B';
-	header[1] = 'M';
-}
-
-void	create_bmp()
-{
-	int				fd;
-	struct s_image *image;
-	size_t			data_size;
-	char			header[BMP_HEADER_SIZE];
-
-	image = env.images;
-	data_size = env.res_x * env.res_y;
-	while (image != NULL)
-	{
-		fd = open("image.bmp", O_WRONLY | O_CREAT);
-		if (fd < 0)
-			die("Could not create bmp file\n");
-		get_bmp_header(header);
-		write(fd, header, BMP_HEADER_SIZE);
-		write(fd, image->data, data_size);
-		image = image->next;
-		close(fd);
-	}
 }
 
 t_vec3	apply_rotation_to_ray(t_vec3 ray, t_matrix3x3 rot_matrix)

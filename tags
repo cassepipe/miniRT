@@ -21,7 +21,8 @@ compute_ray_color	lighting.c	/^t_color	compute_ray_color(t_vec3 *ray, t_vec3 *ey
 compute_sphere_lighting	lighting.c	/^t_color	compute_sphere_lighting(t_vec3 *ray, t_vec3 *eye, t_sphere *sphere, double parameter)$/;"	f
 compute_square_lighting	lighting.c	/^t_color		compute_square_lighting(t_vec3 *ray, t_vec3 *eye, t_square *square, double parameter)$/;"	f
 compute_triangle_lighting	lighting.c	/^t_color	compute_triangle_lighting(t_vec3 *ray, t_vec3 *eye, t_triangle *triangle, double parameter)$/;"	f
-create_bmp	main.c	/^void	create_bmp()$/;"	f
+create_bmp	bitmap.c	/^void	create_bmp()$/;"	f
+create_filename	bitmap.c	/^static char *create_filename(int file_number)$/;"	f	file:
 create_images	images.c	/^void    create_images()$/;"	f
 cross_product	vector_operation.c	/^t_vec3	cross_product(t_vec3 a, struct s_vec3 b)$/;"	f
 die	error.c	/^void die(const char* error_text)$/;"	f
@@ -84,7 +85,8 @@ ft_strtrim	libft/ft_strtrim.c	/^char		*ft_strtrim(char const *s1, char const *se
 ft_substr	libft/ft_substr.c	/^char		*ft_substr(char const *s, unsigned int start, size_t len)$/;"	f
 ft_tolower	libft/ft_tolower.c	/^int	ft_tolower(int c)$/;"	f
 ft_toupper	libft/ft_toupper.c	/^int	ft_toupper(int c)$/;"	f
-get_bmp_header	main.c	/^void	get_bmp_header(char *header)$/;"	f
+g_bmp_header	bitmap.c	/^static t_bmp_header g_bmp_header = (t_bmp_header){$/;"	v	file:
+get_bmp_data_from_image	bitmap.c	/^char	*get_bmp_data_from_image(char* data, size_t data_size)$/;"	f
 get_color_as_int	main.c	/^int			get_color_as_int(t_color color)$/;"	f
 get_next_line	libft/get_next_line.c	/^int			get_next_line(int fd, char **line)$/;"	f
 get_object_color	main.c	/^t_color get_object_color(t_object *object)$/;"	f

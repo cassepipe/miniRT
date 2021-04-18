@@ -12,21 +12,13 @@
 # include <fcntl.h>
 # include <mlx.h>
 # include <math.h>
+# include <stdint.h>
 
 # include "structs.h"
 # include "parse.h"
 # include "error.h"
 
-
 # include "libft/libft.h"
-
-#define EPSILON 				0.00001
-#define ESC						0xff1b
-#define SPACE					0x20	
-#define TAB						0xff09
-#define DESTROY_NOTIFY			17	
-#define	STRUCTURE_NOTIFY_MASK 	1L << 17
-#define BMP_HEADER_SIZE			54
 
 extern t_env env;
 

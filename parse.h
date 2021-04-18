@@ -1,5 +1,5 @@
-/*#ifndef PARSE_H
-# define PARSE_H*/
+#ifndef PARSE_H
+# define PARSE_H
 
 #include "structs.h"
 
@@ -30,3 +30,4 @@ void	skip_blank_and_one_comma(char **input);
 void	skip_set(char **input, const char *set);
 
 
+#endif

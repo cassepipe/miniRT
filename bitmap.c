@@ -13,15 +13,15 @@ static t_bmp_header g_bmp_header = (t_bmp_header){
 	 .color_depth = 32,
 	 .compression_method = 0,
 	 .raw_bitmap_data_size = 0, // generally ignored
-	 .horizontal_resolution = 3780, // in pixel per meter
-	 .vertical_resolution = 3780, // in pixel per meter
+	 .horizontal_resolution = 0, // in pixel per meter
+	 .vertical_resolution = 0, // in pixel per meter
 	 .color_table_entries = 0,
 	 .important_colors = 0,
 };
 
 static char *create_filename(int file_number)
 {
-	const char		basename[] = "minirt_image_";
+	const char		basename[] = "minimage_";
 	const char		bmp_extension[] = ".bmp";
 	char			*filename;
 	char			*number;
@@ -56,15 +56,15 @@ void	create_bmp()
 	int				fd;
 	struct s_image *image;
 	size_t			data_size;
-	char			header[BMP_HEADER_SIZE];
 	char			*filename;
-	int			i;
+	int				i;
 	void			*bmp_data;
 
 	i = 0;
 	image = env.images;
 	data_size = env.res_x * env.res_y * sizeof(int);
 	g_bmp_header.size_of_bitmap_file = data_size + BMP_TOTAL_HEADER_SIZE;
+	g_bmp_header.raw_bitmap_data_size = data_size + BMP_TOTAL_HEADER_SIZE;
 	g_bmp_header.width = env.res_x;
 	g_bmp_header.height = -env.res_y;
 	while (i < env.number_of_cams)
@@ -74,7 +74,7 @@ void	create_bmp()
 		free(filename);
 		if (fd < 0)
 			die("Could not create bmp file\n");
-		write(fd, header, BMP_TOTAL_HEADER_SIZE);
+		write(fd, &g_bmp_header, BMP_TOTAL_HEADER_SIZE);
 		bmp_data = get_bmp_data_from_image(image->data, data_size);
 		write(fd, bmp_data, data_size);
 		free(bmp_data);

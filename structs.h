@@ -142,8 +142,8 @@ struct s_image {
 	struct 	s_image	*next;
 }	t_image;
 
-typedef struct bmp_header {
-	const char		bitmap_signature_bytes[2];
+typedef struct __attribute__((__packed__)) bmp_header {
+	char			bitmap_signature_bytes[2];
 	uint32_t		size_of_bitmap_file;
 	const uint32_t	reserved_bytes;
 	const uint32_t	pixel_data_offset;
@@ -153,7 +153,7 @@ typedef struct bmp_header {
 	const uint16_t	number_of_color_planes;
 	const uint16_t	color_depth;
 	const uint32_t	compression_method;
-	const uint32_t	raw_bitmap_data_size;
+	uint32_t		raw_bitmap_data_size;
 	const int32_t	horizontal_resolution;
 	const int32_t	vertical_resolution  ;
 	const uint32_t	color_table_entries  ;

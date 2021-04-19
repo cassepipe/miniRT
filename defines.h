@@ -8,3 +8,5 @@
 #define BMP_HEADER_SIZE			14
 #define BMP_INFO_HEADER_SIZE	40
 #define MAX_INTEGER_LEN			10
+#define COLOR_DEPTH				32	
+#define BYTE_SZ					8

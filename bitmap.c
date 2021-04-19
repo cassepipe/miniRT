@@ -7,14 +7,14 @@ static t_bmp_header g_bmp_header = (t_bmp_header){
 	 .reserved_bytes = 0,
 	 .pixel_data_offset = BMP_TOTAL_HEADER_SIZE,
 	 .size_of_info_header = BMP_INFO_HEADER_SIZE,
-	 .width = 0, // in pixels
-	 .height = 0, // in pixels
-	 .number_of_color_planes = 1, // must be 1
-	 .color_depth = 32,
+	 .width = 0,
+	 .height = 0,
+	 .number_of_color_planes = 1,
+	 .color_depth = COLOR_DEPTH,
 	 .compression_method = 0,
-	 .raw_bitmap_data_size = 0, // generally ignored
-	 .horizontal_resolution = 0, // in pixel per meter
-	 .vertical_resolution = 0, // in pixel per meter
+	 .raw_bitmap_data_size = 0,
+	 .horizontal_resolution = 0,
+	 .vertical_resolution = 0,
 	 .color_table_entries = 0,
 	 .important_colors = 0,
 };
@@ -51,7 +51,7 @@ static void	write_bmp_data(int fd, int *data)
 		x = 0;
 		while(x < env.res_x)
 		{
-			if((write(fd, &data[y * env.res_x + x], 4)) < 0)
+			if((write(fd, &data[y * env.res_x + x], COLOR_DEPTH / BYTE_SZ)) < 0)
 					die("Probem writing file");
 			x++;
 		}

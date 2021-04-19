@@ -10,7 +10,7 @@ static t_bmp_header g_bmp_header = (t_bmp_header){
 	 .width = 0, // in pixels
 	 .height = 0, // in pixels
 	 .number_of_color_planes = 1, // must be 1
-	 .color_depth = 24,
+	 .color_depth = 32,
 	 .compression_method = 0,
 	 .raw_bitmap_data_size = 0, // generally ignored
 	 .horizontal_resolution = 0, // in pixel per meter
@@ -100,7 +100,7 @@ void	write_bmp_data(int fd, char *data)
 		{
 			i = (x + env.res_x * y) * 4;
 			pixel = (int *)(data + i);
-			if (write(fd, pixel, 3) < 0)
+			if (write(fd, pixel, 4) < 0)
 			{
 				printf("x = %d, y = %d\n", x, y);
 				die("Error while writing file");

@@ -86,7 +86,7 @@ ft_substr	libft/ft_substr.c	/^char		*ft_substr(char const *s, unsigned int start
 ft_tolower	libft/ft_tolower.c	/^int	ft_tolower(int c)$/;"	f
 ft_toupper	libft/ft_toupper.c	/^int	ft_toupper(int c)$/;"	f
 g_bmp_header	bitmap.c	/^static t_bmp_header g_bmp_header = (t_bmp_header){$/;"	v	file:
-get_bmp_data_from_image	bitmap.c	/^char	*get_bmp_data_from_image(char* data, size_t data_size)$/;"	f
+get_bmp_data_from_image	bitmap.c	/^void	*get_bmp_data_from_image(int* data, size_t data_size)$/;"	f
 get_color_as_int	main.c	/^int			get_color_as_int(t_color color)$/;"	f
 get_next_line	libft/get_next_line.c	/^int			get_next_line(int fd, char **line)$/;"	f
 get_object_color	main.c	/^t_color get_object_color(t_object *object)$/;"	f

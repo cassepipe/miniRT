@@ -39,15 +39,32 @@ static char *create_filename(int file_number)
 	return (filename);
 }
 
-char	*get_bmp_data_from_image(char* data, size_t data_size)
+void	*get_bmp_data_from_image(int* data, size_t data_size)
 {
-	void	*ret;
+	int		*bmp;
+	int		x;
+	int		y;
+	int		k;
 
-	ret = malloc(data_size);
-	if (!ret)
+	bmp = malloc(data_size);
+	if (!bmp)
 		die("Malloc failed");
-	ft_strlcpy(ret, data, data_size);
-	return (ret);
+
+	y = env.res_y - 1;
+	k = 0;
+	while(y <= 0)
+	{
+		x = 0;
+		while(x < env.res_x)
+		{
+			bmp[k * env.res_x + x] = data[y * env.res_x + x];
+			x++;
+		}
+		y--;
+		k++;
+	}
+
+	return (bmp);
 
 }
 
@@ -64,9 +81,9 @@ void	create_bmp()
 	image = env.images;
 	data_size = env.res_x * env.res_y * sizeof(int);
 	g_bmp_header.size_of_bitmap_file = data_size + BMP_TOTAL_HEADER_SIZE;
-	g_bmp_header.raw_bitmap_data_size = data_size + BMP_TOTAL_HEADER_SIZE;
+//	g_bmp_header.raw_bitmap_data_size = data_size + BMP_TOTAL_HEADER_SIZE;
 	g_bmp_header.width = env.res_x;
-	g_bmp_header.height = -env.res_y;
+	g_bmp_header.height = env.res_y;
 	while (i < env.number_of_cams)
 	{
 		filename = create_filename(i);
@@ -75,7 +92,7 @@ void	create_bmp()
 		if (fd < 0)
 			die("Could not create bmp file\n");
 		write(fd, &g_bmp_header, BMP_TOTAL_HEADER_SIZE);
-		bmp_data = get_bmp_data_from_image(image->data, data_size);
+		bmp_data = get_bmp_data_from_image((int*)image->data, data_size);
 		write(fd, bmp_data, data_size);
 		free(bmp_data);
 		close(fd);

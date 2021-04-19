@@ -6,7 +6,7 @@
 #    By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/23 16:37:33 by tpouget           #+#    #+#              #
-#    Updated: 2021/04/16 16:51:25 by tpouget          ###   ########.fr        #
+#    Updated: 2021/04/19 10:12:17 by tpouget          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ SANITIZER		=	 -fsanitize=address
 #	Rules
 
 all:			miniRT 
+				rm -f minimage*
 
 miniRT:			${OBJECTFILES} ${HEADERS} libft/libft.a Makefile
 				${CC} ${SANITIZER} ${OBJECTFILES} -Llibft -lft -lm -lmlx -lXext -lX11 -o $@

@@ -17,8 +17,10 @@
 # include "structs.h"
 # include "parse.h"
 # include "error.h"
+# include "defines.h"
 
 # include "libft/libft.h"
+# include "libft/ft_printf/ft_printf.h"
 
 extern t_env env;
 

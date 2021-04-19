@@ -3,7 +3,6 @@
 
 # include <stdlib.h>
 # include <stdint.h>
-# include "defines.h"
 
 typedef struct s_vec3 {
 	double x;

@@ -16,7 +16,7 @@ void	skip_blank_and_one_comma(char **input)
 		(*input)++;
 }
 
-int		is_in(char c, const char *set)
+static int		is_in(char c, const char *set)
 {
 	while(*set)
 	{

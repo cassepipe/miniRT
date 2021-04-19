@@ -86,7 +86,6 @@ ft_substr	libft/ft_substr.c	/^char		*ft_substr(char const *s, unsigned int start
 ft_tolower	libft/ft_tolower.c	/^int	ft_tolower(int c)$/;"	f
 ft_toupper	libft/ft_toupper.c	/^int	ft_toupper(int c)$/;"	f
 g_bmp_header	bitmap.c	/^static t_bmp_header g_bmp_header = (t_bmp_header){$/;"	v	file:
-get_bmp_data_from_image	bitmap.c	/^void	*get_bmp_data_from_image(int* data, size_t data_size)$/;"	f
 get_color_as_int	main.c	/^int			get_color_as_int(t_color color)$/;"	f
 get_next_line	libft/get_next_line.c	/^int			get_next_line(int fd, char **line)$/;"	f
 get_object_color	main.c	/^t_color get_object_color(t_object *object)$/;"	f
@@ -149,4 +148,4 @@ trace_light	main.c	/^bool	trace_light(t_vec3 *hit_point, t_vec3 *ray)$/;"	f
 trace_ray	main.c	/^t_color		trace_ray(t_vec3 *eye, t_vec3 *ray)$/;"	f
 transpose_matrix3x3	matrices.c	/^t_matrix3x3		transpose_matrix3x3(t_matrix3x3 mat)$/;"	f
 vec_len	vector_operation.c	/^double	vec_len(t_vec3	v)$/;"	f
-write_bmp_data	bitmap.c	/^void	write_bmp_data(int fd, int *data)$/;"	f
+write_bmp_data	bitmap.c	/^static void	write_bmp_data(int fd, int *data)$/;"	f	file:

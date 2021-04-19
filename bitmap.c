@@ -25,56 +25,29 @@ static char *create_filename(int file_number)
 	const char		bmp_extension[] = ".bmp";
 	char			*filename;
 	char			*number;
+	int				size;
 
 
-	filename = malloc(sizeof(basename) + 10 + sizeof(bmp_extension));
+	size = sizeof(basename) + MAX_INTEGER_LEN + sizeof(bmp_extension);
+	filename = malloc(size);
 	if (!filename)
 		die("Malloc failed");
 	number = ft_itoa(file_number);
-	strcpy(filename, basename);
-	strcat(filename, number);
+	ft_strlcpy(filename, basename, size);
+	ft_strlcat(filename, number, size);
 	free(number);
-	strcat(filename, bmp_extension);
+	ft_strlcat(filename, bmp_extension, size);
 
 	return (filename);
 }
 
-void	*get_bmp_data_from_image(int* data, size_t data_size)
-{
-	int		*bmp;
-	int		x;
-	int		y;
-	int		k;
-
-	bmp = malloc(data_size);
-	if (!bmp)
-		die("Malloc failed");
-
-	y = env.res_y - 1;
-	k = 0;
-	while(y <= 0)
-	{
-		x = 0;
-		while(x < env.res_x)
-		{
-			bmp[k * env.res_x + x] = data[y * env.res_x + x];
-			x++;
-		}
-		y--;
-		k++;
-	}
-
-	return (bmp);
-}
-
-void	write_bmp_data(int fd, int *data)
+static void	write_bmp_data(int fd, int *data)
 {
 	int		x;
 	int		y;
 
 	y = env.res_y - 1;
-	while(y > -1)
-	{
+	while(y >= 0) {
 		x = 0;
 		while(x < env.res_x)
 		{
@@ -93,7 +66,6 @@ void	create_bmp()
 	size_t			data_size;
 	char			*filename;
 	int				i;
-	void			*bmp_data;
 
 	i = 0;
 	image = env.images;
@@ -109,9 +81,6 @@ void	create_bmp()
 		if (fd < 0)
 			die("Could not create bmp file\n");
 		write(fd, &g_bmp_header, BMP_TOTAL_HEADER_SIZE);
-		/*bmp_data = get_bmp_data_from_image((int*)image->data, data_size);*/
-		/*write(fd, bmp_data, data_size);*/
-		/*free(bmp_data);*/
 		write_bmp_data(fd, (int*)image->data);
 		close(fd);
 		image = image->next;

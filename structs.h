@@ -153,7 +153,7 @@ typedef struct __attribute__((__packed__)) bmp_header {
 	const uint16_t	number_of_color_planes;
 	const uint16_t	color_depth;
 	const uint32_t	compression_method;
-	uint32_t		raw_bitmap_data_size;
+	const uint32_t		raw_bitmap_data_size;
 	const int32_t	horizontal_resolution;
 	const int32_t	vertical_resolution  ;
 	const uint32_t	color_table_entries  ;

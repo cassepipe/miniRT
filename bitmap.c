@@ -67,44 +67,19 @@ void	*get_bmp_data_from_image(int* data, size_t data_size)
 	return (bmp);
 }
 
-void	write_bmp_data(int fd, char *data)
+void	write_bmp_data(int fd, int *data)
 {
-	/*int		x;*/
-	/*int		y;*/
-	/*int		k;*/
-
-	/*y = env.res_y - 1;*/
-	/*k = 0;*/
-	/*while(y <= 0)*/
-	/*{*/
-		/*x = 0;*/
-		/*while(x < env.res_x)*/
-		/*{*/
-			/*write(fd, &data[y * env.res_x + x], 4);*/
-			/*x++;*/
-		/*}*/
-		/*y--;*/
-		/*k++;*/
-	/*}*/
-
 	int		x;
 	int		y;
-	int		*pixel;
-	int		i;
 
 	y = env.res_y - 1;
-	while (y > -1)
+	while(y > -1)
 	{
 		x = 0;
-		while (x < env.res_x)
+		while(x < env.res_x)
 		{
-			i = (x + env.res_x * y) * 4;
-			pixel = (int *)(data + i);
-			if (write(fd, pixel, 4) < 0)
-			{
-				printf("x = %d, y = %d\n", x, y);
-				die("Error while writing file");
-			}
+			if((write(fd, &data[y * env.res_x + x], 4)) < 0)
+					die("Probem writing file");
 			x++;
 		}
 		y--;
@@ -137,7 +112,7 @@ void	create_bmp()
 		/*bmp_data = get_bmp_data_from_image((int*)image->data, data_size);*/
 		/*write(fd, bmp_data, data_size);*/
 		/*free(bmp_data);*/
-		write_bmp_data(fd, image->data);
+		write_bmp_data(fd, (int*)image->data);
 		close(fd);
 		image = image->next;
 		i++;

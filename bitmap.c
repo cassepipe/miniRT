@@ -10,7 +10,7 @@ static t_bmp_header g_bmp_header = (t_bmp_header){
 	 .width = 0, // in pixels
 	 .height = 0, // in pixels
 	 .number_of_color_planes = 1, // must be 1
-	 .color_depth = 32,
+	 .color_depth = 24,
 	 .compression_method = 0,
 	 .raw_bitmap_data_size = 0, // generally ignored
 	 .horizontal_resolution = 0, // in pixel per meter
@@ -65,7 +65,50 @@ void	*get_bmp_data_from_image(int* data, size_t data_size)
 	}
 
 	return (bmp);
+}
 
+void	write_bmp_data(int fd, char *data)
+{
+	/*int		x;*/
+	/*int		y;*/
+	/*int		k;*/
+
+	/*y = env.res_y - 1;*/
+	/*k = 0;*/
+	/*while(y <= 0)*/
+	/*{*/
+		/*x = 0;*/
+		/*while(x < env.res_x)*/
+		/*{*/
+			/*write(fd, &data[y * env.res_x + x], 4);*/
+			/*x++;*/
+		/*}*/
+		/*y--;*/
+		/*k++;*/
+	/*}*/
+
+	int		x;
+	int		y;
+	int		*pixel;
+	int		i;
+
+	y = env.res_y - 1;
+	while (y > -1)
+	{
+		x = 0;
+		while (x < env.res_x)
+		{
+			i = (x + env.res_x * y) * 4;
+			pixel = (int *)(data + i);
+			if (write(fd, pixel, 3) < 0)
+			{
+				printf("x = %d, y = %d\n", x, y);
+				die("Error while writing file");
+			}
+			x++;
+		}
+		y--;
+	}
 }
 
 void	create_bmp()
@@ -81,7 +124,6 @@ void	create_bmp()
 	image = env.images;
 	data_size = env.res_x * env.res_y * sizeof(int);
 	g_bmp_header.size_of_bitmap_file = data_size + BMP_TOTAL_HEADER_SIZE;
-//	g_bmp_header.raw_bitmap_data_size = data_size + BMP_TOTAL_HEADER_SIZE;
 	g_bmp_header.width = env.res_x;
 	g_bmp_header.height = env.res_y;
 	while (i < env.number_of_cams)
@@ -92,9 +134,10 @@ void	create_bmp()
 		if (fd < 0)
 			die("Could not create bmp file\n");
 		write(fd, &g_bmp_header, BMP_TOTAL_HEADER_SIZE);
-		bmp_data = get_bmp_data_from_image((int*)image->data, data_size);
-		write(fd, bmp_data, data_size);
-		free(bmp_data);
+		/*bmp_data = get_bmp_data_from_image((int*)image->data, data_size);*/
+		/*write(fd, bmp_data, data_size);*/
+		/*free(bmp_data);*/
+		write_bmp_data(fd, image->data);
 		close(fd);
 		image = image->next;
 		i++;

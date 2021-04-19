@@ -149,3 +149,4 @@ trace_light	main.c	/^bool	trace_light(t_vec3 *hit_point, t_vec3 *ray)$/;"	f
 trace_ray	main.c	/^t_color		trace_ray(t_vec3 *eye, t_vec3 *ray)$/;"	f
 transpose_matrix3x3	matrices.c	/^t_matrix3x3		transpose_matrix3x3(t_matrix3x3 mat)$/;"	f
 vec_len	vector_operation.c	/^double	vec_len(t_vec3	v)$/;"	f
+write_bmp_data	bitmap.c	/^void	write_bmp_data(int fd, char *data)$/;"	f

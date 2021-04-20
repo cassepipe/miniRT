@@ -62,5 +62,3 @@ void free_env(t_env *env)
 	free_camera_list(env->cameras);
 	free_image_list(env->images);
 }
-
-

@@ -117,7 +117,7 @@ t_color	parse_color(char **input)
 		||	color.green > 255
 		||	color.blue < 0
 		||	color.blue > 255)
-		die ("Error color not in range");
+		die ("Color not in range");
 	return (color);
 }
 

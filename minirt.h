@@ -26,8 +26,10 @@ extern t_env env;
 
 
 void		prints(struct s_object*);
+void		check_args(int argc, char *argv[]);
 t_vec3		new_vec3(double x, double y, double z);
 t_vec3		canvas_to_viewport(int x, int y);
+void		render_image_list(struct s_image *images);
 t_color		trace_ray(t_vec3 *eye, t_vec3 *D);
 bool		intersect_ray_with_object(t_vec3 *eye, t_vec3 *ray, t_object *object, double *solution, double tmin, double tmax);
 bool		intersect_ray_with_sphere(t_vec3 *eye, t_vec3 *ray, t_sphere *sphere, double *solution, double tmin, double tmax);
@@ -51,6 +53,7 @@ t_vec3		compute_lighting(t_vec3 hit_point, t_vec3 normal);
 void		put_pixel_to_image(struct s_image *image, int x, int y, int color);
 double		vec_len(t_vec3	v);
 bool		trace_light(t_vec3 *origin, t_vec3 *ray);
+bool		trace_light(t_vec3 *hit_point, t_vec3 *ray);
 t_matrix3x3	compute_cam_to_world_matrix(t_vec3 camera_direction);
 t_vec3		apply_rotation_to_ray(t_vec3 ray, t_matrix3x3 rot_matrix);
 

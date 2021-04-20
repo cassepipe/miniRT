@@ -70,7 +70,7 @@ void	parse_ambl(char **input)
 	env.ambl_intensity = parse_double(input);
 	if (env.ambl_intensity < 0
 		|| env.ambl_intensity > 1)
-		die("Error : Light intensity not in range");
+		die("Light intensity not in range");
 	env.ambl_color = parse_color(input);
 	env.ambl_distrib = distribute_colors(env.ambl_color);
 	env.ambl_distrib = scale_by(env.ambl_distrib, env.ambl_intensity);
@@ -86,7 +86,7 @@ void parse_light(char **input)
 	new_light->intensity = parse_double(input);
 	if (new_light->intensity < 0
 		|| new_light->intensity > 1)
-		die("Error : Light intensity not in range");
+		die("Light intensity not in range");
 	new_light->color = parse_color(input);
 	new_light->color_distribution = distribute_colors(new_light->color);
 	new_light->color_distribution = scale_by(new_light->color_distribution, new_light->intensity);

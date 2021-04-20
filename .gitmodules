@@ -1,3 +1,3 @@
 [submodule "libft"]
 	path = libft
-	url = https://github.com/cassepipe/libft
+	url = git@github.com:cassepipe/libft

@@ -114,17 +114,22 @@ void	put_pixel_to_image(struct s_image *image, int x, int y, int color)
 	*(unsigned int*)dest = color;
 }
 
-t_vec3		canvas_to_viewport(int x, int y)
+t_vec3		canvas_to_viewport(int x, int y, double fov)
 {
 	t_vec3 ray;
+	double aspect_ratio;
+	double stretch;
 
-	ray.x = -env.res_x  + x;
-	ray.y = env.res_y  - y;
+	aspect_ratio = (double)env.res_x / (double)env.res_y;
+	stretch = tan(fov * 0.5);
+	ray.x = 	(2.0 * (x + 0.5) / (double)env.res_x - 1)
+				* aspect_ratio
+				* stretch;
+	ray.y = (1 - 2.0 * (y + 0.5) / (double)env.res_y)
+			* stretch;
 	ray.z = 1;
 
-	ray.x = ray.x / env.res_x;
-	ray.y = ray.y / env.res_y;
-	printf("Corresponding to viewport coordinates (%f,%f)\n", ray.x, ray.y);
+//	printf("Corresponding to viewport coordinates (%f,%f)\n", ray.x, ray.y);
 
 	return (ray);
 }

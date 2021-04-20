@@ -94,6 +94,12 @@ void parse_light(char **input)
 	env.lights = new_light;
 }
 
+static double to_radians(double angle)
+{
+	return(angle / 180 * M_PI);
+}
+
+
 void parse_cam(char **input)
 {
 	t_cam *new_cam;
@@ -102,7 +108,10 @@ void parse_cam(char **input)
 	new_cam = malloc(sizeof(t_cam));
 	new_cam->origin = parse_vec(input);
 	new_cam->direction = parse_vec(input);
-	new_cam->fov = parse_double(input);
+	new_cam->fov = to_radians(parse_double(input));
+	if (new_cam->fov < 0
+		|| new_cam->fov > 180)
+		die("Field of view not in range [0,180]");
 	new_cam->cam_to_world = compute_cam_to_world_matrix(new_cam->direction);
 	new_cam->next = env.cameras;
 	env.cameras = new_cam;

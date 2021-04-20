@@ -4,13 +4,12 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
-Test	tests/tests.c	/^Test(minirt, parsing)$/;"	f
 add_vec	vector_operation.c	/^t_vec3	add_vec(t_vec3 v1, t_vec3 v2)$/;"	f
 apply_lighting	vector_operation.c	/^t_color	apply_lighting(t_color color, t_vec3 color_ratios)$/;"	f
 apply_rotation_to_ray	main.c	/^t_vec3	apply_rotation_to_ray(t_vec3 ray, t_matrix3x3 rot_matrix)$/;"	f
 arrange_format	libft/ft_printf/format_utils.c	/^void		arrange_format(struct s_parameters *format)$/;"	f
 autodot	main.c	/^double	autodot(t_vec3 v)$/;"	f
-canvas_to_viewport	main.c	/^t_vec3		canvas_to_viewport(int x, int y)$/;"	f
+canvas_to_viewport	main.c	/^t_vec3		canvas_to_viewport(int x, int y, double fov)$/;"	f
 cap_vec	lighting.c	/^static void cap_vec(t_vec3 *vec)$/;"	f	file:
 char_repr	libft/ft_printf/repr.c	/^char		*char_repr(unsigned char c,$/;"	f
 check_args	args.c	/^void		check_args(int argc, char *argv[])$/;"	f
@@ -144,7 +143,7 @@ pre_compute_coef	intersect_cylinder.c	/^static t_vec3	pre_compute_coef(t_vec3 v1
 prints	prints.c	/^void prints(struct s_object *object)$/;"	f
 ptr_repr	libft/ft_printf/repr.c	/^char		*ptr_repr(void *ptr, struct s_parameters *format, ssize_t *size)$/;"	f
 put_pixel_to_image	main.c	/^void	put_pixel_to_image(struct s_image *image, int x, int y, int color)$/;"	f
-render	render.c	/^static  void	render(struct s_image image)$/;"	f	file:
+render	render.c	/^static  void	render(struct s_image image, double fov)$/;"	f	file:
 render_image_list	render.c	/^void		render_image_list(struct s_image *images)$/;"	f
 rightpad	libft/ft_printf/pad.c	/^void	rightpad(char **str, char c, size_t n)$/;"	f
 scale_by	vector_operation.c	/^t_vec3	scale_by(t_vec3 vector, double scalar)$/;"	f
@@ -155,6 +154,7 @@ solve_cylinder	intersect_cylinder.c	/^static bool		solve_cylinder(t_vec3 *eye, t
 sq	main.c	/^double sq(double value)$/;"	f
 str_repr	libft/ft_printf/repr.c	/^char		*str_repr(char *s, struct s_parameters *format, ssize_t *size)$/;"	f
 substract_vec3	vector_operation.c	/^t_vec3		substract_vec3(t_vec3 point1, t_vec3 point2)$/;"	f
+to_radians	parse.c	/^static double to_radians(double angle)$/;"	f	file:
 to_the_power_of	libft/ft_printf/ft_lutoa_base.c	/^static unsigned long	to_the_power_of(unsigned long n, unsigned long p)$/;"	f	file:
 token_table	parse.c	/^static struct s_fat_token token_table[] =$/;"	v	typeref:struct:s_fat_token	file:
 trace_light	trace.c	/^bool	trace_light(t_vec3 *hit_point, t_vec3 *ray)$/;"	f

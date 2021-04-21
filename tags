@@ -13,6 +13,7 @@ canvas_to_viewport	main.c	/^t_vec3		canvas_to_viewport(int x, int y, double fov)
 cap_vec	lighting.c	/^static void cap_vec(t_vec3 *vec)$/;"	f	file:
 char_repr	libft/ft_printf/repr.c	/^char		*char_repr(unsigned char c,$/;"	f
 check_args	args.c	/^void		check_args(int argc, char *argv[])$/;"	f
+check_rt_extension	main.c	/^static void		check_rt_extension(char *filename)$/;"	f	file:
 cleanup_and_quit	main.c	/^int		cleanup_and_quit()$/;"	f
 compute_cam_to_world_matrix	main.c	/^t_matrix3x3	compute_cam_to_world_matrix(t_vec3 camera_direction)$/;"	f
 compute_cylinder_lighting	lighting.c	/^t_color	compute_cylinder_lighting(t_vec3 *ray, t_vec3 *eye, t_cylinder *cylinder, double parameter)$/;"	f

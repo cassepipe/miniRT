@@ -2,6 +2,17 @@
 
 t_env	env;
 
+static void		check_rt_extension(char *filename)
+{
+	size_t len;
+
+	len = ft_strlen(filename);
+	if (filename[len -1] != 't'
+		|| filename[len - 2] != 'r'
+		|| filename[len - 3] != '.' )
+		die("You must provide a .rt file");
+}
+
 int			main(int argc, char *argv[])
 {
 
@@ -9,6 +20,7 @@ int			main(int argc, char *argv[])
 	check_args(argc, argv);
 
 	env.scene_path = argv[1];
+	check_rt_extension(env.scene_path);
 
 	//Init X session
 	env.mlx_session = mlx_init();

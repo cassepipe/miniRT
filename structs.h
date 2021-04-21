@@ -116,6 +116,7 @@ typedef struct s_env
 	int					res_xmax;
 	int					res_ymax;
 	bool				unique_res;
+	bool				has_res;
 	double				ambl_intensity;
 	t_color				ambl_color;
 	t_vec3				ambl_distrib;

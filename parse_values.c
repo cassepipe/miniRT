@@ -76,7 +76,7 @@ double parse_double_or_die(char **input)
 		}
 		(*input)++;
 	}
-	printf("RESULT is %f\n", neg ? -ret : ret);
+//	printf("RESULT is %f\n", neg ? -ret : ret);
 	return (neg ? -ret : ret);
 }
 
@@ -135,8 +135,8 @@ int parse_int_or_die(char **input)
 	while (ft_isdigit(**input))
 	{
 		ret = ret * 10 + (**input - '0');
-	(*input)++;
+		(*input)++;
 	}
-	printf("RESULT is %i\n", neg ? -ret : ret);
+	//printf("RESULT is %i\n", neg ? -ret : ret);
 	return (neg ? -ret : ret);
 }

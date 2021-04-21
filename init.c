@@ -12,9 +12,10 @@ void		init_env()
 	env.res_xmax = 0;
 	env.res_ymax = 0;
 	env.unique_res = true;
-	env.ambl_intensity = 0;
-	env.ambl_color = (t_color){.red = 0, .green = 0, .blue = 0};
-	env.ambl_distrib = (t_vec3){.x = 0, .y = 0, .z = 0};
+	env.has_res = false;
+	env.ambl_intensity = DEFAULT_AMBIENT_LIGHT_INTENSITY;
+	env.ambl_color = DEFAULT_AMBIENT_LIGHT_COLOR;
+	env.ambl_distrib = DEFAULT_AMBIENT_LIGHT_COLOR_DISTRIB;
 	env.unique_amb = true;
 	env.lights = NULL;
 	env.cameras = NULL;

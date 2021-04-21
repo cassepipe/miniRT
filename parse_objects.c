@@ -7,7 +7,7 @@ void parse_sp(char **input)
 	t_object	*new_object;
 	t_sphere	*new_sphere;
 
-	printf("Parsing sphere...");
+	ft_printf("Parsing sphere...\n");
 	new_sphere = malloc(sizeof(t_sphere));
 	new_sphere->center = parse_vec(input);
 	new_sphere->diameter = parse_double(input);
@@ -25,7 +25,7 @@ void parse_pl(char **input)
 	t_object	*new_object;
 	t_plane		*new_plane;
 
-	printf("Parsing plane...\n");
+	ft_printf("Parsing plane...\n");
 	new_plane = malloc(sizeof(t_plane));
 	new_plane->some_point = parse_vec(input);
 	new_plane->normal = normalize(parse_vec(input));
@@ -61,7 +61,7 @@ void parse_cy(char **input)
 	t_object			*new_object;
 	t_cylinder		*new_cylinder;
 
-	printf("Parsing cylinder...\n");
+	ft_printf("Parsing cylinder...\n");
 	new_cylinder = malloc(sizeof(t_cylinder));
 	new_cylinder->base = parse_vec(input);
 	new_cylinder->dir = normalize(parse_vec(input));
@@ -83,7 +83,7 @@ void parse_tr(char **input)
 	t_vec3		p1p2;
 	t_vec3		p1p3;
 
-	printf("Parsing triangle...");
+	ft_printf("Parsing triangle...\n");
 	new_triangle = malloc(sizeof(t_triangle));
 	new_triangle->p1 = parse_vec(input);
 	new_triangle->p2 = parse_vec(input);

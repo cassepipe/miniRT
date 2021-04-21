@@ -13,6 +13,18 @@ static void		check_rt_extension(char *filename)
 		die("You must provide a .rt file");
 }
 
+static void		env_checkup()
+{
+	if (env.res_x == 0 || env.res_x > env.res_xmax)
+		env.res_x = env.res_xmax;
+	if (env.res_y == 0 || env.res_y > env.res_ymax)
+		env.res_y = env.res_ymax;
+	if (env.has_res == false)
+		die("You must provide a resolution");
+	if (env.cameras == NULL)
+		die("You must define at least one camera");
+}
+
 int			main(int argc, char *argv[])
 {
 
@@ -32,12 +44,7 @@ int			main(int argc, char *argv[])
 
 	//Parsing
 	parse_file_into_env();
-	if (env.res_x == 0 || env.res_x > env.res_xmax)
-		env.res_x = env.res_xmax;
-	if (env.res_y == 0 || env.res_y > env.res_ymax)
-		env.res_y = env.res_ymax;
-	if (env.cameras == NULL)
-		die("You must define at least one camera");
+	env_checkup();
 
 	//Check parsing
 	struct s_object *cur = env.objects;

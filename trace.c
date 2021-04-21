@@ -29,7 +29,7 @@ t_color		trace_ray(t_vec3 *eye, t_vec3 *ray)
 		current_object = current_object->next;
 	}
 	if (closest_object == NULL)
-		return (struct s_color){255,255,255};
+		return BACKGROUND_COLOR;
 
 	return compute_ray_color(ray, eye, closest_object, closest_t);
 }

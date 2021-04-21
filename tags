@@ -32,6 +32,7 @@ diralloc	libft/ft_split.c	/^static char			**diralloc(const char *s, char c)$/;"	
 distribute_colors	colors.c	/^t_vec3	distribute_colors(t_color color)$/;"	f
 dot	vector_operation.c	/^double dot(t_vec3 u, t_vec3 v)$/;"	f
 env	main.c	/^t_env	env;$/;"	v
+env_checkup	main.c	/^static void		env_checkup()$/;"	f	file:
 free_camera_list	cleanup.c	/^void free_camera_list(t_cam *camera)$/;"	f
 free_env	cleanup.c	/^void free_env(t_env *env)$/;"	f
 free_image_list	cleanup.c	/^void free_image_list(struct s_image *image)$/;"	f

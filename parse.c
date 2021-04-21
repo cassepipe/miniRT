@@ -60,6 +60,7 @@ void parse_file_into_env()
 
 void parse_res(char **input)
 {
+	env.has_res = true;
 	if (!env.unique_res)
 		die("Two resolutions defined. Only one is allowed");
 	env.res_x = parse_int(input);
@@ -71,7 +72,7 @@ void parse_res(char **input)
 
 void	parse_ambl(char **input)
 {
-	printf("Parsing ambient light...\n");
+	ft_printf("Parsing ambient light...\n");
 	if (!env.unique_amb)
 		die("Two ambient lights defined. Only one is allowed");
 	skip_blank(input);
@@ -89,7 +90,7 @@ void parse_light(char **input)
 {
 	t_light *new_light;
 
-	printf("Parsing light...\n");
+	ft_printf("Parsing light...\n");
 	new_light = malloc(sizeof(t_light));
 	new_light->origin = parse_vec(input);
 	new_light->intensity = parse_double(input);
@@ -112,7 +113,7 @@ void parse_cam(char **input)
 {
 	t_cam *new_cam;
 
-	printf("Parsing cam ...\n");
+	ft_printf("Parsing cam ...\n");
 	new_cam = malloc(sizeof(t_cam));
 	new_cam->origin = parse_vec(input);
 	new_cam->direction = parse_vec(input);

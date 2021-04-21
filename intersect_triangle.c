@@ -43,19 +43,19 @@ bool	is_inside_triangle(t_vec3 hit_point, t_triangle *tr)
 	t_vec3 a;
 	t_vec3 b;
 
-	v = substract_vec3(tr->p2, tr->p3);
-	a = cross_product(v, substract_vec3(hit_point, tr->p3));
-	b = cross_product(v, substract_vec3(tr->p1, tr->p3));
+	v = sub_vec(tr->p2, tr->p3);
+	a = cross_product(v, sub_vec(hit_point, tr->p3));
+	b = cross_product(v, sub_vec(tr->p1, tr->p3));
 	if (dot(a, b) < 0)
 		return false;
-	v = substract_vec3(tr->p1, tr->p3);
-	a = cross_product(v, substract_vec3(hit_point, tr->p3));
-	b = cross_product(v, substract_vec3(tr->p2, tr->p3));
+	v = sub_vec(tr->p1, tr->p3);
+	a = cross_product(v, sub_vec(hit_point, tr->p3));
+	b = cross_product(v, sub_vec(tr->p2, tr->p3));
 	if (dot(a, b) < 0)
 		return false;
-	v = substract_vec3(tr->p1, tr->p2);
-	a = cross_product(v, substract_vec3(hit_point, tr->p2));
-	b = cross_product(v, substract_vec3(tr->p3, tr->p2));
+	v = sub_vec(tr->p1, tr->p2);
+	a = cross_product(v, sub_vec(hit_point, tr->p2));
+	b = cross_product(v, sub_vec(tr->p3, tr->p2));
 	if (dot(a, b) < 0)
 		return false;
 	return (true);
@@ -66,8 +66,8 @@ bool	is_inside_triangle(t_vec3 hit_point, t_triangle *tr)
 	/*t_vec3		edge;*/
 	/*t_vec3		vec_p;*/
 
-	/*edge = substract_vec3(to, from);*/
-	/*vec_p = substract_vec3(hit_p, from);*/
+	/*edge = sub_vec(to, from);*/
+	/*vec_p = sub_vec(hit_p, from);*/
 	/*return (dot(normal, cross_product(edge, vec_p)) >= 0.0);*/
 /*}*/
 

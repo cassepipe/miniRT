@@ -27,3 +27,11 @@ void    create_images()
 	env.images = img_buf;
 	env.displayed_image = env.images;
 }
+
+void	put_pixel_to_image(struct s_image *image, int x, int y, int color)
+{
+	char *dest;
+
+	dest = image->data + y * image->line_len + x * (image->bits_per_pixel/8);
+	*(unsigned int*)dest = color;
+}

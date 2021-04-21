@@ -10,7 +10,7 @@ static bool	is_inside_square(t_vec3 hit_point , t_square *square)
 	t_vec3	local;
 
 	r = square->side_len * 0.5;
-	local = substract_vec3(hit_point, square->center);
+	local = sub_vec(hit_point, square->center);
 	if (fabs(local.x) + fabs(local.y) + fabs(local.z) <= r)
 		return true;
 	return false;

@@ -16,7 +16,7 @@ bool		intersect_ray_with_sphere(t_vec3 * O,  t_vec3 *ray, t_sphere *sphere, doub
 
 	/*printf("For ray [%f, %f, %f]\n", ray->x, ray->y, ray->z);*/
 	radius = sphere->diameter * 0.5;
-	CO = substract_vec3(*O, sphere->center);
+	CO = sub_vec(*O, sphere->center);
 
 	a = dot(*ray, *ray);
 	b = 2 * dot(CO, *ray);

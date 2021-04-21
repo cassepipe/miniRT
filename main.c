@@ -7,7 +7,7 @@ static void		check_rt_extension(char *filename)
 	size_t len;
 
 	len = ft_strlen(filename);
-	if (filename[len -1] != 't'
+	if (filename[len - 1] != 't'
 		|| filename[len - 2] != 'r'
 		|| filename[len - 3] != '.' )
 		die("You must provide a .rt file");
@@ -89,55 +89,6 @@ int		cleanup_and_quit()
 		return (0);
 }
 
-int		handle_keypress(int keycode, void *params)
-{
-	(void)params;
-	if (keycode == SPACE)
-	{
-		env.displayed_image = env.displayed_image->next;
-		mlx_put_image_to_window(env.mlx_session, env.window, env.displayed_image->mlx_handle, 0, 0);
-	}
-	if (keycode == ESC)
-	{
-		free_env(&env);
-		exit(EXIT_SUCCESS);
-	}
-	return (0);
-}
-
-t_vec3	apply_rotation_to_ray(t_vec3 ray, t_matrix3x3 rot_matrix)
-{
-	return (mult_matrix3x3_vec3(rot_matrix, ray));
-}
-
-t_matrix3x3	compute_cam_to_world_matrix(t_vec3 camera_direction)
-{
-	t_matrix3x3 result;
-
-	t_vec3 arbitrary_vec;
-
-	result.forward = normalize(camera_direction);
-	if (result.forward.y == 1)
-		arbitrary_vec = (t_vec3){0,0,-1};
-	else if (result.forward.y == -1)
-		arbitrary_vec = (t_vec3){0,0,1};
-	else
-		arbitrary_vec = (t_vec3){0,1,0};
-	result.right = normalize(cross_product(arbitrary_vec, result.forward ));
-	result.up = normalize(cross_product(result.forward, result.right));
-
-	return (result);
-
-}
-
-void	put_pixel_to_image(struct s_image *image, int x, int y, int color)
-{
-	char *dest;
-
-	dest = image->data + y * image->line_len + x * (image->bits_per_pixel/8);
-	*(unsigned int*)dest = color;
-}
-
 t_vec3		canvas_to_viewport(int x, int y, double fov)
 {
 	t_vec3 ray;
@@ -173,11 +124,6 @@ bool		intersect_ray_with_object(t_vec3 *eye, t_vec3 *ray, t_object *object, doub
 	else
 		die("Intersection impossible : Unrecognized object type");
 	return (0);
-}
-
-double	autodot(t_vec3 v)
-{
-	return (dot(v, v));
 }
 
 double sq(double value)

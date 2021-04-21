@@ -90,8 +90,8 @@ void parse_tr(char **input)
 	new_triangle->p3 = parse_vec(input);
 	new_triangle->color = parse_color(input);
 
-	p1p2 = substract_vec3(new_triangle->p2, new_triangle->p1);
-	p1p3 = substract_vec3(new_triangle->p3, new_triangle->p1);
+	p1p2 = sub_vec(new_triangle->p2, new_triangle->p1);
+	p1p3 = sub_vec(new_triangle->p3, new_triangle->p1);
 	new_triangle->normal = cross_product(p1p2, p1p3);
 	new_triangle->normal = normalize(new_triangle->normal);
 

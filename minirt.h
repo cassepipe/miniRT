@@ -38,7 +38,7 @@ bool		intersect_ray_with_triangle(t_vec3 *eye, t_vec3 *ray, t_triangle *triangle
 bool 		intersect_ray_with_square(t_vec3 *eye, t_vec3 *ray, t_square *square, double *t, double tmin, double tmax);
 t_color		get_object_color(t_object *object);
 int			get_color_as_int(t_color color);
-t_vec3		substract_vec3(t_vec3 point1, t_vec3 point2);
+t_vec3		sub_vec(t_vec3 point1, t_vec3 point2);
 double		dot(t_vec3 u, t_vec3 v);
 void		init_env();
 void		create_images();

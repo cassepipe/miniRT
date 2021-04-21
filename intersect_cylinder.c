@@ -26,8 +26,8 @@ static bool		is_inside_cyl(t_vec3 *eye, t_cylinder *cylinder, t_vec3 *ray, doubl
 
 	hit_point = add_vec(*eye, scale_by(*ray, t));
 	top = add_vec(cylinder->base, scale_by(cylinder->dir, cylinder->height));
-	base_to_hit_point = substract_vec3(hit_point, cylinder->base);
-	top_to_hit_point = substract_vec3(hit_point, top);
+	base_to_hit_point = sub_vec(hit_point, cylinder->base);
+	top_to_hit_point = sub_vec(hit_point, top);
 
 	return ((dot(cylinder->dir, base_to_hit_point) > 0.0)
 			&& (dot(cylinder->dir, top_to_hit_point) < 0.0));
@@ -65,7 +65,7 @@ static bool		solve_cylinder(t_vec3 *eye, t_cylinder *cylinder, t_vec3 *ray, t_ve
 
 static t_vec3	pre_compute_coef(t_vec3 v1, t_vec3 v2)
 {
-	return (substract_vec3(v1, scale_by(v2, dot(v1, v2))));
+	return (sub_vec(v1, scale_by(v2, dot(v1, v2))));
 }
 
 bool			intersect_ray_with_cylinder(t_vec3 *eye, t_vec3 *ray, t_cylinder *cylinder, double *t, double tmin, double tmax)
@@ -75,7 +75,7 @@ bool			intersect_ray_with_cylinder(t_vec3 *eye, t_vec3 *ray, t_cylinder *cylinde
 	t_vec3		dir;
 	t_vec3		ocdir;
 
-	oc = substract_vec3(*eye, cylinder->base);
+	oc = sub_vec(*eye, cylinder->base);
 	dir = pre_compute_coef(*ray, cylinder->dir);
 	ocdir = pre_compute_coef(oc, cylinder->dir);
 	quad_coef = get_quad_coef(dir, ocdir, cylinder->diameter * 0.5);

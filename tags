@@ -13,7 +13,7 @@ canvas_to_viewport	main.c	/^t_vec3		canvas_to_viewport(int x, int y, double fov)
 cap_vec	lighting.c	/^static void cap_vec(t_vec3 *vec)$/;"	f	file:
 char_repr	libft/ft_printf/repr.c	/^char		*char_repr(unsigned char c,$/;"	f
 check_args	args.c	/^void		check_args(int argc, char *argv[])$/;"	f
-check_rt_extension	main.c	/^static void		check_rt_extension(char *filename)$/;"	f	file:
+check_rt_extension	args.c	/^void		check_rt_extension(char *filename)$/;"	f
 cleanup_and_quit	main.c	/^int		cleanup_and_quit()$/;"	f
 compute_cam_to_world_matrix	matrices.c	/^t_matrix3x3	compute_cam_to_world_matrix(t_vec3 camera_direction)$/;"	f
 compute_cylinder_lighting	object_lighting.c	/^t_color	compute_cylinder_lighting(t_vec3 *ray, t_vec3 *eye, t_cylinder *cylinder, double parameter)$/;"	f
@@ -101,7 +101,7 @@ handle_keypress	keypress.c	/^int		handle_keypress(int keycode, void *params)$/;"
 init_env	init.c	/^void		init_env()$/;"	f
 init_format	libft/ft_printf/format_utils.c	/^void		init_format(struct s_parameters *format)$/;"	f
 intersect_ray_with_cylinder	intersect_cylinder.c	/^bool			intersect_ray_with_cylinder(t_vec3 *eye, t_vec3 *ray, t_cylinder *cylinder, double *t, double tmin, double tmax)$/;"	f
-intersect_ray_with_object	main.c	/^bool		intersect_ray_with_object(t_vec3 *eye, t_vec3 *ray, t_object *object, double *solution, double tmin, double tmax)$/;"	f
+intersect_ray_with_object	intersection_triage.c	/^bool		intersect_ray_with_object(t_vec3 *eye, t_vec3 *ray, t_object *object, double *solution, double tmin, double tmax)$/;"	f
 intersect_ray_with_plane	intersect_plane.c	/^bool	intersect_ray_with_plane(t_vec3 *eye, t_vec3 *ray, t_plane *plane, double *t, double tmin, double tmax)$/;"	f
 intersect_ray_with_sphere	intersect_sphere.c	/^bool		intersect_ray_with_sphere(t_vec3 * O,  t_vec3 *ray, t_sphere *sphere, double *t,$/;"	f
 intersect_ray_with_square	square.c	/^bool intersect_ray_with_square(t_vec3 *eye, t_vec3 *ray, t_square *square, double *t, double tmin, double tmax)$/;"	f
@@ -109,10 +109,10 @@ intersect_ray_with_triangle	intersect_triangle.c	/^bool	intersect_ray_with_trian
 is_in	libft/ft_printf/format_utils.c	/^int			is_in(char c, const char *charset)$/;"	f
 is_in	parse_values.c	/^static int		is_in(char c, const char *set)$/;"	f	file:
 is_in_set	libft/ft_strtrim.c	/^static int	is_in_set(char c, char const *set)$/;"	f	file:
-is_in_the_box	intersect_triangle.c	/^bool	is_in_the_box(t_vec3 hit_point, t_triangle *tr)$/;"	f
+is_in_the_box	intersect_triangle.c	/^static bool	is_in_the_box(t_vec3 hit_point, t_triangle *tr)$/;"	f	file:
 is_inside_cyl	intersect_cylinder.c	/^static bool		is_inside_cyl(t_vec3 *eye, t_cylinder *cylinder, t_vec3 *ray, double t)$/;"	f	file:
 is_inside_square	square.c	/^static bool	is_inside_square(t_vec3 hit_point , t_square *square)$/;"	f	file:
-is_inside_triangle	intersect_triangle.c	/^bool	is_inside_triangle(t_vec3 hit_point, t_triangle *tr)$/;"	f
+is_inside_triangle	intersect_triangle.c	/^static bool	is_inside_triangle(t_vec3 hit_point, t_triangle *tr)$/;"	f	file:
 leftpad	libft/ft_printf/pad.c	/^void	leftpad(char **str, char c, size_t n)$/;"	f
 main	main.c	/^int			main(int argc, char *argv[])$/;"	f
 max	intersect_triangle.c	/^static double max(double a, double b, double c)$/;"	f	file:

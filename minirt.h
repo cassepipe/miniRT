@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minirt.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/21 15:06:28 by tpouget           #+#    #+#             */
+/*   Updated: 2021/04/21 15:06:45 by tpouget          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINI_RT_H
 # define MINI_RT_H
 
@@ -26,6 +38,7 @@ extern t_env env;
 
 void		prints(struct s_object*);
 void		check_args(int argc, char *argv[]);
+void		check_rt_extension(char *filename);
 t_vec3		new_vec3(double x, double y, double z);
 t_vec3		canvas_to_viewport(int x, int y, double fov);
 void		render_image_list(struct s_image *images);

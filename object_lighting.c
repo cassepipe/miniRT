@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   object_lighting.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/21 15:06:26 by tpouget           #+#    #+#             */
+/*   Updated: 2021/04/21 16:32:11 by tpouget          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 t_color	compute_sphere_lighting(t_vec3 *ray, t_vec3 *eye, t_sphere *sphere, double parameter)
@@ -42,7 +54,13 @@ t_color	compute_cylinder_lighting(t_vec3 *ray, t_vec3 *eye, t_cylinder *cylinder
 		normal = add_vec(AC, CP);
 		normal = normalize(normal);
 
-		return (apply_lighting(cylinder->color, compute_lighting(hit_point, normal)));
+		/*return (apply_lighting(cylinder->color, compute_lighting(hit_point, normal)));*/
+		if (dot(normal, *ray) > 0)
+			return (apply_lighting(cylinder->color,
+									compute_lighting(hit_point,
+													scale_by(normal, -1))));
+		else
+			return (apply_lighting(cylinder->color, compute_lighting(hit_point, normal)));
 }
 
 t_color	compute_triangle_lighting(t_vec3 *ray, t_vec3 *eye, t_triangle *triangle, double parameter)

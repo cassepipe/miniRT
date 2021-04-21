@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   intersect_triangle.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/21 15:04:51 by tpouget           #+#    #+#             */
+/*   Updated: 2021/04/21 15:06:37 by tpouget          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 static double min(double a, double b, double c)
@@ -20,7 +32,7 @@ static double max(double a, double b, double c)
 	return (max > max2 ? max : max2);
 }
 
-bool	is_in_the_box(t_vec3 hit_point, t_triangle *tr)
+static bool	is_in_the_box(t_vec3 hit_point, t_triangle *tr)
 {
 	if (hit_point.x < min(tr->p1.x, tr->p2.x, tr->p3.x))
 		return (false);
@@ -37,7 +49,7 @@ bool	is_in_the_box(t_vec3 hit_point, t_triangle *tr)
 	return (true);
 }
 
-bool	is_inside_triangle(t_vec3 hit_point, t_triangle *tr)
+static bool	is_inside_triangle(t_vec3 hit_point, t_triangle *tr)
 {
 	t_vec3 v;
 	t_vec3 a;
@@ -61,25 +73,6 @@ bool	is_inside_triangle(t_vec3 hit_point, t_triangle *tr)
 	return (true);
 }
 
-/*static bool		check_edge(t_vec3 to, t_vec3 from, t_vec3 hit_p, t_vec3 normal)*/
-/*{*/
-	/*t_vec3		edge;*/
-	/*t_vec3		vec_p;*/
-
-	/*edge = sub_vec(to, from);*/
-	/*vec_p = sub_vec(hit_p, from);*/
-	/*return (dot(normal, cross_product(edge, vec_p)) >= 0.0);*/
-/*}*/
-
-/*static bool		is_inside_triangle(t_vec3 hit_p, t_triangle *tri)*/
-/*{*/
-	/*return (*/
-			/*(check_edge(tri->p2, tri->p1, hit_p, tri->normal))*/
-			/*&& (check_edge(tri->p3, tri->p2, hit_p, tri->normal))*/
-			/*&& (check_edge(tri->p1, tri->p3, hit_p, tri->normal)));*/
-/*}*/
-
-
 bool	intersect_ray_with_triangle(t_vec3 *eye, t_vec3 *ray, t_triangle *triangle, double *t, double tmin, double tmax)
 {
 	bool	has_hit;
@@ -94,7 +87,7 @@ bool	intersect_ray_with_triangle(t_vec3 *eye, t_vec3 *ray, t_triangle *triangle,
 		return (false);
 	hit_point = scale_by(*ray, *t);
 	hit_point = add_vec(*eye, hit_point);
-	//has_hit = is_in_the_box(hit_point, triangle);
+	has_hit = is_in_the_box(hit_point, triangle);
 	if (!has_hit)
 		return (false);
 	has_hit = is_inside_triangle(hit_point, triangle);

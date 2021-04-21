@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   colors.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/21 15:04:50 by tpouget           #+#    #+#             */
+/*   Updated: 2021/04/21 15:08:10 by tpouget          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 t_vec3	distribute_colors(t_color color)
@@ -19,6 +31,7 @@ int			get_color_as_int(t_color color)
 
 	return (color_int);
 }
+
 t_color	compute_ray_color(t_vec3 *ray, t_vec3 *eye, t_object *object, double parameter)
 {
 	if (object->id == SPHERE)

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   structs.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/21 15:06:28 by tpouget           #+#    #+#             */
+/*   Updated: 2021/04/21 17:19:44 by tpouget          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef STRUCTS_H
 # define STRUCTS_H
 
@@ -126,6 +138,7 @@ typedef struct s_env
 	struct s_image		*images;
 	struct s_image		*displayed_image;
 	struct s_object		*objects;
+	struct s_object		*self;
 } t_env;
 
 struct s_fat_token {

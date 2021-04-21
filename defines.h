@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   defines.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/21 15:06:27 by tpouget           #+#    #+#             */
+/*   Updated: 2021/04/21 15:16:17 by tpouget          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #define EPSILON 								0.00001
 #define ESC										0xff1b
 #define SPACE									0x20	
@@ -15,7 +27,7 @@
 **  Do no set out of range values !
 */
 
-#define BACKGROUND_COLOR						(t_color){255,255,255}
+#define BACKGROUND_COLOR						(t_color){100,100,100}
 #define DEFAULT_AMBIENT_LIGHT_INTENSITY 		1
 #define DEFAULT_AMBIENT_LIGHT_COLOR 			(t_color){255,255,255}
 #define DEFAULT_AMBIENT_LIGHT_COLOR_DISTRIB 	(t_vec3){1,1,1}

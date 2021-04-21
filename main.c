@@ -1,16 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/21 15:06:26 by tpouget           #+#    #+#             */
+/*   Updated: 2021/04/21 15:06:37 by tpouget          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 t_env	env;
 
-static void		check_rt_extension(char *filename)
+double sq(double value)
 {
-	size_t len;
-
-	len = ft_strlen(filename);
-	if (filename[len - 1] != 't'
-		|| filename[len - 2] != 'r'
-		|| filename[len - 3] != '.' )
-		die("You must provide a .rt file");
+	return (value * value);
 }
 
 static void		env_checkup()
@@ -23,6 +29,13 @@ static void		env_checkup()
 		die("You must provide a resolution");
 	if (env.cameras == NULL)
 		die("You must define at least one camera");
+}
+
+int		cleanup_and_quit()
+{
+		free_env(&env);
+		exit(EXIT_SUCCESS);
+		return (0);
 }
 
 int			main(int argc, char *argv[])
@@ -82,12 +95,6 @@ int			main(int argc, char *argv[])
 	return (0);
 }
 
-int		cleanup_and_quit()
-{
-		free_env(&env);
-		exit(EXIT_SUCCESS);
-		return (0);
-}
 
 t_vec3		canvas_to_viewport(int x, int y, double fov)
 {
@@ -107,26 +114,4 @@ t_vec3		canvas_to_viewport(int x, int y, double fov)
 //	printf("Corresponding to viewport coordinates (%f,%f)\n", ray.x, ray.y);
 
 	return (ray);
-}
-
-bool		intersect_ray_with_object(t_vec3 *eye, t_vec3 *ray, t_object *object, double *solution, double tmin, double tmax)
-{
-	if (object->id == SPHERE)
-		return	(intersect_ray_with_sphere(eye, ray, (t_sphere*)(object->data), solution, tmin, tmax));
-	if (object->id == CYLINDER)
-		return	(intersect_ray_with_cylinder(eye, ray, (t_cylinder*)(object->data), solution, tmin, tmax));
-	if (object->id == PLANE)
-		return	(intersect_ray_with_plane(eye, ray, (t_plane*)(object->data), solution, tmin, tmax));
-	if (object->id == TRIANGLE)
-		return	(intersect_ray_with_triangle(eye, ray, (t_triangle*)(object->data), solution, tmin, tmax));
-	if (object->id == SQUARE)
-		return	(intersect_ray_with_square(eye, ray, (t_square*)(object->data), solution, tmin, tmax));
-	else
-		die("Intersection impossible : Unrecognized object type");
-	return (0);
-}
-
-double sq(double value)
-{
-	return (value * value);
 }

@@ -115,9 +115,11 @@ typedef struct s_env
 	int					res_y;
 	int					res_xmax;
 	int					res_ymax;
+	bool				unique_res;
 	double				ambl_intensity;
 	t_color				ambl_color;
 	t_vec3				ambl_distrib;
+	bool				unique_amb;
 	struct s_light		*lights;
 	struct s_cam		*cameras;
 	struct s_image		*images;

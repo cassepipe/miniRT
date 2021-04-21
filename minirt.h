@@ -24,7 +24,6 @@
 
 extern t_env env;
 
-
 void		prints(struct s_object*);
 void		check_args(int argc, char *argv[]);
 t_vec3		new_vec3(double x, double y, double z);

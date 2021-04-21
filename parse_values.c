@@ -63,7 +63,7 @@ double parse_double_or_die(char **input)
 		neg = (*input)++;
 	if (!ft_isdigit(**input))
 	{
-		die("error parsing double : input is not a digit\n" );
+		die("Invalid data : Could not parse double literal" );
 	}
 	while (ft_isdigit(**input) || (**input == '.' && !dot))
 	{
@@ -131,7 +131,7 @@ int parse_int_or_die(char **input)
 	if (**input == '-')
 		neg = (*input)++;
 	if (!ft_isdigit(**input))
-		die();
+		die("Invalid data : Could not parse integer literal");
 	while (ft_isdigit(**input))
 	{
 		ret = ret * 10 + (**input - '0');

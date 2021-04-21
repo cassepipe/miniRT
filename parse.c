@@ -17,38 +17,42 @@ static struct s_fat_token token_table[] =
 	{ "l",		1,	&parse_light}
 };
 
-extern t_env	env;
+static void	parse_tokens(char **input)
+{
+	char		*to_free;
+	size_t		i;
+
+	to_free = *input;
+	skip_blank(input);
+	i = 0;
+	while (i < sizeof(token_table)/sizeof(token_table[0]))
+	{
+		if (**input == '\0' || **input == '\n' || **input == '"')
+			break;
+		if (!ft_strncmp(token_table[i].token, *input , token_table[i].len))
+		{
+			skip_set(input, token_table[i].token);
+			token_table[i].token_func(input);
+			break;
+		}
+		i++;
+	}
+	free(to_free);
+	if (i == sizeof(token_table)/sizeof(token_table[0]))
+		die("Format error in .rt file : Invalid object token");
+}
 
 void parse_file_into_env()
 {
 	int			fd;
-	size_t		i;
 	char		*input;
-	char		*to_free;
 
 	fd = open(env.scene_path, O_RDONLY);
 	if (fd < 0)
 		die("This file does not seem to exist");
 	while (get_next_line(fd, &input))
 	{
-		to_free = input;
-		skip_blank(&input);
-		i = 0;
-		while (i < sizeof(token_table)/sizeof(token_table[0]))
-		{
-			if (*input == '\0' || *input == '\n' || *input == '"')
-				break;
-			if (!ft_strncmp(token_table[i].token, input , token_table[i].len))
-			{
-				skip_set(&input, token_table[i].token);
-				token_table[i].token_func(&input);
-				break;
-			}
-			i++;
-		}
-		free(to_free);
-		if (i == sizeof(token_table)/sizeof(token_table[0]))
-			die("Format error in .rt file : Invalid object token");
+		parse_tokens(&input);
 	}
 	free(input);
 	close(fd);
@@ -56,24 +60,29 @@ void parse_file_into_env()
 
 void parse_res(char **input)
 {
-	env.res_x = parse_double(input);
-	env.res_y = parse_double(input);
-	if (env.res_x > env.res_xmax)
-		env.res_x = env.res_xmax;
-	if (env.res_y > env.res_ymax)
-		env.res_y = env.res_ymax;
+	if (!env.unique_res)
+		die("Two resolutions defined. Only one is allowed");
+	env.res_x = parse_int(input);
+	env.res_y = parse_int(input);
+	if (env.res_x < 0 || env.res_y < 0)
+		die("Cannot take negative resolution values");
+	env.unique_res = false;
 }
+
 void	parse_ambl(char **input)
 {
 	printf("Parsing ambient light...\n");
+	if (!env.unique_amb)
+		die("Two ambient lights defined. Only one is allowed");
 	skip_blank(input);
 	env.ambl_intensity = parse_double(input);
 	if (env.ambl_intensity < 0
 		|| env.ambl_intensity > 1)
-		die("Light intensity not in range");
+		die("Ambient light intensity not in range [0,1]");
 	env.ambl_color = parse_color(input);
 	env.ambl_distrib = distribute_colors(env.ambl_color);
 	env.ambl_distrib = scale_by(env.ambl_distrib, env.ambl_intensity);
+	env.unique_amb = false;
 }
 
 void parse_light(char **input)
@@ -86,7 +95,7 @@ void parse_light(char **input)
 	new_light->intensity = parse_double(input);
 	if (new_light->intensity < 0
 		|| new_light->intensity > 1)
-		die("Light intensity not in range");
+		die("Light intensity not in range [0,1]");
 	new_light->color = parse_color(input);
 	new_light->color_distribution = distribute_colors(new_light->color);
 	new_light->color_distribution = scale_by(new_light->color_distribution, new_light->intensity);
@@ -98,7 +107,6 @@ static double to_radians(double angle)
 {
 	return(angle / 180 * M_PI);
 }
-
 
 void parse_cam(char **input)
 {

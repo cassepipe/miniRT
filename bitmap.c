@@ -52,7 +52,7 @@ static void	write_bmp_data(int fd, int *data)
 		while(x < env.res_x)
 		{
 			if((write(fd, &data[y * env.res_x + x], COLOR_DEPTH / BYTE_SZ)) < 0)
-					die("Probem writing file");
+					die("Problem occured while writing file");
 			x++;
 		}
 		y--;
@@ -79,7 +79,7 @@ void	create_bmp()
 		fd = open((const char*)filename, O_WRONLY | O_TRUNC | O_CREAT, 0777);
 		free(filename);
 		if (fd < 0)
-			die("Could not create bmp file\n");
+			die("Could not create .bmp file");
 		write(fd, &g_bmp_header, BMP_TOTAL_HEADER_SIZE);
 		write_bmp_data(fd, (int*)image->data);
 		close(fd);

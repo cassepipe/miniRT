@@ -13,14 +13,19 @@ int			main(int argc, char *argv[])
 	//Init X session
 	env.mlx_session = mlx_init();
 	if (env.mlx_session == NULL)
-		die("Failed to set up connection to X server");
+		die("Failed to set up connection to the X server");
 
 	//Get screen size
 	mlx_get_screen_size(env.mlx_session, &env.res_xmax, &env.res_ymax);
 
-
 	//Parsing
 	parse_file_into_env();
+	if (env.res_x == 0 || env.res_x > env.res_xmax)
+		env.res_x = env.res_xmax;
+	if (env.res_y == 0 || env.res_y > env.res_ymax)
+		env.res_y = env.res_ymax;
+	if (env.cameras == NULL)
+		die("You must define at least one camera");
 
 	//Check parsing
 	struct s_object *cur = env.objects;

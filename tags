@@ -137,6 +137,7 @@ parse_res	parse.c	/^void parse_res(char **input)$/;"	f
 parse_sp	parse_objects.c	/^void parse_sp(char **input)$/;"	f
 parse_sq	parse_objects.c	/^void parse_sq(char **input)$/;"	f
 parse_str_into_format	libft/ft_printf/format_utils.c	/^void		*parse_str_into_format(const char *fs,$/;"	f
+parse_tokens	parse.c	/^static void	parse_tokens(char **input)$/;"	f	file:
 parse_tr	parse_objects.c	/^void parse_tr(char **input)$/;"	f
 parse_vec	parse_values.c	/^t_vec3	parse_vec(char **input)$/;"	f
 pre_compute_coef	intersect_cylinder.c	/^static t_vec3	pre_compute_coef(t_vec3 v1, t_vec3 v2)$/;"	f	file:

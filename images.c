@@ -8,7 +8,7 @@ void    create_images()
 
 	img_buf = malloc(sizeof(t_image) * env.number_of_cams);
 	if (!img_buf)
-		die("malloc failed");
+		die("Malloc failed");
 	i = 0;
 	cam = env.cameras;
 	while(i < env.number_of_cams)

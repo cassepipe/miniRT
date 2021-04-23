@@ -19,35 +19,13 @@ t_color	compute_cylinder_lighting(t_vec3 *ray, t_vec3 *eye, t_cylinder *cylinder
 		t_vec3 hit_point;
 		t_vec3 normal;
 		double m;
-		t_vec3 CO;
-		t_vec3 OC;
-		t_vec3 AC;
-		t_vec3 CA;
 		t_vec3 CP;
-
-		/*CO = sub_vec(*eye, cylinder->base);*/
-		/*OC = sub_vec(cylinder->base, *eye);*/
 
 		hit_point = add_vec(*eye, scale_by(*ray, parameter));
 
-		/*m = dot(*ray, cylinder->dir) ;*/
-		/*m = m * parameter;*/
-		/*m = m + dot(CO, *ray);*/
-
-		/*CA = add_vec(OC, scale_by(cylinder->dir, m));*/
-		/*AC = scale_by(CA, -1);*/
-
-		/*CP =  add_vec(CO, hit_point);*/
-
-		/*normal = add_vec(AC, CP);*/
-		/*normal = normalize(normal);*/
-
-		t_vec3	oc;
-		double	dot_prod;
-
-		oc = sub_vec(hit_point, cylinder->base);
-		dot_prod = dot(cylinder->dir, oc);
-		normal = sub_vec(oc, scale_by(cylinder->dir, dot_prod));
+		CP = sub_vec(hit_point, cylinder->base);
+		m = dot(cylinder->dir, CP);
+		normal = sub_vec(CP, scale_by(cylinder->dir, m));
 		normal = normalize(normal);
 
 		return (apply_lighting(cylinder->color, compute_lighting(hit_point, normal)));

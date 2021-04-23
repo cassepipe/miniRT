@@ -10,14 +10,14 @@ apply_rotation_to_ray	matrices.c	/^t_vec3	apply_rotation_to_ray(t_vec3 ray, t_ma
 arrange_format	libft/ft_printf/format_utils.c	/^void		arrange_format(struct s_parameters *format)$/;"	f
 autodot	vector_products.c	/^double	autodot(t_vec3 v)$/;"	f
 canvas_to_viewport	main.c	/^t_vec3		canvas_to_viewport(int x, int y, double fov)$/;"	f
-cap_vec	lighting.c	/^static void cap_vec(t_vec3 *vec)$/;"	f	file:
+cap_vec	lighting.c	/^static void	cap_vec(t_vec3 *vec)$/;"	f	file:
 char_repr	libft/ft_printf/repr.c	/^char		*char_repr(unsigned char c,$/;"	f
 check_args	args.c	/^void		check_args(int argc, char *argv[])$/;"	f
 check_rt_extension	args.c	/^void		check_rt_extension(char *filename)$/;"	f
 cleanup_and_quit	main.c	/^int		cleanup_and_quit()$/;"	f
 compute_cam_to_world_matrix	matrices.c	/^t_matrix3x3	compute_cam_to_world_matrix(t_vec3 camera_direction)$/;"	f
 compute_cylinder_lighting	object_lighting.c	/^t_color	compute_cylinder_lighting(t_vec3 *ray, t_vec3 *eye, t_cylinder *cylinder, double parameter)$/;"	f
-compute_lighting	lighting.c	/^t_vec3 	compute_lighting(t_vec3 hit_point, t_vec3 normal)$/;"	f
+compute_lighting	lighting.c	/^t_vec3	compute_lighting(t_vec3 hit_point, t_vec3 normal)$/;"	f
 compute_plane_lighting	object_lighting.c	/^t_color	compute_plane_lighting(t_vec3 *ray, t_vec3 *eye, t_plane *plane, double parameter)$/;"	f
 compute_ray_color	colors.c	/^t_color	compute_ray_color(t_vec3 *ray, t_vec3 *eye, t_object *object, double parameter)$/;"	f
 compute_sphere_lighting	object_lighting.c	/^t_color	compute_sphere_lighting(t_vec3 *ray, t_vec3 *eye, t_sphere *sphere, double parameter)$/;"	f
@@ -152,7 +152,7 @@ skip_blank	parse_values.c	/^void	skip_blank(char **input)$/;"	f
 skip_blank_and_one_comma	parse_values.c	/^void	skip_blank_and_one_comma(char **input)$/;"	f
 skip_set	parse_values.c	/^void	skip_set(char **input, const char *set)$/;"	f
 solve_cylinder	intersect_cylinder.c	/^static bool		solve_cylinder(t_vec3 *eye, t_cylinder *cylinder, t_vec3 *ray, t_vec3 quad_coef, double *t,$/;"	f	file:
-sq	main.c	/^double sq(double value)$/;"	f
+sq	main.c	/^double			sq(double value)$/;"	f
 str_repr	libft/ft_printf/repr.c	/^char		*str_repr(char *s, struct s_parameters *format, ssize_t *size)$/;"	f
 sub_vec	vector_operation.c	/^t_vec3		sub_vec(t_vec3 point1, t_vec3 point2)$/;"	f
 to_radians	parse.c	/^static double to_radians(double angle)$/;"	f	file:

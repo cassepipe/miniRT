@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:06:26 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/21 15:06:37 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/23 15:29:04 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_env	env;
 
-double sq(double value)
+double			sq(double value)
 {
 	return (value * value);
 }
@@ -104,9 +104,9 @@ t_vec3		canvas_to_viewport(int x, int y, double fov)
 
 	aspect_ratio = (double)env.res_x / (double)env.res_y;
 	stretch = tan(fov * 0.5);
-	ray.x = 	(2.0 * (x + 0.5) / (double)env.res_x - 1)
-				* aspect_ratio
-				* stretch;
+	ray.x = (2.0 * (x + 0.5) / (double)env.res_x - 1)
+			* aspect_ratio
+			* stretch;
 	ray.y = (1 - 2.0 * (y + 0.5) / (double)env.res_y)
 			* stretch;
 	ray.z = 1;

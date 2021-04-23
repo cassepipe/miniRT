@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:04:51 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/21 15:06:35 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/22 14:00:02 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,18 @@ t_vec3		get_quad_coef(t_vec3 dir, t_vec3 oc, double radius)
 	result.y = 2 * dot(dir, oc);
 	result.z = dot(oc, oc) - (radius * radius);
 	return (result);
+}
+
+bool		get_quad_roots(double *root1, double *root2, t_vec3 quad_coef)
+{
+	double	discr;
+
+	discr = sq(quad_coef.y) - (4 * quad_coef.x * quad_coef.z);
+	if (discr < 0.0)
+		return (false);
+	*root1 = (-quad_coef.y + sqrt(discr)) / (2 * quad_coef.x);
+	*root2 = (-quad_coef.y - sqrt(discr)) / (2 * quad_coef.x);
+	return (true);
 }
 
 static bool		is_inside_cyl(t_vec3 *eye, t_cylinder *cylinder, t_vec3 *ray, double t)
@@ -94,14 +106,3 @@ bool			intersect_ray_with_cylinder(t_vec3 *eye, t_vec3 *ray, t_cylinder *cylinde
 	return (solve_cylinder(eye, cylinder, ray, quad_coef, t, tmin, tmax));
 }
 
-bool		get_quad_roots(double *root1, double *root2, t_vec3 quad_coef)
-{
-	double	discr;
-
-	discr = sq(quad_coef.y) - (4 * quad_coef.x * quad_coef.z);
-	if (discr < 0.0)
-		return (false);
-	*root1 = (-quad_coef.y + sqrt(discr)) / (2 * quad_coef.x);
-	*root2 = (-quad_coef.y - sqrt(discr)) / (2 * quad_coef.x);
-	return (true);
-}

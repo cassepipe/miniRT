@@ -1,18 +1,6 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   lighting.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/21 15:04:51 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/21 15:06:37 by tpouget          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minirt.h"
 
-static void cap_vec(t_vec3 *vec)
+static void	cap_vec(t_vec3 *vec)
 {
 	if (vec->x > 1)
 		vec->x = 1;
@@ -22,7 +10,7 @@ static void cap_vec(t_vec3 *vec)
 		vec->z = 1;
 }
 
-t_vec3 	compute_lighting(t_vec3 hit_point, t_vec3 normal)
+t_vec3	compute_lighting(t_vec3 hit_point, t_vec3 normal)
 {
 	t_vec3	total_distrib;
 	t_vec3	temp_distrib;
@@ -32,18 +20,21 @@ t_vec3 	compute_lighting(t_vec3 hit_point, t_vec3 normal)
 
 	total_distrib = env.ambl_distrib;
 	light = env.lights;
-	while (light != NULL) //&& i < 1)
+	while (light != NULL)
 	{
 		light_vector = sub_vec(light->origin, hit_point);
 		n_dot_l = dot(light_vector, normal);
-		if (n_dot_l > 0)
-		{
-			if (!trace_light(&hit_point, &light_vector))
+		/*if (dot(hit_point, normal) < 0)*/
+			/*{*/
+			if (n_dot_l > 0)
 			{
-				temp_distrib = scale_by(light->color_distribution, n_dot_l/vec_len(light_vector));
-				total_distrib = add_vec(total_distrib, temp_distrib);
+				if (!trace_light(&hit_point, &light_vector))
+				{
+					temp_distrib = scale_by(light->color_distribution, n_dot_l/vec_len(light_vector));
+					total_distrib = add_vec(total_distrib, temp_distrib);
+				}
 			}
-		}
+		/*}*/
 		light = light->next;
 		cap_vec(&total_distrib);
 	}
@@ -57,7 +48,5 @@ t_color	apply_lighting(t_color color, t_vec3 color_ratios)
 	result.red = color.red * color_ratios.x;
 	result.green = color.green * color_ratios.y;
 	result.blue = color.blue * color_ratios.z;
-
 	return (result);
 }
-

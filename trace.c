@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   trace.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/21 15:06:27 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/21 17:20:38 by tpouget          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minirt.h"
 
 t_color		trace_ray(t_vec3 *eye, t_vec3 *ray)
@@ -58,12 +46,12 @@ bool	trace_light(t_vec3 *hit_point, t_vec3 *ray)
 	parameter = 1;
 	while (current_object != NULL)
 	{
-		if (current_object == env.self)
-		{
-			current_object = current_object->next;
-			continue;
-		}
-		//printf("Current object is %p\n", current_object);
+		/*if (current_object == env.self)*/
+		/*{*/
+			/*current_object = current_object->next;*/
+			/*continue;*/
+		/*}*/
+		/*printf("Current object is %p\n", current_object);*/
 		has_hit = intersect_ray_with_object(hit_point, ray, current_object, &parameter, 0.00001, 1);
 		if (has_hit)
 		{

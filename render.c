@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:06:27 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/21 15:06:43 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/24 09:39:03 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static  void	render(struct s_image image, double fov)
 //				printf("Processing pixel(%d, %d)...\n", x, y);
 				ray = canvas_to_viewport(x, y, fov);
 				ray = apply_rotation_to_ray(ray, image.cam->cam_to_world);
+				ray = normalize(ray);
 				closest_object_color = trace_ray(&image.cam->origin, &ray);
 				pixel_color = get_color_as_int(closest_object_color);
 				put_pixel_to_image(&image, x, y, pixel_color);

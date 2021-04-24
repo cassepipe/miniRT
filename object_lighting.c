@@ -11,8 +11,8 @@ t_color	compute_sphere_lighting(t_vec3 *ray, t_vec3 *eye, t_sphere *sphere, doub
 		normal = sub_vec(hit_point, sphere->center);  // Compute sphere normal at intersection
 		normal = normalize(normal);
 
-		/*return (apply_lighting(sphere->color, compute_lighting(hit_point, normal)));*/
 		if (dot(normal, *ray) > 0)
+		/*if (vec_len(sub_vec(hit_point, *eye)) < sphere->diameter)*/
 			return (apply_lighting(sphere->color,
 									compute_lighting(hit_point,
 													scale_by(normal, -1))));

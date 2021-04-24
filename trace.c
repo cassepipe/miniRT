@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   trace.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/24 14:44:24 by tpouget           #+#    #+#             */
+/*   Updated: 2021/04/24 15:02:37 by tpouget          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
-t_color		trace_ray(t_vec3 *eye, t_vec3 *ray)
+t_color	trace_ray(t_vec3 *eye, t_vec3 *ray)
 {
 	t_object	*closest_object;
 	t_object	*current_object;
@@ -16,13 +28,10 @@ t_color		trace_ray(t_vec3 *eye, t_vec3 *ray)
 	{
 		has_hit = intersect_ray_with_object(eye, ray, current_object, &t, 1
 																, INFINITY);
-		if (has_hit)
+		if (has_hit && t >= 1 && t < closest_t)
 		{
-			if (t >= 1 && t < closest_t)
-			{
-				closest_t = t;
-				closest_object = current_object;
-			}
+			closest_t = t;
+			closest_object = current_object;
 		}
 		current_object = current_object->next;
 	}

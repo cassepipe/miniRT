@@ -6,19 +6,19 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:06:27 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/24 14:08:03 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:02:00 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static  void	render(struct s_image image, double fov)
+static void	render(struct s_image image, double fov)
 {
-	t_vec3 ray;
+	t_ray	ray;
 	t_color closest_object_color;
-	int pixel_color;
-	int	y;
-	int x;
+	int		pixel_color;
+	int		y;
+	int		x;
 
 	y = 0;
 	while (y <= g_env.res_y)
@@ -26,10 +26,11 @@ static  void	render(struct s_image image, double fov)
 		x = 0;
 		while (x <= g_env.res_x)
 		{
-			ray = canvas_to_viewport(x, y, fov);
-			ray = apply_rotation_to_ray(ray, image.cam->cam_to_world);
-			ray = normalize(ray);
-			closest_object_color = trace_ray(&image.cam->origin, &ray);
+			ray.dir = canvas_to_viewport(x, y, fov);
+			ray.dir = apply_rotation_to_ray(ray.dir, image.cam->cam_to_world);
+			ray.dir = normalize(ray.dir);
+			ray.origin = image.cam->origin;
+			closest_object_color = trace_ray(&ray.origin, &ray.dir);
 			pixel_color = get_color_as_int(closest_object_color);
 			put_pixel_to_image(&image, x, y, pixel_color);
 			x++;

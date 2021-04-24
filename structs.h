@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:06:28 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/24 14:43:20 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/24 14:54:18 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_quaternion {
 
 typedef struct s_ray {
 	t_vec3		dir;
+	t_vec3		origin;
 } t_ray;
 
 typedef struct s_viewplane {

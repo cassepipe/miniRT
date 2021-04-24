@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:04:50 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/24 11:22:24 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:06:17 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,23 +31,18 @@ int		get_color_as_int(t_color color)
 }
 
 t_color	compute_ray_color(t_vec3 *ray, t_vec3 *eye,
-								t_object *object, double param)
+		t_object *obj, double t)
 {
-	if (object->id == SPHERE)
-		return (compute_sphere_lighting(ray, eye,
-					(t_sphere*)(object->data), param));
-	if (object->id == CYLINDER)
-		return (compute_cylinder_lighting(ray, eye,
-					(t_cylinder*)(object->data), param));
-	if (object->id == PLANE)
-		return (compute_plane_lighting(ray, eye,
-					(t_plane*)(object->data), param));
-	if (object->id == TRIANGLE)
-		return (compute_triangle_lighting(ray, eye,
-					(t_triangle*)(object->data), param));
-	if (object->id == SQUARE)
-		return (compute_square_lighting(ray, eye,
-					(t_square*)(object->data), param));
+	if (obj->id == SPHERE)
+		return (compute_sphere_lighting(ray, eye, (t_sphere*)(obj->data), t));
+	if (obj->id == CYLINDER)
+		return (compute_cylinder_lighting(ray, eye, (t_cylinder*)(obj->data), t));
+	if (obj->id == PLANE)
+		return (compute_plane_lighting(ray, eye, (t_plane*)(obj->data), t));
+	if (obj->id == TRIANGLE)
+		return (compute_triangle_lighting(ray, eye, (t_triangle*)(obj->data), t));
+	if (obj->id == SQUARE)
+		return (compute_square_lighting(ray, eye, (t_square*)(obj->data), t));
 	else
 		die("Could not compute lighting: Unrecognized object type");
 	return (BACKGROUND_COLOR);

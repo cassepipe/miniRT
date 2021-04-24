@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:04:50 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/21 15:06:32 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/24 10:41:24 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,6 @@ void		check_rt_extension(char *filename)
 	len = ft_strlen(filename);
 	if (filename[len - 1] != 't'
 		|| filename[len - 2] != 'r'
-		|| filename[len - 3] != '.' )
+		|| filename[len - 3] != '.')
 		die("You must provide a .rt file");
 }

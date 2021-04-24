@@ -6,13 +6,13 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:04:50 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/21 15:06:32 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/24 11:22:01 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void free_camera_list(t_cam *camera)
+void	free_camera_list(t_cam *camera)
 {
 	t_cam *next_object;
 
@@ -24,7 +24,7 @@ void free_camera_list(t_cam *camera)
 	}
 }
 
-void free_light_list()
+void	free_light_list(void)
 {
 	t_light *light;
 	t_light *next_object;
@@ -38,7 +38,7 @@ void free_light_list()
 	}
 }
 
-void free_image_list(struct s_image *image)
+void	free_image_list(struct s_image *image)
 {
 	struct s_image *next_object;
 
@@ -54,7 +54,7 @@ void free_image_list(struct s_image *image)
 	}
 }
 
-void free_object_list(t_object *object)
+void	free_object_list(t_object *object)
 {
 	t_object *next_object;
 
@@ -67,7 +67,7 @@ void free_object_list(t_object *object)
 	}
 }
 
-void free_env(t_env *env)
+void	free_env(t_env *env)
 {
 	free_object_list(env->objects);
 	free_light_list();

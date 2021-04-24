@@ -6,32 +6,33 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:04:51 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/21 15:06:34 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/24 10:59:09 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void    create_images()
+void	create_images(void)
 {
-	struct s_image  *img_buf;
+	struct s_image	*img_buf;
 	t_cam			*cam;
-	int          i;
+	int				i;
 
 	img_buf = malloc(sizeof(t_image) * env.number_of_cams);
 	if (!img_buf)
 		die("Malloc failed");
 	i = 0;
 	cam = env.cameras;
-	while(i < env.number_of_cams)
+	while (i < env.number_of_cams)
 	{
-		img_buf[i].mlx_handle = mlx_new_image(env.mlx_session, env.res_x, env.res_y);
+		img_buf[i].mlx_handle = mlx_new_image(env.mlx_session,
+												env.res_x, env.res_y);
 		img_buf[i].data = mlx_get_data_addr(img_buf[i].mlx_handle,
 				&img_buf[i].bits_per_pixel,
 				&img_buf[i].line_len,
 				&img_buf[i].endianness);
 		img_buf[i].cam = cam;
-		img_buf[i].next = &img_buf[i+1];
+		img_buf[i].next = &img_buf[i + 1];
 		cam = cam->next;
 		i++;
 	}
@@ -44,6 +45,6 @@ void	put_pixel_to_image(struct s_image *image, int x, int y, int color)
 {
 	char *dest;
 
-	dest = image->data + y * image->line_len + x * (image->bits_per_pixel/8);
+	dest = image->data + y * image->line_len + x * (image->bits_per_pixel / 8);
 	*(unsigned int*)dest = color;
 }

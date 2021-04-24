@@ -6,13 +6,13 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:04:51 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/21 15:06:37 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/24 11:10:25 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static double min(double a, double b, double c)
+static double	min(double a, double b, double c)
 {
 	double min;
 	double min2;
@@ -22,7 +22,7 @@ static double min(double a, double b, double c)
 	return (min < min2 ? min : min2);
 }
 
-static double max(double a, double b, double c)
+static double	max(double a, double b, double c)
 {
 	double max;
 	double max2;
@@ -32,7 +32,7 @@ static double max(double a, double b, double c)
 	return (max > max2 ? max : max2);
 }
 
-static bool	is_in_the_box(t_vec3 hit_point, t_triangle *tr)
+static bool		is_in_the_box(t_vec3 hit_point, t_triangle *tr)
 {
 	if (hit_point.x < min(tr->p1.x, tr->p2.x, tr->p3.x))
 		return (false);
@@ -49,7 +49,7 @@ static bool	is_in_the_box(t_vec3 hit_point, t_triangle *tr)
 	return (true);
 }
 
-static bool	is_inside_triangle(t_vec3 hit_point, t_triangle *tr)
+static bool		is_inside_triangle(t_vec3 hit_point, t_triangle *tr)
 {
 	t_vec3 v;
 	t_vec3 a;
@@ -59,21 +59,21 @@ static bool	is_inside_triangle(t_vec3 hit_point, t_triangle *tr)
 	a = cross_product(v, sub_vec(hit_point, tr->p3));
 	b = cross_product(v, sub_vec(tr->p1, tr->p3));
 	if (dot(a, b) < 0)
-		return false;
+		return (false);
 	v = sub_vec(tr->p1, tr->p3);
 	a = cross_product(v, sub_vec(hit_point, tr->p3));
 	b = cross_product(v, sub_vec(tr->p2, tr->p3));
 	if (dot(a, b) < 0)
-		return false;
+		return (false);
 	v = sub_vec(tr->p1, tr->p2);
 	a = cross_product(v, sub_vec(hit_point, tr->p2));
 	b = cross_product(v, sub_vec(tr->p3, tr->p2));
 	if (dot(a, b) < 0)
-		return false;
+		return (false);
 	return (true);
 }
 
-bool	intersect_ray_with_triangle(t_vec3 *eye, t_vec3 *ray, t_triangle *triangle, double *t, double tmin, double tmax)
+bool			intersect_ray_with_triangle(t_vec3 *eye, t_vec3 *ray, t_triangle *triangle, double *t, double tmin, double tmax)
 {
 	bool	has_hit;
 	t_vec3	hit_point;
@@ -81,7 +81,6 @@ bool	intersect_ray_with_triangle(t_vec3 *eye, t_vec3 *ray, t_triangle *triangle,
 
 	plane.normal = triangle->normal;
 	plane.some_point = triangle->p1;
-
 	has_hit = intersect_ray_with_plane(eye, ray, &plane, t, tmin, tmax);
 	if (!has_hit)
 		return (false);

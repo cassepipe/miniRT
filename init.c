@@ -6,13 +6,13 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:04:51 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/21 15:06:35 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/24 10:59:51 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void		init_env()
+void		init_env(void)
 {
 	env.mlx_session = NULL;
 	env.window = NULL;

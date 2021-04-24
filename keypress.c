@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:04:51 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/21 15:06:37 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/24 11:11:09 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,11 @@ int		handle_keypress(int keycode, void *params)
 	if (keycode == SPACE)
 	{
 		env.displayed_image = env.displayed_image->next;
-		mlx_put_image_to_window(env.mlx_session, env.window, env.displayed_image->mlx_handle, 0, 0);
+		mlx_put_image_to_window(env.mlx_session,
+								env.window,
+								env.displayed_image->mlx_handle,
+								0,
+								0);
 	}
 	if (keycode == ESC)
 	{

@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:06:27 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/21 15:16:17 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/24 10:48:08 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 #define BMP_INFO_HEADER_SIZE					40
 #define MAX_INTEGER_LEN							10
 #define COLOR_DEPTH								32	
-#define BYTE_SZ									8
+#define BYTE									8
 
 /*
 **  Do no set out of range values !

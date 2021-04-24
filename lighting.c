@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lighting.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/24 11:42:22 by tpouget           #+#    #+#             */
+/*   Updated: 2021/04/24 11:42:24 by tpouget          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 static void	cap_vec(t_vec3 *vec)
@@ -10,7 +22,7 @@ static void	cap_vec(t_vec3 *vec)
 		vec->z = 1;
 }
 
-t_vec3	compute_lighting(t_vec3 hit_point, t_vec3 normal)
+t_vec3		compute_lighting(t_vec3 hit_point, t_vec3 normal)
 {
 	t_vec3	total_distrib;
 	t_vec3	temp_distrib;
@@ -24,24 +36,22 @@ t_vec3	compute_lighting(t_vec3 hit_point, t_vec3 normal)
 	{
 		light_vector = sub_vec(light->origin, hit_point);
 		n_dot_l = dot(light_vector, normal);
-		/*if (dot(hit_point, normal) < 0)*/
-			/*{*/
-			if (n_dot_l > 0)
+		if (n_dot_l > 0)
+		{
+			if (!trace_light(&hit_point, &light_vector))
 			{
-				if (!trace_light(&hit_point, &light_vector))
-				{
-					temp_distrib = scale_by(light->color_distribution, n_dot_l/vec_len(light_vector));
-					total_distrib = add_vec(total_distrib, temp_distrib);
-				}
+				temp_distrib = scale_by(light->color_distribution,
+											n_dot_l / vec_len(light_vector));
+				total_distrib = add_vec(total_distrib, temp_distrib);
 			}
-		/*}*/
+		}
 		light = light->next;
 		cap_vec(&total_distrib);
 	}
 	return (total_distrib);
 }
 
-t_color	apply_lighting(t_color color, t_vec3 color_ratios)
+t_color		apply_lighting(t_color color, t_vec3 color_ratios)
 {
 	t_color result;
 

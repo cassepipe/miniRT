@@ -6,20 +6,13 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:04:51 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/22 14:00:02 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/24 11:23:15 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-
-t_vec3		get_quad_coef(t_vec3 dir, t_vec3 oc, double radius);
-static bool		solve_cylinder(t_vec3 *eye, t_cylinder *cylinder, t_vec3 *ray, t_vec3 quad_coef, double *t, double tmin, double tmax);
-static t_vec3	pre_compute_coef(t_vec3 v1, t_vec3 v2);
-bool		get_quad_roots(double *root1, double *root2, t_vec3 quad_coef);
-static bool		is_inside_cyl(t_vec3 *eye, t_cylinder *cylinder, t_vec3 *ray, double t);
-
-t_vec3		get_quad_coef(t_vec3 dir, t_vec3 oc, double radius)
+static t_vec3		get_quad_coef(t_vec3 dir, t_vec3 oc, double radius)
 {
 	t_vec3	result;
 
@@ -52,14 +45,12 @@ static bool		is_inside_cyl(t_vec3 *eye, t_cylinder *cylinder, t_vec3 *ray, doubl
 	top = add_vec(cylinder->base, scale_by(cylinder->dir, cylinder->height));
 	base_to_hit_point = sub_vec(hit_point, cylinder->base);
 	top_to_hit_point = sub_vec(hit_point, top);
-
 	return ((dot(cylinder->dir, base_to_hit_point) > 0.0)
 			&& (dot(cylinder->dir, top_to_hit_point) < 0.0));
 }
 
-
 static bool		solve_cylinder(t_vec3 *eye, t_cylinder *cylinder, t_vec3 *ray, t_vec3 quad_coef, double *t,
-	   							double tmin, double tmax)
+								double tmin, double tmax)
 {
 	double		root1;
 	double		root2;
@@ -70,12 +61,14 @@ static bool		solve_cylinder(t_vec3 *eye, t_cylinder *cylinder, t_vec3 *ray, t_ve
 	retvalue = false;
 	if (get_quad_roots(&root1, &root2, quad_coef))
 	{
-		if (root1 > tmin && root1 < tmax && is_inside_cyl(eye, cylinder, ray, root1))
+		if (root1 > tmin && root1 < tmax
+				&& is_inside_cyl(eye, cylinder, ray, root1))
 		{
 			*t = root1;
 			retvalue = true;
 		}
-		if (root2 > tmin && root2 < tmax && is_inside_cyl(eye, cylinder, ray, root2))
+		if (root2 > tmin && root2 < tmax
+				&& is_inside_cyl(eye, cylinder, ray, root2))
 		{
 			if (root2 < root1)
 			{

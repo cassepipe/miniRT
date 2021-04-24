@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:06:28 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/21 15:06:45 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/24 14:08:39 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 # include "libft/libft.h"
 # include "libft/ft_printf/ft_printf.h"
 
-extern t_env env;
+extern t_env g_env;
 
 void		prints(struct s_object*);
 void		check_args(int argc, char *argv[]);

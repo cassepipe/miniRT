@@ -9,7 +9,7 @@ apply_lighting	lighting.c	/^t_color		apply_lighting(t_color color, t_vec3 color_
 apply_rotation_to_ray	matrices.c	/^t_vec3			apply_rotation_to_ray(t_vec3 ray, t_matrix3x3 rot_matrix)$/;"	f
 arrange_format	libft/ft_printf/format_utils.c	/^void		arrange_format(struct s_parameters *format)$/;"	f
 autodot	vector_products.c	/^double	autodot(t_vec3 v)$/;"	f
-canvas_to_viewport	main.c	/^t_vec3		canvas_to_viewport(int x, int y, double fov)$/;"	f
+canvas_to_viewport	pixel_to_rays.c	/^t_vec3		canvas_to_viewport(int x, int y, double fov)$/;"	f
 cap_vec	lighting.c	/^static void	cap_vec(t_vec3 *vec)$/;"	f	file:
 char_repr	libft/ft_printf/repr.c	/^char		*char_repr(unsigned char c,$/;"	f
 check_args	args.c	/^void		check_args(int argc, char *argv[])$/;"	f
@@ -29,9 +29,9 @@ create_images	images.c	/^void	create_images(void)$/;"	f
 cross_product	vector_products.c	/^t_vec3	cross_product(t_vec3 a, struct s_vec3 b)$/;"	f
 die	error.c	/^void	die(const char *error_text)$/;"	f
 diralloc	libft/ft_split.c	/^static char			**diralloc(const char *s, char c)$/;"	f	file:
+display_scene	main.c	/^static void	display_scene(void)$/;"	f	file:
 distribute_colors	colors.c	/^t_vec3	distribute_colors(t_color color)$/;"	f
-dot	vector_products.c	/^double dot(t_vec3 u, t_vec3 v)$/;"	f
-env	main.c	/^t_env	env;$/;"	v
+dot	vector_products.c	/^double	dot(t_vec3 u, t_vec3 v)$/;"	f
 env_checkup	main.c	/^static void	env_checkup(void)$/;"	f	file:
 free_camera_list	cleanup.c	/^void	free_camera_list(t_cam *camera)$/;"	f
 free_env	cleanup.c	/^void	free_env(t_env *env)$/;"	f
@@ -92,6 +92,7 @@ ft_tolower	libft/ft_tolower.c	/^int	ft_tolower(int c)$/;"	f
 ft_toupper	libft/ft_toupper.c	/^int	ft_toupper(int c)$/;"	f
 ft_vdprintf	libft/ft_printf/ft_vdprintf.c	/^int						ft_vdprintf(int fd, const char *fs, va_list args)$/;"	f
 g_bmp_header	bitmap.c	/^static t_bmp_header g_bmp_header = (t_bmp_header){$/;"	v	file:
+g_env	main.c	/^t_env	g_env;$/;"	v
 get_color_as_int	colors.c	/^int		get_color_as_int(t_color color)$/;"	f
 get_next_line	libft/get_next_line.c	/^int			get_next_line(int fd, char **line)$/;"	f
 get_quad_coef	intersect_cylinder.c	/^static t_vec3		get_quad_coef(t_vec3 dir, t_vec3 oc, double radius)$/;"	f	file:
@@ -104,14 +105,14 @@ intersect_ray_with_cylinder	intersect_cylinder.c	/^bool			intersect_ray_with_cyl
 intersect_ray_with_object	intersection_triage.c	/^bool		intersect_ray_with_object(t_vec3 *eye, t_vec3 *ray, t_object *object, double *solution, double tmin, double tmax)$/;"	f
 intersect_ray_with_plane	intersect_plane.c	/^bool	intersect_ray_with_plane(t_vec3 *eye, t_vec3 *ray, t_plane *plane, double *t, double tmin, double tmax)$/;"	f
 intersect_ray_with_sphere	intersect_sphere.c	/^bool	intersect_ray_with_sphere(t_vec3 *O, t_vec3 *ray, t_sphere *sphere, double *t,$/;"	f
-intersect_ray_with_square	square.c	/^bool intersect_ray_with_square(t_vec3 *eye, t_vec3 *ray, t_square *square, double *t, double tmin, double tmax)$/;"	f
+intersect_ray_with_square	square.c	/^bool		intersect_ray_with_square(t_vec3 *eye, t_vec3 *ray, t_square *square, double *t, double tmin, double tmax)$/;"	f
 intersect_ray_with_triangle	intersect_triangle.c	/^bool			intersect_ray_with_triangle(t_vec3 *eye, t_vec3 *ray, t_triangle *triangle, double *t, double tmin, double tmax)$/;"	f
 is_in	libft/ft_printf/format_utils.c	/^int			is_in(char c, const char *charset)$/;"	f
 is_in	parse_values.c	/^static int		is_in(char c, const char *set)$/;"	f	file:
 is_in_set	libft/ft_strtrim.c	/^static int	is_in_set(char c, char const *set)$/;"	f	file:
 is_in_the_box	intersect_triangle.c	/^static bool		is_in_the_box(t_vec3 hit_point, t_triangle *tr)$/;"	f	file:
 is_inside_cyl	intersect_cylinder.c	/^static bool		is_inside_cyl(t_vec3 *eye, t_cylinder *cylinder, t_vec3 *ray, double t)$/;"	f	file:
-is_inside_square	square.c	/^static bool	is_inside_square(t_vec3 hit_point , t_square *square)$/;"	f	file:
+is_inside_square	square.c	/^static bool	is_inside_square(t_vec3 hit_point, t_square *square)$/;"	f	file:
 is_inside_triangle	intersect_triangle.c	/^static bool		is_inside_triangle(t_vec3 hit_point, t_triangle *tr)$/;"	f	file:
 leftpad	libft/ft_printf/pad.c	/^void	leftpad(char **str, char c, size_t n)$/;"	f
 main	main.c	/^int			main(int argc, char *argv[])$/;"	f
@@ -120,27 +121,26 @@ min	intersect_triangle.c	/^static double	min(double a, double b, double c)$/;"	f
 nbr_repr	libft/ft_printf/repr.c	/^char		*nbr_repr(long nbr, struct s_parameters *format, ssize_t *size)$/;"	f
 next_sep	libft/ft_split.c	/^static const char	*next_sep(const char *str, char sep)$/;"	f	file:
 next_word	libft/ft_split.c	/^static const char	*next_word(const char *str, char sep)$/;"	f	file:
-normalize	vector_operation.c	/^t_vec3 normalize(t_vec3 v)$/;"	f
-parse_ambl	parse.c	/^void	parse_ambl(char **input)$/;"	f
-parse_cam	parse.c	/^void parse_cam(char **input)$/;"	f
+normalize	vector_operation.c	/^t_vec3	normalize(t_vec3 v)$/;"	f
+parse_ambl	parse_light.c	/^void	parse_ambl(char **input)$/;"	f
+parse_cam	parse.c	/^void			parse_cam(char **input)$/;"	f
 parse_color	parse_values.c	/^t_color	parse_color(char **input)$/;"	f
-parse_cy	parse_objects.c	/^void parse_cy(char **input)$/;"	f
+parse_cy	parse_objects.c	/^void	parse_cy(char **input)$/;"	f
 parse_double	parse_values.c	/^double	parse_double(char **input)$/;"	f
-parse_double_or_die	parse_values.c	/^double parse_double_or_die(char **input)$/;"	f
-parse_file_into_env	parse.c	/^void		parse_file_into_env()$/;"	f
-parse_int	parse_values.c	/^int		parse_int(char**input)$/;"	f
-parse_int_or_die	parse_values.c	/^int parse_int_or_die(char **input)$/;"	f
-parse_light	parse.c	/^void parse_light(char **input)$/;"	f
-parse_pl	parse_objects.c	/^void parse_pl(char **input)$/;"	f
-parse_res	parse.c	/^void parse_res(char **input)$/;"	f
-parse_sp	parse_objects.c	/^void parse_sp(char **input)$/;"	f
-parse_sq	parse_objects.c	/^void parse_sq(char **input)$/;"	f
+parse_double_or_die	parse_values.c	/^double		parse_double_or_die(char **input)$/;"	f
+parse_file_into_env	parse.c	/^void			parse_file_into_env(void)$/;"	f
+parse_int	parse_values.c	/^int		parse_int(char **input)$/;"	f
+parse_int_or_die	parse_values.c	/^int	parse_int_or_die(char **input)$/;"	f
+parse_light	parse_light.c	/^void	parse_light(char **input)$/;"	f
+parse_pl	parse_objects.c	/^void	parse_pl(char **input)$/;"	f
+parse_res	parse.c	/^void			parse_res(char **input)$/;"	f
+parse_sp	parse_objects.c	/^void	parse_sp(char **input)$/;"	f
+parse_sq	parse_objects.c	/^void	parse_sq(char **input)$/;"	f
 parse_str_into_format	libft/ft_printf/format_utils.c	/^void		*parse_str_into_format(const char *fs,$/;"	f
-parse_tokens	parse.c	/^static void	parse_tokens(char **input)$/;"	f	file:
-parse_tr	parse_objects.c	/^void parse_tr(char **input)$/;"	f
+parse_tokens	parse.c	/^static void		parse_tokens(char **input)$/;"	f	file:
+parse_tr	parse_objects.c	/^void	parse_tr(char **input)$/;"	f
 parse_vec	parse_values.c	/^t_vec3	parse_vec(char **input)$/;"	f
 pre_compute_coef	intersect_cylinder.c	/^static t_vec3	pre_compute_coef(t_vec3 v1, t_vec3 v2)$/;"	f	file:
-prints	prints.c	/^void prints(struct s_object *object)$/;"	f
 ptr_repr	libft/ft_printf/repr.c	/^char		*ptr_repr(void *ptr, struct s_parameters *format, ssize_t *size)$/;"	f
 put_pixel_to_image	images.c	/^void	put_pixel_to_image(struct s_image *image, int x, int y, int color)$/;"	f
 render	render.c	/^static  void	render(struct s_image image, double fov)$/;"	f	file:
@@ -154,12 +154,12 @@ solve_cylinder	intersect_cylinder.c	/^static bool		solve_cylinder(t_vec3 *eye, t
 sq	main.c	/^double		sq(double value)$/;"	f
 str_repr	libft/ft_printf/repr.c	/^char		*str_repr(char *s, struct s_parameters *format, ssize_t *size)$/;"	f
 sub_vec	vector_operation.c	/^t_vec3		sub_vec(t_vec3 point1, t_vec3 point2)$/;"	f
-to_radians	parse.c	/^static double to_radians(double angle)$/;"	f	file:
+to_radians	parse.c	/^static double	to_radians(double angle)$/;"	f	file:
 to_the_power_of	libft/ft_printf/ft_lutoa_base.c	/^static unsigned long	to_the_power_of(unsigned long n, unsigned long p)$/;"	f	file:
 token_table	parse.c	/^static struct s_fat_token token_table[] =$/;"	v	typeref:struct:s_fat_token	file:
 trace_light	trace.c	/^bool	trace_light(t_vec3 *hit_point, t_vec3 *ray)$/;"	f
 trace_ray	trace.c	/^t_color		trace_ray(t_vec3 *eye, t_vec3 *ray)$/;"	f
 transpose_matrix	matrices.c	/^t_matrix3x3		transpose_matrix(t_matrix3x3 matrix)$/;"	f
-vec_len	vector_operation.c	/^double	vec_len(t_vec3	v)$/;"	f
+vec_len	vector_operation.c	/^double	vec_len(t_vec3 v)$/;"	f
 write_bmp_data	bitmap.c	/^static void	write_bmp_data(int fd, int *data)$/;"	f	file:
 write_format	libft/ft_printf/format_utils.c	/^ssize_t		write_format(int fd,$/;"	f

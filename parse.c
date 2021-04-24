@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:06:26 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/24 12:00:20 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/24 14:33:06 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static struct s_fat_token token_table[] =
 	{ "l", 1, &parse_light}
 };
 
-static void	parse_tokens(char **input)
+static void		parse_tokens(char **input)
 {
 	char		*to_free;
 	size_t		i;
@@ -54,12 +54,12 @@ static void	parse_tokens(char **input)
 		die("Format error in .rt file : Invalid object token");
 }
 
-void		parse_file_into_env()
+void			parse_file_into_env(void)
 {
 	int			fd;
 	char		*input;
 
-	fd = open(env.scene_path, O_RDONLY);
+	fd = open(g_env.scene_path, O_RDONLY);
 	if (fd < 0)
 		die("This file does not seem to exist");
 	while (get_next_line(fd, &input))
@@ -70,58 +70,24 @@ void		parse_file_into_env()
 	close(fd);
 }
 
-void parse_res(char **input)
+void			parse_res(char **input)
 {
-	env.has_res = true;
-	if (!env.unique_res)
+	g_env.has_res = true;
+	if (!g_env.unique_res)
 		die("Two resolutions defined. Only one is allowed");
-	env.res_x = parse_int(input);
-	env.res_y = parse_int(input);
-	if (env.res_x < 0 || env.res_y < 0)
+	g_env.res_x = parse_int(input);
+	g_env.res_y = parse_int(input);
+	if (g_env.res_x < 0 || g_env.res_y < 0)
 		die("Cannot take negative resolution values");
-	env.unique_res = false;
+	g_env.unique_res = false;
 }
 
-void	parse_ambl(char **input)
+static double	to_radians(double angle)
 {
-	ft_printf("Parsing ambient light...\n");
-	if (!env.unique_amb)
-		die("Two ambient lights defined. Only one is allowed");
-	skip_blank(input);
-	env.ambl_intensity = parse_double(input);
-	if (env.ambl_intensity < 0
-		|| env.ambl_intensity > 1)
-		die("Ambient light intensity not in range [0,1]");
-	env.ambl_color = parse_color(input);
-	env.ambl_distrib = distribute_colors(env.ambl_color);
-	env.ambl_distrib = scale_by(env.ambl_distrib, env.ambl_intensity);
-	env.unique_amb = false;
+	return (angle / 180 * M_PI);
 }
 
-void parse_light(char **input)
-{
-	t_light *new_light;
-
-	ft_printf("Parsing light...\n");
-	new_light = malloc(sizeof(t_light));
-	new_light->origin = parse_vec(input);
-	new_light->intensity = parse_double(input);
-	if (new_light->intensity < 0
-		|| new_light->intensity > 1)
-		die("Light intensity not in range [0,1]");
-	new_light->color = parse_color(input);
-	new_light->color_distribution = distribute_colors(new_light->color);
-	new_light->color_distribution = scale_by(new_light->color_distribution, new_light->intensity);
-	new_light->next = env.lights;
-	env.lights = new_light;
-}
-
-static double to_radians(double angle)
-{
-	return(angle / 180 * M_PI);
-}
-
-void parse_cam(char **input)
+void			parse_cam(char **input)
 {
 	t_cam *new_cam;
 
@@ -134,7 +100,7 @@ void parse_cam(char **input)
 		|| new_cam->fov > 180)
 		die("Field of view not in range [0,180]");
 	new_cam->cam_to_world = compute_cam_to_world_matrix(new_cam->direction);
-	new_cam->next = env.cameras;
-	env.cameras = new_cam;
-	env.number_of_cams++;
+	new_cam->next = g_env.cameras;
+	g_env.cameras = new_cam;
+	g_env.number_of_cams++;
 }

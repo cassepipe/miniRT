@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/21 15:04:50 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/24 10:41:24 by tpouget          ###   ########.fr       */
+/*   Created: 2021/04/24 14:26:29 by tpouget           #+#    #+#             */
+/*   Updated: 2021/04/24 14:27:16 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void		check_args(int argc, char *argv[])
 		if (argc == 3)
 		{
 			if (!strcmp(argv[2], "--save"))
-				env.bmp_mode = true;
+				g_env.bmp_mode = true;
 			else if (argv[2][0] == '-')
 				die("`--save` is the only valid option");
 			else

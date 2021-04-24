@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/24 11:42:22 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/24 11:42:24 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/24 14:07:37 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ t_vec3		compute_lighting(t_vec3 hit_point, t_vec3 normal)
 	t_vec3	light_vector;
 	double	n_dot_l;
 
-	total_distrib = env.ambl_distrib;
-	light = env.lights;
+	total_distrib = g_env.ambl_distrib;
+	light = g_env.lights;
 	while (light != NULL)
 	{
 		light_vector = sub_vec(light->origin, hit_point);

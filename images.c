@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:04:51 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/24 10:59:09 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/24 14:29:07 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@ void	create_images(void)
 	t_cam			*cam;
 	int				i;
 
-	img_buf = malloc(sizeof(t_image) * env.number_of_cams);
+	img_buf = malloc(sizeof(t_image) * g_env.number_of_cams);
 	if (!img_buf)
 		die("Malloc failed");
 	i = 0;
-	cam = env.cameras;
-	while (i < env.number_of_cams)
+	cam = g_env.cameras;
+	while (i < g_env.number_of_cams)
 	{
-		img_buf[i].mlx_handle = mlx_new_image(env.mlx_session,
-												env.res_x, env.res_y);
+		img_buf[i].mlx_handle = mlx_new_image(g_env.mlx_session,
+												g_env.res_x, g_env.res_y);
 		img_buf[i].data = mlx_get_data_addr(img_buf[i].mlx_handle,
 				&img_buf[i].bits_per_pixel,
 				&img_buf[i].line_len,
@@ -36,9 +36,9 @@ void	create_images(void)
 		cam = cam->next;
 		i++;
 	}
-	img_buf[env.number_of_cams - 1].next = img_buf;
-	env.images = img_buf;
-	env.displayed_image = env.images;
+	img_buf[g_env.number_of_cams - 1].next = img_buf;
+	g_env.images = img_buf;
+	g_env.displayed_image = g_env.images;
 }
 
 void	put_pixel_to_image(struct s_image *image, int x, int y, int color)

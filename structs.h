@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:06:28 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/24 12:01:12 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/24 14:43:20 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,14 +138,13 @@ typedef struct s_env
 	struct s_image		*images;
 	struct s_image		*displayed_image;
 	struct s_object		*objects;
-	struct s_object		*self;
 } t_env;
 
 typedef struct s_fat_token {
 	const char	*token;
 	size_t		len;
 	void		(*token_func)(char** input);
-}t_fat_token;
+}	t_fat_token;
 
 struct s_image {
 	void			*mlx_handle;

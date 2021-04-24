@@ -1,33 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector_products.c                                  :+:      :+:    :+:   */
+/*   pixel_to_rays.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/21 15:06:27 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/24 12:27:59 by tpouget          ###   ########.fr       */
+/*   Created: 2021/04/24 14:42:07 by tpouget           #+#    #+#             */
+/*   Updated: 2021/04/24 14:42:10 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-double	dot(t_vec3 u, t_vec3 v)
+t_vec3		canvas_to_viewport(int x, int y, double fov)
 {
-	return (u.x * v.x + u.y * v.y + u.z * v.z);
-}
+	t_vec3 ray;
+	double aspect_ratio;
+	double stretch;
 
-double	autodot(t_vec3 v)
-{
-	return (dot(v, v));
-}
-
-t_vec3	cross_product(t_vec3 a, struct s_vec3 b)
-{
-	t_vec3 result;
-
-	result.x = a.y * b.z - a.z * b.y;
-	result.y = a.z * b.x - a.x * b.z;
-	result.z = a.x * b.y - a.y * b.x;
-	return (result);
+	aspect_ratio = (double)g_env.res_x / (double)g_env.res_y;
+	stretch = tan(fov * 0.5);
+	ray.x = (2.0 * (x + 0.5) / (double)g_env.res_x - 1)
+			* aspect_ratio
+			* stretch;
+	ray.y = (1 - 2.0 * (y + 0.5) / (double)g_env.res_y)
+			* stretch;
+	ray.z = 1;
+	return (ray);
 }

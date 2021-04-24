@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:06:27 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/21 15:06:39 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/24 12:17:14 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,15 @@ void	skip_blank_and_one_comma(char **input)
 
 static int		is_in(char c, const char *set)
 {
-	while(*set)
+	while (*set)
 	{
 		if (*set == c)
 		{
-			return 1;
+			return (1);
 		}
 		set++;
 	}
-	return 0;
+	return (0);
 }
 
 void	skip_set(char **input, const char *set)
@@ -47,7 +47,7 @@ void	skip_set(char **input, const char *set)
 	{
 		if (!is_in(**input, set))
 		{
-			return;
+			return ;
 		}
 		(*input)++;
 	}
@@ -60,11 +60,11 @@ void	skip_set(char **input, const char *set)
 **	the string by incrementing the pointer.
 */
 
-double parse_double_or_die(char **input)
+double		parse_double_or_die(char **input)
 {
 	char	*neg;
 	double	ret;
-	double  div;
+	double	div;
 	bool	dot;
 
 	neg = NULL;
@@ -74,9 +74,7 @@ double parse_double_or_die(char **input)
 	if (**input == '-')
 		neg = (*input)++;
 	if (!ft_isdigit(**input))
-	{
-		die("Invalid data : Could not parse double literal" );
-	}
+		die("Invalid data : Could not parse double literal");
 	while (ft_isdigit(**input) || (**input == '.' && !dot))
 	{
 		if (**input == '.')
@@ -84,18 +82,19 @@ double parse_double_or_die(char **input)
 		else
 		{
 			div = dot ? div / 10 : div;
-			ret = dot ? ret + (**input - '0') * div : ret * 10 + (**input - '0');
+			ret = dot ?
+					ret + (**input - '0') * div
+					: ret * 10 + (**input - '0');
 		}
 		(*input)++;
 	}
-//	printf("RESULT is %f\n", neg ? -ret : ret);
 	return (neg ? -ret : ret);
 }
 
 double	parse_double(char **input)
 {
 	skip_blank_and_one_comma(input);
-	return(parse_double_or_die(input));
+	return (parse_double_or_die(input));
 }
 
 t_vec3	parse_vec(char **input)
@@ -105,11 +104,10 @@ t_vec3	parse_vec(char **input)
 	vector.x = parse_double(input);
 	vector.y = parse_double(input);
 	vector.z = parse_double(input);
-
 	return (vector);
 }
 
-int		parse_int(char**input)
+int		parse_int(char **input)
 {
 	skip_blank_and_one_comma(input);
 	return (parse_int_or_die(input));
@@ -122,18 +120,17 @@ t_color	parse_color(char **input)
 	color.red = parse_int(input);
 	color.green = parse_int(input);
 	color.blue = parse_int(input);
-
-	if (	color.red < 0
-		||	color.red > 255
-		||	color.green < 0
-		||	color.green > 255
-		||	color.blue < 0
-		||	color.blue > 255)
-		die ("Color not in range");
+	if (color.red < 0
+		|| color.red > 255
+		|| color.green < 0
+		|| color.green > 255
+		|| color.blue < 0
+		|| color.blue > 255)
+		die("Color not in range");
 	return (color);
 }
 
-int parse_int_or_die(char **input)
+int	parse_int_or_die(char **input)
 {
 	char	*neg;
 	int		ret;
@@ -149,6 +146,5 @@ int parse_int_or_die(char **input)
 		ret = ret * 10 + (**input - '0');
 		(*input)++;
 	}
-	//printf("RESULT is %i\n", neg ? -ret : ret);
 	return (neg ? -ret : ret);
 }

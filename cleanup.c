@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:04:50 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/24 11:22:01 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/24 14:34:28 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	free_light_list(void)
 	t_light *light;
 	t_light *next_object;
 
-	light = env.lights;
+	light = g_env.lights;
 	while (light != NULL)
 	{
 		next_object = light->next;
@@ -42,15 +42,15 @@ void	free_image_list(struct s_image *image)
 {
 	struct s_image *next_object;
 
-	if (env.images)
+	if (g_env.images)
 	{
-		while (env.number_of_cams--)
+		while (g_env.number_of_cams--)
 		{
 			next_object = image->next;
-			mlx_destroy_image(env.mlx_session, image->mlx_handle);
+			mlx_destroy_image(g_env.mlx_session, image->mlx_handle);
 			image = next_object;
 		}
-		free(env.images);
+		free(g_env.images);
 	}
 }
 

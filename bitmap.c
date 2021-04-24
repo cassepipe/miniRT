@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:04:50 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/24 10:46:09 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/24 14:05:54 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,13 @@ static void	write_bmp_data(int fd, int *data)
 	int		x;
 	int		y;
 
-	y = env.res_y - 1;
+	y = g_env.res_y - 1;
 	while (y >= 0)
 	{
 		x = 0;
-		while (x < env.res_x)
+		while (x < g_env.res_x)
 		{
-			if ((write(fd, &data[y * env.res_x + x], COLOR_DEPTH / BYTE)) < 0)
+			if ((write(fd, &data[y * g_env.res_x + x], COLOR_DEPTH / BYTE)) < 0)
 				die("Problem occured while writing file");
 			x++;
 		}
@@ -79,12 +79,12 @@ void	create_bmp(void)
 	int				i;
 
 	i = 0;
-	image = env.images;
-	data_size = env.res_x * env.res_y * sizeof(int);
+	image = g_env.images;
+	data_size = g_env.res_x * g_env.res_y * sizeof(int);
 	g_bmp_header.size_of_bitmap_file = data_size + BMP_TOTAL_HEADER_SIZE;
-	g_bmp_header.width = env.res_x;
-	g_bmp_header.height = env.res_y;
-	while (i < env.number_of_cams)
+	g_bmp_header.width = g_env.res_x;
+	g_bmp_header.height = g_env.res_y;
+	while (i < g_env.number_of_cams)
 	{
 		filename = create_filename(i);
 		fd = open((const char*)filename, O_WRONLY | O_TRUNC | O_CREAT, 0777);

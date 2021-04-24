@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:06:28 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/24 14:54:18 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:12:12 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ typedef	struct s_cylinder {
 	double		diameter;
 	double		height;
 	t_color		color;
-} t_cylinder;
+} t_cyl;
 
 typedef	struct s_triangle {
 	t_vec3		p1;

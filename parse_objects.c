@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:06:27 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/24 14:31:53 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:12:33 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,10 @@ void	parse_sq(char **input)
 void	parse_cy(char **input)
 {
 	t_object	*new_object;
-	t_cylinder	*new_cylinder;
+	t_cyl	*new_cylinder;
 
 	ft_printf("Parsing cylinder...\n");
-	new_cylinder = malloc(sizeof(t_cylinder));
+	new_cylinder = malloc(sizeof(t_cyl));
 	new_cylinder->base = parse_vec(input);
 	new_cylinder->dir = normalize(parse_vec(input));
 	new_cylinder->diameter = parse_double(input);

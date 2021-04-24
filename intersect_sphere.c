@@ -6,13 +6,13 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:04:51 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/24 11:08:34 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:23:29 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-bool	intersect_ray_with_sphere(t_vec3 *O, t_vec3 *ray, t_sphere *sphere, double *t,
+bool	intersect_ray_with_sphere(t_ray *ray, t_sphere *sphere, double *t,
 										double tmin, double tmax)
 {
 	double	radius;
@@ -27,9 +27,9 @@ bool	intersect_ray_with_sphere(t_vec3 *O, t_vec3 *ray, t_sphere *sphere, double 
 	bool	has_hit;
 
 	radius = sphere->diameter * 0.5;
-	co = sub_vec(*O, sphere->center);
-	a = dot(*ray, *ray);
-	b = 2 * dot(co, *ray);
+	co = sub_vec(ray->origin, sphere->center);
+	a = autodot(ray->dir);
+	b = 2 * dot(co, ray->dir);
 	c = dot(co, co) - radius * radius;
 	discriminant = b * b - 4 * a * c;
 	if (discriminant < 0)

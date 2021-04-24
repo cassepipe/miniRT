@@ -16,13 +16,13 @@ check_args	args.c	/^void		check_args(int argc, char *argv[])$/;"	f
 check_rt_extension	args.c	/^void		check_rt_extension(char *filename)$/;"	f
 cleanup_and_quit	main.c	/^int			cleanup_and_quit(void)$/;"	f
 compute_cam_to_world_matrix	matrices.c	/^t_matrix3x3		compute_cam_to_world_matrix(t_vec3 camera_direction)$/;"	f
-compute_cylinder_lighting	object_lighting.c	/^t_color	compute_cylinder_lighting(t_vec3 *ray, t_vec3 *eye,$/;"	f
+compute_cylinder_lighting	object_lighting.c	/^t_color	compute_cylinder_lighting(t_ray *ray, t_cyl *cylinder,$/;"	f
 compute_lighting	lighting.c	/^t_vec3		compute_lighting(t_vec3 hit_point, t_vec3 normal)$/;"	f
-compute_plane_lighting	object_lighting.c	/^t_color	compute_plane_lighting(t_vec3 *ray, t_vec3 *eye, t_plane *plane,$/;"	f
-compute_ray_color	colors.c	/^t_color	compute_ray_color(t_vec3 *ray, t_vec3 *eye,$/;"	f
-compute_sphere_lighting	object_lighting.c	/^t_color	compute_sphere_lighting(t_vec3 *ray, t_vec3 *eye, t_sphere *sphere,$/;"	f
-compute_square_lighting	object_lighting.c	/^t_color	compute_square_lighting(t_vec3 *ray, t_vec3 *eye, t_square *square,$/;"	f
-compute_triangle_lighting	object_lighting.c	/^t_color	compute_triangle_lighting(t_vec3 *ray, t_vec3 *eye,$/;"	f
+compute_plane_lighting	object_lighting.c	/^t_color	compute_plane_lighting(t_ray *ray, t_plane *plane,$/;"	f
+compute_ray_color	colors.c	/^t_color	compute_ray_color(t_ray *ray, t_object *obj, double t)$/;"	f
+compute_sphere_lighting	object_lighting.c	/^t_color	compute_sphere_lighting(t_ray *ray, t_sphere *sphere,$/;"	f
+compute_square_lighting	object_lighting.c	/^t_color	compute_square_lighting(t_ray *ray, t_square *square,$/;"	f
+compute_triangle_lighting	object_lighting.c	/^t_color	compute_triangle_lighting(t_ray *ray, t_triangle *triangle,$/;"	f
 create_bmp	bitmap.c	/^void	create_bmp(void)$/;"	f
 create_filename	bitmap.c	/^static char	*create_filename(int file_number)$/;"	f	file:
 create_images	images.c	/^void	create_images(void)$/;"	f
@@ -101,17 +101,17 @@ grow_buffer_until_newline	libft/get_next_line.c	/^static int	grow_buffer_until_n
 handle_keypress	keypress.c	/^int		handle_keypress(int keycode, void *params)$/;"	f
 init_env	init.c	/^void		init_env(void)$/;"	f
 init_format	libft/ft_printf/format_utils.c	/^void		init_format(struct s_parameters *format)$/;"	f
-intersect_ray_with_cylinder	intersect_cylinder.c	/^bool			intersect_ray_with_cylinder(t_vec3 *eye, t_vec3 *ray, t_cylinder *cylinder, double *t, double tmin, double tmax)$/;"	f
-intersect_ray_with_object	intersection_triage.c	/^bool		intersect_ray_with_object(t_vec3 *eye, t_vec3 *ray, t_object *object, double *solution, double tmin, double tmax)$/;"	f
-intersect_ray_with_plane	intersect_plane.c	/^bool	intersect_ray_with_plane(t_vec3 *eye, t_vec3 *ray, t_plane *plane, double *t, double tmin, double tmax)$/;"	f
-intersect_ray_with_sphere	intersect_sphere.c	/^bool	intersect_ray_with_sphere(t_vec3 *O, t_vec3 *ray, t_sphere *sphere, double *t,$/;"	f
-intersect_ray_with_square	square.c	/^bool		intersect_ray_with_square(t_vec3 *eye, t_vec3 *ray,$/;"	f
-intersect_ray_with_triangle	intersect_triangle.c	/^bool			intersect_ray_with_triangle(t_vec3 *eye, t_vec3 *ray, t_triangle *triangle, double *t, double tmin, double tmax)$/;"	f
+intersect_ray_with_cylinder	intersect_cylinder.c	/^bool			intersect_ray_with_cylinder(t_ray *ray, t_cyl *cylinder, double *t, double tmin, double tmax)$/;"	f
+intersect_ray_with_object	intersection_triage.c	/^bool		intersect_ray_with_object(t_ray *ray, t_object *object, double *t, double tmin, double tmax)$/;"	f
+intersect_ray_with_plane	intersect_plane.c	/^bool	intersect_ray_with_plane(t_ray *ray, t_plane *plane, double *t, double tmin, double tmax)$/;"	f
+intersect_ray_with_sphere	intersect_sphere.c	/^bool	intersect_ray_with_sphere(t_ray *ray, t_sphere *sphere, double *t,$/;"	f
+intersect_ray_with_square	square.c	/^bool		intersect_ray_with_square(t_ray *ray,$/;"	f
+intersect_ray_with_triangle	intersect_triangle.c	/^bool			intersect_ray_with_triangle(t_ray *ray, t_triangle *triangle, double *t, double tmin, double tmax)$/;"	f
 is_in	libft/ft_printf/format_utils.c	/^int			is_in(char c, const char *charset)$/;"	f
 is_in	parse_values.c	/^static int		is_in(char c, const char *set)$/;"	f	file:
 is_in_set	libft/ft_strtrim.c	/^static int	is_in_set(char c, char const *set)$/;"	f	file:
 is_in_the_box	intersect_triangle.c	/^static bool		is_in_the_box(t_vec3 hit_point, t_triangle *tr)$/;"	f	file:
-is_inside_cyl	intersect_cylinder.c	/^static bool		is_inside_cyl(t_vec3 *eye, t_cylinder *cylinder, t_vec3 *ray, double t)$/;"	f	file:
+is_inside_cyl	intersect_cylinder.c	/^static bool		is_inside_cyl(t_cyl *cylinder, t_ray *ray, double t)$/;"	f	file:
 is_inside_square	square.c	/^static bool	is_inside_square(t_vec3 hit_point, t_square *square)$/;"	f	file:
 is_inside_triangle	intersect_triangle.c	/^static bool		is_inside_triangle(t_vec3 hit_point, t_triangle *tr)$/;"	f	file:
 leftpad	libft/ft_printf/pad.c	/^void	leftpad(char **str, char c, size_t n)$/;"	f
@@ -150,15 +150,15 @@ scale_by	vector_operation.c	/^t_vec3	scale_by(t_vec3 vector, double scalar)$/;"	
 skip_blank	parse_values.c	/^void	skip_blank(char **input)$/;"	f
 skip_blank_and_one_comma	parse_values.c	/^void	skip_blank_and_one_comma(char **input)$/;"	f
 skip_set	parse_values.c	/^void	skip_set(char **input, const char *set)$/;"	f
-solve_cylinder	intersect_cylinder.c	/^static bool		solve_cylinder(t_vec3 *eye, t_cylinder *cylinder, t_vec3 *ray, t_vec3 quad_coef, double *t,$/;"	f	file:
+solve_cylinder	intersect_cylinder.c	/^static bool		solve_cylinder(t_cyl *cylinder, t_ray *ray, t_vec3 quad_coef, double *t,$/;"	f	file:
 sq	main.c	/^double		sq(double value)$/;"	f
 str_repr	libft/ft_printf/repr.c	/^char		*str_repr(char *s, struct s_parameters *format, ssize_t *size)$/;"	f
 sub_vec	vector_operation.c	/^t_vec3		sub_vec(t_vec3 point1, t_vec3 point2)$/;"	f
 to_radians	parse.c	/^static double	to_radians(double angle)$/;"	f	file:
 to_the_power_of	libft/ft_printf/ft_lutoa_base.c	/^static unsigned long	to_the_power_of(unsigned long n, unsigned long p)$/;"	f	file:
 token_table	parse.c	/^static struct s_fat_token token_table[] =$/;"	v	typeref:struct:s_fat_token	file:
-trace_light	trace.c	/^bool	trace_light(t_vec3 *hit_point, t_vec3 *ray)$/;"	f
-trace_ray	trace.c	/^t_color	trace_ray(t_vec3 *eye, t_vec3 *ray)$/;"	f
+trace_light	trace.c	/^bool	trace_light(t_ray *ray)$/;"	f
+trace_ray	trace.c	/^t_color	trace_ray(t_ray *ray)$/;"	f
 transpose_matrix	matrices.c	/^t_matrix3x3		transpose_matrix(t_matrix3x3 matrix)$/;"	f
 vec_len	vector_operation.c	/^double	vec_len(t_vec3 v)$/;"	f
 write_bmp_data	bitmap.c	/^static void	write_bmp_data(int fd, int *data)$/;"	f	file:

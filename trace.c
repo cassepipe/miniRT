@@ -6,13 +6,13 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/24 14:44:24 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/24 15:02:37 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/24 16:50:48 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_color	trace_ray(t_vec3 *eye, t_vec3 *ray)
+t_color	trace_ray(t_ray *ray)
 {
 	t_object	*closest_object;
 	t_object	*current_object;
@@ -26,7 +26,7 @@ t_color	trace_ray(t_vec3 *eye, t_vec3 *ray)
 	closest_t = INFINITY;
 	while (current_object != NULL)
 	{
-		has_hit = intersect_ray_with_object(eye, ray, current_object, &t, 1
+		has_hit = intersect_ray_with_object(ray, current_object, &t, 1
 																, INFINITY);
 		if (has_hit && t >= 1 && t < closest_t)
 		{
@@ -37,10 +37,10 @@ t_color	trace_ray(t_vec3 *eye, t_vec3 *ray)
 	}
 	if (closest_object == NULL)
 		return (BACKGROUND_COLOR);
-	return (compute_ray_color(ray, eye, closest_object, closest_t));
+	return (compute_ray_color(ray, closest_object, closest_t));
 }
 
-bool	trace_light(t_vec3 *hit_point, t_vec3 *ray)
+bool	trace_light(t_ray *ray)
 {
 	t_object	*current_object;
 	bool		has_hit;
@@ -50,7 +50,7 @@ bool	trace_light(t_vec3 *hit_point, t_vec3 *ray)
 	parameter = 1;
 	while (current_object != NULL)
 	{
-		has_hit = intersect_ray_with_object(hit_point, ray, current_object,
+		has_hit = intersect_ray_with_object(ray, current_object,
 													&parameter, 0.00001, 1);
 		if (has_hit)
 		{

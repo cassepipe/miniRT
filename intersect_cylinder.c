@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:04:51 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/24 11:23:15 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:29:34 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,14 @@ bool		get_quad_roots(double *root1, double *root2, t_vec3 quad_coef)
 	return (true);
 }
 
-static bool		is_inside_cyl(t_vec3 *eye, t_cylinder *cylinder, t_vec3 *ray, double t)
+static bool		is_inside_cyl(t_cyl *cylinder, t_ray *ray, double t)
 {
 	t_vec3		hit_point;
 	t_vec3		top;
 	t_vec3		base_to_hit_point;
 	t_vec3		top_to_hit_point;
 
-	hit_point = add_vec(*eye, scale_by(*ray, t));
+	hit_point = add_vec(ray->origin, scale_by(ray->dir, t));
 	top = add_vec(cylinder->base, scale_by(cylinder->dir, cylinder->height));
 	base_to_hit_point = sub_vec(hit_point, cylinder->base);
 	top_to_hit_point = sub_vec(hit_point, top);
@@ -49,7 +49,7 @@ static bool		is_inside_cyl(t_vec3 *eye, t_cylinder *cylinder, t_vec3 *ray, doubl
 			&& (dot(cylinder->dir, top_to_hit_point) < 0.0));
 }
 
-static bool		solve_cylinder(t_vec3 *eye, t_cylinder *cylinder, t_vec3 *ray, t_vec3 quad_coef, double *t,
+static bool		solve_cylinder(t_cyl *cylinder, t_ray *ray, t_vec3 quad_coef, double *t,
 								double tmin, double tmax)
 {
 	double		root1;
@@ -62,13 +62,13 @@ static bool		solve_cylinder(t_vec3 *eye, t_cylinder *cylinder, t_vec3 *ray, t_ve
 	if (get_quad_roots(&root1, &root2, quad_coef))
 	{
 		if (root1 > tmin && root1 < tmax
-				&& is_inside_cyl(eye, cylinder, ray, root1))
+				&& is_inside_cyl(cylinder, ray, root1))
 		{
 			*t = root1;
 			retvalue = true;
 		}
 		if (root2 > tmin && root2 < tmax
-				&& is_inside_cyl(eye, cylinder, ray, root2))
+				&& is_inside_cyl(cylinder, ray, root2))
 		{
 			if (root2 < root1)
 			{
@@ -85,17 +85,17 @@ static t_vec3	pre_compute_coef(t_vec3 v1, t_vec3 v2)
 	return (sub_vec(v1, scale_by(v2, dot(v1, v2))));
 }
 
-bool			intersect_ray_with_cylinder(t_vec3 *eye, t_vec3 *ray, t_cylinder *cylinder, double *t, double tmin, double tmax)
+bool			intersect_ray_with_cylinder(t_ray *ray, t_cyl *cylinder, double *t, double tmin, double tmax)
 {
 	t_vec3		quad_coef;
 	t_vec3		oc;
 	t_vec3		dir;
 	t_vec3		ocdir;
 
-	oc = sub_vec(*eye, cylinder->base);
-	dir = pre_compute_coef(*ray, cylinder->dir);
+	oc = sub_vec(ray->origin, cylinder->base);
+	dir = pre_compute_coef(ray->dir, cylinder->dir);
 	ocdir = pre_compute_coef(oc, cylinder->dir);
 	quad_coef = get_quad_coef(dir, ocdir, cylinder->diameter * 0.5);
-	return (solve_cylinder(eye, cylinder, ray, quad_coef, t, tmin, tmax));
+	return (solve_cylinder(cylinder, ray, quad_coef, t, tmin, tmax));
 }
 

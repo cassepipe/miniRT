@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/24 11:42:22 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/24 14:07:37 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/24 16:57:02 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,26 +26,27 @@ t_vec3		compute_lighting(t_vec3 hit_point, t_vec3 normal)
 {
 	t_vec3	total_distrib;
 	t_vec3	temp_distrib;
-	t_light *light;
-	t_vec3	light_vector;
+	t_light *light_point;
+	t_ray	light_ray;
 	double	n_dot_l;
 
 	total_distrib = g_env.ambl_distrib;
-	light = g_env.lights;
-	while (light != NULL)
+	light_point = g_env.lights;
+	while (light_point != NULL)
 	{
-		light_vector = sub_vec(light->origin, hit_point);
-		n_dot_l = dot(light_vector, normal);
+		light_ray.dir = sub_vec(light_point->origin, hit_point);
+		light_ray.origin = hit_point;
+		n_dot_l = dot(light_ray.dir, normal);
 		if (n_dot_l > 0)
 		{
-			if (!trace_light(&hit_point, &light_vector))
+			if (!trace_light(&light_ray))
 			{
-				temp_distrib = scale_by(light->color_distribution,
-											n_dot_l / vec_len(light_vector));
+				temp_distrib = scale_by(light_point->color_distribution,
+											n_dot_l / vec_len(light_ray.dir));
 				total_distrib = add_vec(total_distrib, temp_distrib);
 			}
 		}
-		light = light->next;
+		light_point = light_point->next;
 		cap_vec(&total_distrib);
 	}
 	return (total_distrib);

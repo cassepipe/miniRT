@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:06:28 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/24 14:08:39 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/24 16:51:40 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,30 +42,29 @@ void		check_rt_extension(char *filename);
 t_vec3		new_vec3(double x, double y, double z);
 t_vec3		canvas_to_viewport(int x, int y, double fov);
 void		render_image_list(struct s_image *images);
-t_color		trace_ray(t_vec3 *eye, t_vec3 *D);
-bool		intersect_ray_with_object(t_vec3 *eye, t_vec3 *ray, t_object *object, double *solution, double tmin, double tmax);
-bool		intersect_ray_with_sphere(t_vec3 *eye, t_vec3 *ray, t_sphere *sphere, double *solution, double tmin, double tmax);
-bool		intersect_ray_with_cylinder(t_vec3 *eye, t_vec3 *ray, t_cylinder *cylinder, double *t, double tmin, double tmax);
-bool		intersect_ray_with_plane(t_vec3 *eye, t_vec3 *ray, t_plane *plane, double *t, double tmin, double tmax);
-bool		intersect_ray_with_triangle(t_vec3 *eye, t_vec3 *ray, t_triangle *triangle, double *t, double tmin, double tmax);
-bool 		intersect_ray_with_square(t_vec3 *eye, t_vec3 *ray, t_square *square, double *t, double tmin, double tmax);
+t_color		trace_ray(t_ray *ray);
+bool		intersect_ray_with_object(t_ray *ray, t_object *object, double *solution, double tmin, double tmax);
+bool		intersect_ray_with_sphere(t_ray *ray, t_sphere *sphere, double *solution, double tmin, double tmax);
+bool		intersect_ray_with_cylinder(t_ray *ray, t_cyl *cylinder, double *t, double tmin, double tmax);
+bool		intersect_ray_with_plane(t_ray *ray, t_plane *plane, double *t, double tmin, double tmax);
+bool		intersect_ray_with_triangle(t_ray *ray, t_triangle *triangle, double *t, double tmin, double tmax);
+bool 		intersect_ray_with_square(t_ray *ray, t_square *square, double *t, double tmin, double tmax);
 t_color		get_object_color(t_object *object);
 int			get_color_as_int(t_color color);
 t_vec3		sub_vec(t_vec3 point1, t_vec3 point2);
 double		dot(t_vec3 u, t_vec3 v);
 void		init_env();
 void		create_images();
-t_color		compute_ray_color(t_vec3 *ray, t_vec3 *eye, t_object *object, double parameter);
-t_color		compute_sphere_lighting(t_vec3 *ray, t_vec3 *eye, t_sphere *sphere, double parameter);
-t_color		compute_cylinder_lighting(t_vec3 *ray, t_vec3 *eye, t_cylinder *cylinder, double parameter);
-t_color		compute_plane_lighting(t_vec3 *ray, t_vec3 *eye, t_plane *plane, double parameter);
-t_color		compute_triangle_lighting(t_vec3 *ray, t_vec3 *eye, t_triangle *triangle, double parameter);
-t_color		compute_square_lighting(t_vec3 *ray, t_vec3 *eye, t_square *square, double parameter);
+t_color		compute_ray_color(t_ray *ray,  t_object *object, double parameter);
+t_color		compute_sphere_lighting(t_ray *ray, t_sphere *sphere, double parameter);
+t_color		compute_cylinder_lighting(t_ray *ray, t_cyl *cylinder, double parameter);
+t_color		compute_plane_lighting(t_ray *ray, t_plane *plane, double parameter);
+t_color		compute_triangle_lighting(t_ray *ray, t_triangle *triangle, double parameter);
+t_color		compute_square_lighting(t_ray *ray, t_square *square, double parameter);
 t_vec3		compute_lighting(t_vec3 hit_point, t_vec3 normal);
 void		put_pixel_to_image(struct s_image *image, int x, int y, int color);
 double		vec_len(t_vec3	v);
-bool		trace_light(t_vec3 *origin, t_vec3 *ray);
-bool		trace_light(t_vec3 *hit_point, t_vec3 *ray);
+bool		trace_light(t_ray *ray);
 t_matrix3x3	compute_cam_to_world_matrix(t_vec3 camera_direction);
 t_vec3		apply_rotation_to_ray(t_vec3 ray, t_matrix3x3 rot_matrix);
 

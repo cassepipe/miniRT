@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/24 12:08:10 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/24 14:33:07 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/26 18:51:21 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ void	parse_light(char **input)
 		|| new_light->intensity > 1)
 		die("Light intensity not in range [0,1]");
 	new_light->color = parse_color(input);
-	new_light->color_distribution = distribute_colors(new_light->color);
-	new_light->color_distribution = scale_by(new_light->color_distribution,
+	new_light->color_distrib = distribute_colors(new_light->color);
+	new_light->color_distrib = scale_by(new_light->color_distrib,
 												new_light->intensity);
 	new_light->next = g_env.lights;
 	g_env.lights = new_light;

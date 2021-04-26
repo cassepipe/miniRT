@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector_operation.c                                 :+:      :+:    :+:   */
+/*   vector_operations.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:06:27 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/24 12:26:24 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/26 18:44:55 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_vec3	normalize(t_vec3 v)
 	return (result);
 }
 
-t_vec3		sub_vec(t_vec3 point1, t_vec3 point2)
+t_vec3	sub_vec(t_vec3 point1, t_vec3 point2)
 {
 	t_vec3 vector;
 

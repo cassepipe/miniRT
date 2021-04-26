@@ -1,12 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/26 17:28:07 by tpouget           #+#    #+#             */
+/*   Updated: 2021/04/26 17:28:37 by tpouget          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
-void	skip_blank(char **input)
+void		skip_blank(char **input)
 {
 	while (ft_isspace(**input))
 		(*input)++;
 }
 
-void	skip_blank_and_one_comma(char **input)
+void		skip_blank_and_one_comma(char **input)
 {
 	while (ft_isspace(**input))
 		(*input)++;
@@ -16,7 +28,7 @@ void	skip_blank_and_one_comma(char **input)
 		(*input)++;
 }
 
-static int		is_in(char c, const char *set)
+static int	is_in(char c, const char *set)
 {
 	while (*set)
 	{
@@ -29,7 +41,7 @@ static int		is_in(char c, const char *set)
 	return (0);
 }
 
-void	skip_set(char **input, const char *set)
+void		skip_set(char **input, const char *set)
 {
 	while (**input)
 	{

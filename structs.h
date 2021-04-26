@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:06:28 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/26 16:49:55 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/26 18:46:34 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ typedef struct		s_light {
 	t_vec3			origin;
 	double			intensity;
 	t_color			color;
-	t_vec3			color_distribution;
+	t_vec3			color_distrib;
 	struct s_light *next;
 }					t_light;
 

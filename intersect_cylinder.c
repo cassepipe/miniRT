@@ -6,13 +6,13 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:04:51 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/26 16:50:42 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/26 18:44:13 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static t_vec3		get_quad_coef(t_vec3 dir, t_vec3 oc, double radius)
+static t_vec3	get_equation_coeffs(t_vec3 dir, t_vec3 oc, double radius)
 {
 	t_vec3	result;
 
@@ -22,15 +22,15 @@ static t_vec3		get_quad_coef(t_vec3 dir, t_vec3 oc, double radius)
 	return (result);
 }
 
-bool		get_quad_roots(double *root1, double *root2, t_vec3 quad_coef)
+static bool		solve_2deg_eq(t_vec3 coeffs, double *sol1, double *sol2)
 {
-	double	discr;
+	double	delta;
 
-	discr = sq(quad_coef.y) - (4 * quad_coef.x * quad_coef.z);
-	if (discr < 0.0)
+	delta = (coeffs.y * coeffs.y) - (4 * coeffs.x * coeffs.z);
+	if (delta < 0)
 		return (false);
-	*root1 = (-quad_coef.y + sqrt(discr)) / (2 * quad_coef.x);
-	*root2 = (-quad_coef.y - sqrt(discr)) / (2 * quad_coef.x);
+	*sol1 = (-coeffs.y + sqrt(delta)) / (2 * coeffs.x);
+	*sol2 = (-coeffs.y - sqrt(delta)) / (2 * coeffs.x);
 	return (true);
 }
 
@@ -49,52 +49,46 @@ static bool		is_inside_cyl(t_cyl *cylinder, t_ray *ray, double t)
 			&& (dot(cylinder->dir, top_to_hit_point) < 0.0));
 }
 
-static bool		solve_cylinder(t_cyl *cylinder, t_ray *ray, t_vec3 quad_coef, double *t)
+static bool		get_cylinder_solutions(t_vec3 coeffs, t_ray *ray, t_cyl *cyl,
+																	double *t)
 {
-	double		root1;
-	double		root2;
-	bool		retvalue;
+	bool		ret;
+	double		s1;
+	double		s2;
 
-	root1 = INFINITY;
-	root2 = INFINITY;
-	retvalue = false;
-	if (get_quad_roots(&root1, &root2, quad_coef))
+	ret = false;
+	s1 = INFINITY;
+	s2 = INFINITY;
+	if (solve_2deg_eq(coeffs, &s1, &s2))
 	{
-		if (root1 > ray->tmin && root1 < ray->tmax
-				&& is_inside_cyl(cylinder, ray, root1))
+		if (s1 > ray->tmin && s1 < ray->tmax && is_inside_cyl(cyl, ray, s1))
 		{
-			*t = root1;
-			retvalue = true;
+			*t = s1;
+			ret = true;
 		}
-		if (root2 > ray->tmin && root2 < ray->tmax
-				&& is_inside_cyl(cylinder, ray, root2))
+		if (s2 > ray->tmin && s2 < ray->tmax && is_inside_cyl(cyl, ray, s2))
 		{
-			if (root2 < root1)
+			if (s2 < s1)
 			{
-				*t = root2;
-				retvalue = true;
+				*t = s2;
+				ret = true;
 			}
 		}
 	}
-	return (retvalue);
+	return (ret);
 }
 
-static t_vec3	pre_compute_coef(t_vec3 v1, t_vec3 v2)
+bool			intersect_ray_with_cylinder(t_ray *ray, t_cyl *cyl,
+																	double *t)
 {
-	return (sub_vec(v1, scale_by(v2, dot(v1, v2))));
+	t_vec3		coeffs;
+	t_vec3		co;
+	t_vec3		vec1;
+	t_vec3		vec2;
+
+	co = sub_vec(ray->origin, cyl->base);
+	vec1 = sub_vec(ray->dir, scale_by(cyl->dir, dot(ray->dir, cyl->dir)));
+	vec2 = sub_vec(co, scale_by(cyl->dir, dot(co, cyl->dir)));
+	coeffs = get_equation_coeffs(vec1, vec2, cyl->diameter * 0.5);
+	return (get_cylinder_solutions(coeffs, ray, cyl, t));
 }
-
-bool			intersect_ray_with_cylinder(t_ray *ray, t_cyl *cylinder, double *t)
-{
-	t_vec3		quad_coef;
-	t_vec3		oc;
-	t_vec3		dir;
-	t_vec3		ocdir;
-
-	oc = sub_vec(ray->origin, cylinder->base);
-	dir = pre_compute_coef(ray->dir, cylinder->dir);
-	ocdir = pre_compute_coef(oc, cylinder->dir);
-	quad_coef = get_quad_coef(dir, ocdir, cylinder->diameter * 0.5);
-	return (solve_cylinder(cylinder, ray, quad_coef, t));
-}
-

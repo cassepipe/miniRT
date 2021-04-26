@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/24 11:42:22 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/24 16:57:02 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/26 18:50:30 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ static void	cap_vec(t_vec3 *vec)
 t_vec3		compute_lighting(t_vec3 hit_point, t_vec3 normal)
 {
 	t_vec3	total_distrib;
-	t_vec3	temp_distrib;
 	t_light *light_point;
 	t_ray	light_ray;
 	double	n_dot_l;
@@ -40,11 +39,9 @@ t_vec3		compute_lighting(t_vec3 hit_point, t_vec3 normal)
 		if (n_dot_l > 0)
 		{
 			if (!trace_light(&light_ray))
-			{
-				temp_distrib = scale_by(light_point->color_distribution,
-											n_dot_l / vec_len(light_ray.dir));
-				total_distrib = add_vec(total_distrib, temp_distrib);
-			}
+				total_distrib = add_vec(total_distrib,
+										scale_by(light_point->color_distrib,
+											n_dot_l / vec_len(light_ray.dir)));
 		}
 		light_point = light_point->next;
 		cap_vec(&total_distrib);

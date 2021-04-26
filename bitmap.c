@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:04:50 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/24 14:05:54 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/26 10:41:43 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static t_bmp_header g_bmp_header = (t_bmp_header){
 	.important_colors = 0,
 };
 
-static char	*create_filename(int file_number)
+static char			*create_filename(int file_number)
 {
 	const char		basename[] = "minimage_";
 	const char		bmp_extension[] = ".bmp";
@@ -51,7 +51,7 @@ static char	*create_filename(int file_number)
 	return (filename);
 }
 
-static void	write_bmp_data(int fd, int *data)
+static void			write_bmp_data(int fd, int *data)
 {
 	int		x;
 	int		y;
@@ -70,10 +70,10 @@ static void	write_bmp_data(int fd, int *data)
 	}
 }
 
-void	create_bmp(void)
+void				create_bmp(void)
 {
 	int				fd;
-	struct s_image *image;
+	struct s_image	*image;
 	size_t			data_size;
 	char			*filename;
 	int				i;

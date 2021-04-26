@@ -108,7 +108,7 @@ intersect_ray_with_sphere	intersect_sphere.c	/^bool	intersect_ray_with_sphere(t_
 intersect_ray_with_square	square.c	/^bool		intersect_ray_with_square(t_ray *ray,$/;"	f
 intersect_ray_with_triangle	intersect_triangle.c	/^bool			intersect_ray_with_triangle(t_ray *ray, t_triangle *triangle, double *t, double tmin, double tmax)$/;"	f
 is_in	libft/ft_printf/format_utils.c	/^int			is_in(char c, const char *charset)$/;"	f
-is_in	parse_values.c	/^static int		is_in(char c, const char *set)$/;"	f	file:
+is_in	parse_utils.c	/^static int		is_in(char c, const char *set)$/;"	f	file:
 is_in_set	libft/ft_strtrim.c	/^static int	is_in_set(char c, char const *set)$/;"	f	file:
 is_in_the_box	intersect_triangle.c	/^static bool		is_in_the_box(t_vec3 hit_point, t_triangle *tr)$/;"	f	file:
 is_inside_cyl	intersect_cylinder.c	/^static bool		is_inside_cyl(t_cyl *cylinder, t_ray *ray, double t)$/;"	f	file:
@@ -124,13 +124,13 @@ next_word	libft/ft_split.c	/^static const char	*next_word(const char *str, char 
 normalize	vector_operation.c	/^t_vec3	normalize(t_vec3 v)$/;"	f
 parse_ambl	parse_light.c	/^void	parse_ambl(char **input)$/;"	f
 parse_cam	parse.c	/^void			parse_cam(char **input)$/;"	f
-parse_color	parse_values.c	/^t_color	parse_color(char **input)$/;"	f
+parse_color	parse_colors.c	/^t_color	parse_color(char **input)$/;"	f
 parse_cy	parse_objects.c	/^void	parse_cy(char **input)$/;"	f
 parse_double	parse_values.c	/^double	parse_double(char **input)$/;"	f
-parse_double_or_die	parse_values.c	/^double		parse_double_or_die(char **input)$/;"	f
+parse_double_or_die	parse_values.c	/^double	parse_double_or_die(char **iput)$/;"	f
 parse_file_into_env	parse.c	/^void			parse_file_into_env(void)$/;"	f
 parse_int	parse_values.c	/^int		parse_int(char **input)$/;"	f
-parse_int_or_die	parse_values.c	/^int	parse_int_or_die(char **input)$/;"	f
+parse_int_or_die	parse_values.c	/^int		parse_int_or_die(char **input)$/;"	f
 parse_light	parse_light.c	/^void	parse_light(char **input)$/;"	f
 parse_pl	parse_objects.c	/^void	parse_pl(char **input)$/;"	f
 parse_res	parse.c	/^void			parse_res(char **input)$/;"	f
@@ -139,7 +139,7 @@ parse_sq	parse_objects.c	/^void	parse_sq(char **input)$/;"	f
 parse_str_into_format	libft/ft_printf/format_utils.c	/^void		*parse_str_into_format(const char *fs,$/;"	f
 parse_tokens	parse.c	/^static void		parse_tokens(char **input)$/;"	f	file:
 parse_tr	parse_objects.c	/^void	parse_tr(char **input)$/;"	f
-parse_vec	parse_values.c	/^t_vec3	parse_vec(char **input)$/;"	f
+parse_vec	parse_vec.c	/^t_vec3	parse_vec(char **input)$/;"	f
 pre_compute_coef	intersect_cylinder.c	/^static t_vec3	pre_compute_coef(t_vec3 v1, t_vec3 v2)$/;"	f	file:
 ptr_repr	libft/ft_printf/repr.c	/^char		*ptr_repr(void *ptr, struct s_parameters *format, ssize_t *size)$/;"	f
 put_pixel_to_image	images.c	/^void	put_pixel_to_image(struct s_image *image, int x, int y, int color)$/;"	f
@@ -147,9 +147,9 @@ render	render.c	/^static void	render(struct s_image image, double fov)$/;"	f	fil
 render_image_list	render.c	/^void		render_image_list(struct s_image *images)$/;"	f
 rightpad	libft/ft_printf/pad.c	/^void	rightpad(char **str, char c, size_t n)$/;"	f
 scale_by	vector_operation.c	/^t_vec3	scale_by(t_vec3 vector, double scalar)$/;"	f
-skip_blank	parse_values.c	/^void	skip_blank(char **input)$/;"	f
-skip_blank_and_one_comma	parse_values.c	/^void	skip_blank_and_one_comma(char **input)$/;"	f
-skip_set	parse_values.c	/^void	skip_set(char **input, const char *set)$/;"	f
+skip_blank	parse_utils.c	/^void	skip_blank(char **input)$/;"	f
+skip_blank_and_one_comma	parse_utils.c	/^void	skip_blank_and_one_comma(char **input)$/;"	f
+skip_set	parse_utils.c	/^void	skip_set(char **input, const char *set)$/;"	f
 solve_cylinder	intersect_cylinder.c	/^static bool		solve_cylinder(t_cyl *cylinder, t_ray *ray, t_vec3 quad_coef, double *t,$/;"	f	file:
 sq	main.c	/^double		sq(double value)$/;"	f
 str_repr	libft/ft_printf/repr.c	/^char		*str_repr(char *s, struct s_parameters *format, ssize_t *size)$/;"	f

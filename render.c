@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:06:27 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/24 16:59:41 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/26 17:15:33 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ static void	render(struct s_image image, double fov)
 			ray.dir = apply_rotation_to_ray(ray.dir, image.cam->cam_to_world);
 			ray.dir = normalize(ray.dir);
 			ray.origin = image.cam->origin;
+			ray.tmin = 1;
+			ray.tmax = INFINITY;
 			closest_object_color = trace_ray(&ray);
 			pixel_color = get_color_as_int(closest_object_color);
 			put_pixel_to_image(&image, x, y, pixel_color);

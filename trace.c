@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/24 14:44:24 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/24 16:50:48 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/26 16:56:08 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ t_color	trace_ray(t_ray *ray)
 	closest_t = INFINITY;
 	while (current_object != NULL)
 	{
-		has_hit = intersect_ray_with_object(ray, current_object, &t, 1
-																, INFINITY);
+		has_hit = intersect_ray_with_object(ray, current_object, &t);
 		if (has_hit && t >= 1 && t < closest_t)
 		{
 			closest_t = t;
@@ -50,8 +49,9 @@ bool	trace_light(t_ray *ray)
 	parameter = 1;
 	while (current_object != NULL)
 	{
-		has_hit = intersect_ray_with_object(ray, current_object,
-													&parameter, 0.00001, 1);
+		ray->tmin = EPSILON;
+		ray->tmax = 1;
+		has_hit = intersect_ray_with_object(ray, current_object, &parameter);
 		if (has_hit)
 		{
 			return (true);

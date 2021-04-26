@@ -1,7 +1,6 @@
 #include "minirt.h"
 
-bool		intersect_ray_with_cylinder(t_vec3 * eye,  t_vec3 *ray, t_cylinder *cylinder, double *solution,
-										double tmin, double tmax)
+bool		intersect_ray_with_cylinder(t_vec3 * eye,  t_vec3 *ray, t_cylinder *cylinder, double *t)
 {
 	double	radius;
 	double	a;

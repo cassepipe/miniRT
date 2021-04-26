@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:06:27 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/24 16:58:48 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/26 16:53:15 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ static bool	is_inside_square(t_vec3 hit_point, t_square *square)
 	return (false);
 }
 
-bool		intersect_ray_with_square(t_ray *ray,
-						t_square *square, double *t, double tmin, double tmax)
+bool		intersect_ray_with_square(t_ray *ray, t_square *square, double *t)
 {
 	bool	has_hit;
 	t_vec3	hit_point;
@@ -37,7 +36,7 @@ bool		intersect_ray_with_square(t_ray *ray,
 
 	plane.normal = square->normal;
 	plane.some_point = square->center;
-	has_hit = intersect_ray_with_plane(ray, &plane, t, tmin, tmax);
+	has_hit = intersect_ray_with_plane(ray, &plane, t);
 	if (!has_hit)
 		return (false);
 	hit_point = scale_by(ray->dir, *t);

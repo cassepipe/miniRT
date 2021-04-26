@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:04:51 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/24 15:29:34 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/26 16:50:42 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,7 @@ static bool		is_inside_cyl(t_cyl *cylinder, t_ray *ray, double t)
 			&& (dot(cylinder->dir, top_to_hit_point) < 0.0));
 }
 
-static bool		solve_cylinder(t_cyl *cylinder, t_ray *ray, t_vec3 quad_coef, double *t,
-								double tmin, double tmax)
+static bool		solve_cylinder(t_cyl *cylinder, t_ray *ray, t_vec3 quad_coef, double *t)
 {
 	double		root1;
 	double		root2;
@@ -61,13 +60,13 @@ static bool		solve_cylinder(t_cyl *cylinder, t_ray *ray, t_vec3 quad_coef, doubl
 	retvalue = false;
 	if (get_quad_roots(&root1, &root2, quad_coef))
 	{
-		if (root1 > tmin && root1 < tmax
+		if (root1 > ray->tmin && root1 < ray->tmax
 				&& is_inside_cyl(cylinder, ray, root1))
 		{
 			*t = root1;
 			retvalue = true;
 		}
-		if (root2 > tmin && root2 < tmax
+		if (root2 > ray->tmin && root2 < ray->tmax
 				&& is_inside_cyl(cylinder, ray, root2))
 		{
 			if (root2 < root1)
@@ -85,7 +84,7 @@ static t_vec3	pre_compute_coef(t_vec3 v1, t_vec3 v2)
 	return (sub_vec(v1, scale_by(v2, dot(v1, v2))));
 }
 
-bool			intersect_ray_with_cylinder(t_ray *ray, t_cyl *cylinder, double *t, double tmin, double tmax)
+bool			intersect_ray_with_cylinder(t_ray *ray, t_cyl *cylinder, double *t)
 {
 	t_vec3		quad_coef;
 	t_vec3		oc;
@@ -96,6 +95,6 @@ bool			intersect_ray_with_cylinder(t_ray *ray, t_cyl *cylinder, double *t, doubl
 	dir = pre_compute_coef(ray->dir, cylinder->dir);
 	ocdir = pre_compute_coef(oc, cylinder->dir);
 	quad_coef = get_quad_coef(dir, ocdir, cylinder->diameter * 0.5);
-	return (solve_cylinder(cylinder, ray, quad_coef, t, tmin, tmax));
+	return (solve_cylinder(cylinder, ray, quad_coef, t));
 }
 

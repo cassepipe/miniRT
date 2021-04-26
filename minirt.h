@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:06:28 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/24 16:51:40 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/26 16:45:11 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ t_vec3		new_vec3(double x, double y, double z);
 t_vec3		canvas_to_viewport(int x, int y, double fov);
 void		render_image_list(struct s_image *images);
 t_color		trace_ray(t_ray *ray);
-bool		intersect_ray_with_object(t_ray *ray, t_object *object, double *solution, double tmin, double tmax);
-bool		intersect_ray_with_sphere(t_ray *ray, t_sphere *sphere, double *solution, double tmin, double tmax);
-bool		intersect_ray_with_cylinder(t_ray *ray, t_cyl *cylinder, double *t, double tmin, double tmax);
-bool		intersect_ray_with_plane(t_ray *ray, t_plane *plane, double *t, double tmin, double tmax);
-bool		intersect_ray_with_triangle(t_ray *ray, t_triangle *triangle, double *t, double tmin, double tmax);
-bool 		intersect_ray_with_square(t_ray *ray, t_square *square, double *t, double tmin, double tmax);
+bool		intersect_ray_with_object(t_ray *ray, t_object *object, double *t);
+bool		intersect_ray_with_sphere(t_ray *ray, t_sphere *sphere, double *t);
+bool		intersect_ray_with_cylinder(t_ray *ray, t_cyl *cylinder, double *t);
+bool		intersect_ray_with_plane(t_ray *ray, t_plane *plane, double *t);
+bool		intersect_ray_with_triangle(t_ray *ray, t_triangle *triangle, double *t);
+bool 		intersect_ray_with_square(t_ray *ray, t_square *square, double *t);
 t_color		get_object_color(t_object *object);
 int			get_color_as_int(t_color color);
 t_vec3		sub_vec(t_vec3 point1, t_vec3 point2);

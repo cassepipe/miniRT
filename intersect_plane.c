@@ -6,13 +6,13 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:04:51 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/24 15:22:01 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/26 16:49:31 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-bool	intersect_ray_with_plane(t_ray *ray, t_plane *plane, double *t, double tmin, double tmax)
+bool	intersect_ray_with_plane(t_ray *ray, t_plane *plane, double *t)
 {
 	double n_dot_d;
 	double solution;
@@ -23,7 +23,7 @@ bool	intersect_ray_with_plane(t_ray *ray, t_plane *plane, double *t, double tmin
 	{
 		eye_to_some_pt = sub_vec(plane->some_point, ray->origin);
 		solution = dot(plane->normal, eye_to_some_pt) / n_dot_d;
-		if (solution > tmin && solution < tmax)
+		if (solution > ray->tmin && solution < ray->tmax)
 		{
 			*t = solution;
 			return (true);

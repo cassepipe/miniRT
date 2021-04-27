@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:06:26 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/24 14:33:06 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/27 13:44:29 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ static void		parse_tokens(char **input)
 		i++;
 	}
 	free(to_free);
+	to_free = NULL;
 	if (i == sizeof(token_table) / sizeof(token_table[0]))
 		die("Format error in .rt file : Invalid object token");
 }
@@ -66,12 +67,13 @@ void			parse_file_into_env(void)
 	{
 		parse_tokens(&input);
 	}
-	free(input);
+	parse_tokens(&input);
 	close(fd);
 }
 
 void			parse_res(char **input)
 {
+	ft_printf("Parsing Resolution...\n");
 	g_env.has_res = true;
 	if (!g_env.unique_res)
 		die("Two resolutions defined. Only one is allowed");

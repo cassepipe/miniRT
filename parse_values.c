@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:06:27 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/26 10:38:45 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/27 13:18:09 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ double	parse_double_or_die(char **iput)
 	if (**iput == '-')
 		neg = (*iput)++;
 	if (!ft_isdigit(**iput))
-		die("Invalid data : Could not parse double literal");
+		die("Invalid data : Not a valid double literal or missing element");
 	while (ft_isdigit(**iput) || (**iput == '.' && !dot))
 	{
 		if (**iput == '.')

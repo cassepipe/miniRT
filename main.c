@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:06:26 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/27 17:42:16 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/27 23:02:45 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ static void	env_checkup(void)
 		g_env.res_y = g_env.res_ymax;
 	if (g_env.has_res == false)
 		die("You must provide a resolution");
+	if (g_env.has_amb == false)
+		die("You must provide an ambient light");
 	if (g_env.cameras == NULL)
 		die("You must define at least one camera");
 }

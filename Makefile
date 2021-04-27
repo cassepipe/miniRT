@@ -6,7 +6,7 @@
 #    By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/23 16:37:33 by tpouget           #+#    #+#              #
-#    Updated: 2021/04/27 21:26:10 by tpouget          ###   ########.fr        #
+#    Updated: 2021/04/27 21:37:29 by tpouget          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,7 @@ HEADERS			=	bitmap.h \
 					parse.h  \
 					structs.h\
 	
-CFLAGS			=	-Wall -Wextra -g3
+CFLAGS			=	-Wall -Wextra -Werror -g3
 
 CC	  		  	=	clang
 

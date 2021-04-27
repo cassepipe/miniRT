@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:06:28 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/27 12:08:36 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/27 23:05:07 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ typedef struct	s_env
 	t_color			ambl_color;
 	t_vec3			ambl_distrib;
 	bool			unique_amb;
+	bool			has_amb;
 	struct s_light	*lights;
 	struct s_cam	*cameras;
 	struct s_image	*images;

@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/24 12:08:10 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/26 18:51:21 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/27 23:04:42 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	parse_ambl(char **input)
 {
+	g_env.has_amb = true;
 	ft_printf("Parsing ambient light...\n");
 	if (!g_env.unique_amb)
 		die("Two ambient lights defined. Only one is allowed");

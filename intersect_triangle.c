@@ -6,48 +6,11 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:04:51 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/26 17:30:00 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/27 14:49:22 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-static double	min(double a, double b, double c)
-{
-	double min;
-	double min2;
-
-	min = a < b ? a : b;
-	min2 = a < c ? a : c;
-	return (min < min2 ? min : min2);
-}
-
-static double	max(double a, double b, double c)
-{
-	double max;
-	double max2;
-
-	max = a > b ? a : b;
-	max2 = a > c ? a : c;
-	return (max > max2 ? max : max2);
-}
-
-static bool		is_in_the_box(t_vec3 hit_point, t_triangle *tr)
-{
-	if (hit_point.x < min(tr->p1.x, tr->p2.x, tr->p3.x))
-		return (false);
-	if (hit_point.y < min(tr->p1.y, tr->p2.y, tr->p3.y))
-		return (false);
-	if (hit_point.z < min(tr->p1.z, tr->p2.z, tr->p3.z))
-		return (false);
-	if (hit_point.x > max(tr->p1.x, tr->p2.x, tr->p3.x))
-		return (false);
-	if (hit_point.y > max(tr->p1.y, tr->p2.y, tr->p3.y))
-		return (false);
-	if (hit_point.z > max(tr->p1.z, tr->p2.z, tr->p3.z))
-		return (false);
-	return (true);
-}
 
 static bool		is_inside_triangle(t_vec3 hit_point, t_triangle *tr)
 {
@@ -87,7 +50,6 @@ bool			intersect_ray_with_triangle(t_ray *ray, t_triangle *triangle,
 		return (false);
 	hit_point = scale_by(ray->dir, *t);
 	hit_point = add_vec(ray->origin, hit_point);
-	has_hit = is_in_the_box(hit_point, triangle);
 	if (!has_hit)
 		return (false);
 	has_hit = is_inside_triangle(hit_point, triangle);

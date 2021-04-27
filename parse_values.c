@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:06:27 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/27 13:18:09 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/27 14:05:24 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int		parse_int_or_die(char **input)
 	if (**input == '-')
 		neg = (*input)++;
 	if (!ft_isdigit(**input))
-		die("Invalid data : Could not parse integer literal");
+		die("Invalid data : Not a valid integer literal or missing element");
 	while (ft_isdigit(**input))
 	{
 		ret = ret * 10 + (**input - '0');

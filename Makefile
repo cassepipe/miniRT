@@ -6,7 +6,7 @@
 #    By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/23 16:37:33 by tpouget           #+#    #+#              #
-#    Updated: 2021/04/27 16:49:22 by tpouget          ###   ########.fr        #
+#    Updated: 2021/04/27 21:26:10 by tpouget          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ SOURCEFILES		=		args.c                \
 						trace.c               \
 						vector_operations.c   \
 						vector_products.c     \
-						check_normalized.c	  \
+						check_vec.c	  \
 
 OBJECTFILES		=	$(patsubst %.c,obj/%.o,$(SOURCEFILES))
 	

@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:06:27 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/27 15:28:48 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/27 21:24:20 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	parse_pl(char **input)
 	new_plane = malloc(sizeof(t_plane));
 	new_plane->some_point = parse_vec(input);
 	new_plane->normal = normalize(parse_vec(input));
+	check_vec_range(new_plane->normal);
 	new_plane->color = parse_color(input);
 	new_object = malloc(sizeof(t_object));
 	new_object->id = PLANE;
@@ -59,6 +60,7 @@ void	parse_sq(char **input)
 	new_square = malloc(sizeof(t_square));
 	new_square->center = parse_vec(input);
 	new_square->normal = parse_vec(input);
+	check_vec_range(new_square->normal);
 	new_square->side_len = parse_double(input);
 	if (new_square->side_len < 0)
 		die("Square side lenght cannot be negative");
@@ -79,6 +81,7 @@ void	parse_cy(char **input)
 	new_cylinder = malloc(sizeof(t_cyl));
 	new_cylinder->base = parse_vec(input);
 	new_cylinder->dir = normalize(parse_vec(input));
+	check_vec_range(new_cylinder->dir);
 	new_cylinder->diameter = parse_double(input);
 	if (new_cylinder->diameter < 0)
 		die("Cylinder diameter cannot be negative");

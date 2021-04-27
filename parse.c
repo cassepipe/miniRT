@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:06:26 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/27 14:38:22 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/27 21:24:17 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ void			parse_cam(char **input)
 	new_cam = malloc(sizeof(t_cam));
 	new_cam->origin = parse_vec(input);
 	new_cam->direction = parse_vec(input);
+	check_vec_range(new_cam->direction);
 	new_cam->fov = to_radians(parse_double(input));
 	if (new_cam->fov < 0.0
 		|| new_cam->fov > M_PI)

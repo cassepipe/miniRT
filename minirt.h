@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:06:28 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/27 17:41:32 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/27 21:24:29 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,6 @@ int				cleanup_and_quit();
 void			create_bmp();
 
 void			die();
+void			check_vec_range(t_vec3 v);
 
 #endif

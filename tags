@@ -152,7 +152,6 @@ skip_blank_and_one_comma	parse_utils.c	/^void		skip_blank_and_one_comma(char **i
 skip_set	parse_utils.c	/^void		skip_set(char **input, const char *set)$/;"	f
 solve_2deg_eq	intersect_cylinder.c	/^static bool		solve_2deg_eq(t_vec3 coeffs, double *sol1, double *sol2)$/;"	f	file:
 solve_2deg_eq	intersect_sphere.c	/^bool			solve_2deg_eq(t_vec3 coeffs, double *sol1, double *sol2)$/;"	f
-sq	main.c	/^double		sq(double value)$/;"	f
 str_repr	libft/ft_printf/repr.c	/^char		*str_repr(char *s, struct s_parameters *format, ssize_t *size)$/;"	f
 sub_vec	vector_operations.c	/^t_vec3	sub_vec(t_vec3 point1, t_vec3 point2)$/;"	f
 to_radians	parse.c	/^static double	to_radians(double angle)$/;"	f	file:

@@ -6,18 +6,13 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:06:26 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/24 14:42:22 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/27 11:45:52 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
 t_env	g_env;
-
-double		sq(double value)
-{
-	return (value * value);
-}
 
 static void	env_checkup(void)
 {
@@ -45,7 +40,7 @@ static void	display_scene(void)
 	mlx_put_image_to_window(g_env.mlx_session, g_env.window,
 			g_env.images->mlx_handle, 0, 0);
 	mlx_key_hook(g_env.window, &handle_keypress, NULL);
-	mlx_hook(g_env.window, DESTROY_NOTIFY, STRUCTURE_NOTIFY_MASK,
+	mlx_hook(g_env.window, DESTROY_NOTIFY, 1L << 17,
 			&cleanup_and_quit, NULL);
 	mlx_loop(g_env.mlx_session);
 }

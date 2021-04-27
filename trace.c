@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/24 14:44:24 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/26 16:56:08 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/27 11:30:22 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_color	trace_ray(t_ray *ray)
 		current_object = current_object->next;
 	}
 	if (closest_object == NULL)
-		return (BACKGROUND_COLOR);
+		return ((t_color){255, 255, 255});
 	return (compute_ray_color(ray, closest_object, closest_t));
 }
 

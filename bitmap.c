@@ -6,11 +6,12 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:04:50 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/26 10:41:43 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/27 12:06:58 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+#include "bitmap.h"
 
 static t_bmp_header g_bmp_header = (t_bmp_header){
 	.bitmap_signature_bytes[0] = 'B',

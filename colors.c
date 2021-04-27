@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:04:50 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/24 16:06:00 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/27 11:30:53 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,5 @@ t_color	compute_ray_color(t_ray *ray, t_object *obj, double t)
 		return (compute_square_lighting(ray, (t_square*)(obj->data), t));
 	else
 		die("Could not compute lighting: Unrecognized object type");
-	return (BACKGROUND_COLOR);
+	return ((t_color){255, 255, 255});
 }

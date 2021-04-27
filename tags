@@ -14,6 +14,7 @@ cap_vec	lighting.c	/^static void	cap_vec(t_vec3 *vec)$/;"	f	file:
 char_repr	libft/ft_printf/repr.c	/^char		*char_repr(unsigned char c,$/;"	f
 check_args	args.c	/^void		check_args(int argc, char *argv[])$/;"	f
 check_rt_extension	args.c	/^void		check_rt_extension(char *filename)$/;"	f
+check_vec_norm	check_normalized.c	/^void	check_vec_norm(t_vec3 v)$/;"	f
 cleanup_and_quit	main.c	/^int			cleanup_and_quit(void)$/;"	f
 compute_cam_to_world_matrix	matrices.c	/^t_matrix3x3		compute_cam_to_world_matrix(t_vec3 camera_direction)$/;"	f
 compute_cylinder_lighting	object_lighting.c	/^t_color	compute_cylinder_lighting(t_ray *ray, t_cyl *cylinder,$/;"	f

@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:06:27 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/26 17:15:33 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/27 16:00:20 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void		render_image_list(struct s_image *images)
 	int		i;
 	t_cam	*cam;
 
+	ft_printf("Rendering images...");
 	i = 0;
 	cam = g_env.cameras;
 	while (i < g_env.number_of_cams)

@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:06:28 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/27 12:06:29 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/27 17:41:32 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <mlx.h>
 # include <math.h>
 # include <stdint.h>
+# include <X11/X.h>
 
 # include "structs.h"
 # include "parse.h"

@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:06:27 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/26 10:55:39 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/27 15:28:48 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	parse_sp(char **input)
 	new_sphere = malloc(sizeof(t_sphere));
 	new_sphere->center = parse_vec(input);
 	new_sphere->diameter = parse_double(input);
+	if (new_sphere->diameter < 0.0)
+		die("Sphere diameter cannot be negative");
 	new_sphere->color = parse_color(input);
 	new_object = malloc(sizeof(t_object));
 	new_object->id = SPHERE;
@@ -53,10 +55,13 @@ void	parse_sq(char **input)
 	t_object	*new_object;
 	t_square	*new_square;
 
+	ft_printf("Parsing square...\n");
 	new_square = malloc(sizeof(t_square));
 	new_square->center = parse_vec(input);
 	new_square->normal = parse_vec(input);
 	new_square->side_len = parse_double(input);
+	if (new_square->side_len < 0)
+		die("Square side lenght cannot be negative");
 	new_square->color = parse_color(input);
 	new_object = malloc(sizeof(t_object));
 	new_object->id = SQUARE;
@@ -75,7 +80,11 @@ void	parse_cy(char **input)
 	new_cylinder->base = parse_vec(input);
 	new_cylinder->dir = normalize(parse_vec(input));
 	new_cylinder->diameter = parse_double(input);
+	if (new_cylinder->diameter < 0)
+		die("Cylinder diameter cannot be negative");
 	new_cylinder->height = parse_double(input);
+	if (new_cylinder->height < 0)
+		die("Cylinder height cannot be negative");
 	new_cylinder->color = parse_color(input);
 	new_object = malloc(sizeof(t_object));
 	new_object->id = CYLINDER;

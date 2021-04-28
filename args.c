@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/24 14:26:29 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/24 14:27:16 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/28 17:38:40 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void		check_args(int argc, char *argv[])
 	{
 		if (argc == 3)
 		{
-			if (!strcmp(argv[2], "--save"))
+			if (!ft_strncmp(argv[2], "--save", sizeof("--save")))
 				g_env.bmp_mode = true;
 			else if (argv[2][0] == '-')
 				die("`--save` is the only valid option");

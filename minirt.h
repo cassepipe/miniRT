@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:06:28 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/27 21:24:29 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/28 12:30:31 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 # include <stdbool.h>
 # include <limits.h>
 # include <fcntl.h>
-# include <mlx.h>
 # include <math.h>
 # include <stdint.h>
 # include <X11/X.h>
@@ -30,6 +29,8 @@
 # include "structs.h"
 # include "parse.h"
 # include "defines.h"
+
+# include "mlx/mlx.h"
 
 # include "libft/libft.h"
 # include "libft/ft_printf/ft_printf.h"

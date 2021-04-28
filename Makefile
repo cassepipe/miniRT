@@ -6,7 +6,7 @@
 #    By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/23 16:37:33 by tpouget           #+#    #+#              #
-#    Updated: 2021/04/27 21:37:29 by tpouget          ###   ########.fr        #
+#    Updated: 2021/04/28 18:08:26 by tpouget          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 ##  VARIABLES  ##
 #################
 
-PHONY			=	all clean fclean re
+PHONY			=	all clean fclean re monsieur_propre
 
 SOURCEFILES		=		args.c                \
 						bitmap.c              \
@@ -46,7 +46,7 @@ SOURCEFILES		=		args.c                \
 						trace.c               \
 						vector_operations.c   \
 						vector_products.c     \
-						check_vec.c	  \
+						check_vec.c	  
 
 OBJECTFILES		=	$(patsubst %.c,obj/%.o,$(SOURCEFILES))
 	
@@ -67,11 +67,15 @@ SANITIZER		=	-fsanitize=address
 
 all:			miniRT 
 
-miniRT:			${OBJECTFILES} libft/libft.a 
-				${CC} ${SANITIZER} ${OBJECTFILES} -Llibft -lft -lm -lmlx -lXext -lX11 -o $@
+miniRT:			${OBJECTFILES} libft/libft.a mlx/mlx.a mlx/mlx_Linux.a
+				${CC} ${SANITIZER} ${OBJECTFILES} -Llibft -lft -Lmlx -lmlx -lmlx_Linux -lXext -lX11 -lm -o $@
 
 libft/libft.a:		
 				make -C libft libft.a
+
+mlx/mlx.a:
+mlx/mlx_Linux.a:
+				make -C mlx
 				
 obj/%.o:		%.c	Makefile ${HEADERS}| obj
 				${CC} ${CFLAGS} -c $< -o $@
@@ -80,10 +84,15 @@ obj:
 				mkdir obj
 
 clean:			
-				rm -rf obj/*.o
+				rm -rf obj
 
 fclean:			clean
 				rm -rf miniRT
+
+monsieur_propre:	fclean
+					rm -f minimage*
+					make -C mlx clean
+					make -C libft fclean
 
 re:				fclean all
 

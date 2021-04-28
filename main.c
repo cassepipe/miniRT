@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:06:26 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/27 23:02:45 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/28 18:35:29 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,10 @@ int			cleanup_and_quit(void)
 
 static void	display_scene(void)
 {
+	t_vars	vars;
+
+	vars.mlx = g_env.mlx_session;
+	vars.win = g_env.window;
 	g_env.window = mlx_new_window(g_env.mlx_session, g_env.res_x, g_env.res_y,
 			"miniRT");
 	mlx_put_image_to_window(g_env.mlx_session, g_env.window,
@@ -44,6 +48,7 @@ static void	display_scene(void)
 	mlx_key_hook(g_env.window, &handle_keypress, NULL);
 	mlx_hook(g_env.window, DESTROY_NOTIFY, StructureNotifyMask,
 			&cleanup_and_quit, NULL);
+//	mlx_hook(g_env.window, 12, (1L << 15), &mlx_put_image_to_window, &vars);
 	mlx_loop(g_env.mlx_session);
 }
 

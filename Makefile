@@ -6,7 +6,7 @@
 #    By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/23 16:37:33 by tpouget           #+#    #+#              #
-#    Updated: 2021/04/28 18:08:26 by tpouget          ###   ########.fr        #
+#    Updated: 2021/04/29 13:17:55 by tpouget          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,11 +56,11 @@ HEADERS			=	bitmap.h \
 					parse.h  \
 					structs.h\
 	
-CFLAGS			=	-Wall -Wextra -Werror -g3
+CFLAGS			=	-Wall -Wextra -Werror #-g3
 
 CC	  		  	=	clang
 
-SANITIZER		=	-fsanitize=address
+SANITIZER		=	#-fsanitize=address
 
 
 #	Rules
@@ -90,6 +90,7 @@ fclean:			clean
 				rm -rf miniRT
 
 monsieur_propre:	fclean
+					rm tags
 					rm -f minimage*
 					make -C mlx clean
 					make -C libft fclean

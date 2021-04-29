@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:06:26 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/29 12:00:47 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/29 12:12:33 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	env_checkup(void)
 		die("You must define at least one camera");
 }
 
-static int			cleanup_and_quit(void)
+static int	cleanup_and_quit(void)
 {
 	free_env(&g_env);
 	exit(EXIT_SUCCESS);

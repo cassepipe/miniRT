@@ -17,7 +17,7 @@ char_repr	libft/ft_printf/repr.c	/^char		*char_repr(unsigned char c,$/;"	f
 check_args	args.c	/^void		check_args(int argc, char *argv[])$/;"	f
 check_rt_extension	args.c	/^void		check_rt_extension(char *filename)$/;"	f
 check_vec_range	check_vec.c	/^void	check_vec_range(t_vec3 v)$/;"	f
-cleanup_and_quit	main.c	/^int			cleanup_and_quit(void)$/;"	f
+cleanup_and_quit	main.c	/^static int			cleanup_and_quit(void)$/;"	f	file:
 compute_cam_to_world_matrix	matrices.c	/^t_matrix3x3		compute_cam_to_world_matrix(t_vec3 camera_direction)$/;"	f
 compute_cylinder_lighting	object_lighting.c	/^t_color	compute_cylinder_lighting(t_ray *ray, t_cyl *cylinder,$/;"	f
 compute_lighting	lighting.c	/^t_vec3		compute_lighting(t_vec3 hit_point, t_vec3 normal)$/;"	f
@@ -211,6 +211,7 @@ parse_tr	parse_objects.c	/^void	parse_tr(char **input)$/;"	f
 parse_vec	parse_vec.c	/^t_vec3	parse_vec(char **input)$/;"	f
 ptr_repr	libft/ft_printf/repr.c	/^char		*ptr_repr(void *ptr, struct s_parameters *format, ssize_t *size)$/;"	f
 put_pixel_to_image	images.c	/^void	put_pixel_to_image(struct s_image *image, int x, int y, int color)$/;"	f
+reload_img	main.c	/^static int	reload_img(t_env *env)$/;"	f	file:
 render	render.c	/^static void	render(struct s_image image, double fov)$/;"	f	file:
 render_image_list	render.c	/^void		render_image_list(struct s_image *images)$/;"	f
 rightpad	libft/ft_printf/pad.c	/^void	rightpad(char **str, char c, size_t n)$/;"	f

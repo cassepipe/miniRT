@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:06:28 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/28 12:30:31 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/29 12:00:05 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ void			free_light_list();
 void			free_camera_list(t_cam *cameras);
 
 int				handle_keypress(int keycode, void *params);
-int				cleanup_and_quit();
 void			create_bmp();
 
 void			die();

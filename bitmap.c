@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:04:50 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/29 12:12:13 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/04/29 11:50:36 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static char			*create_filename(int file_number)
 	ft_strlcat(filename, number, size);
 	free(number);
 	ft_strlcat(filename, bmp_extension, size);
-	ft_printf("Saving %s in current directory...\n", filename);
+	ft_printf("Saving to %s in current directory\n", filename);
 	return (filename);
 }
 

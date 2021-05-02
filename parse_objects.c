@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:06:27 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/27 21:24:20 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/05/02 13:29:44 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,7 @@ void	parse_pl(char **input)
 	ft_printf("Parsing plane...\n");
 	new_plane = malloc(sizeof(t_plane));
 	new_plane->some_point = parse_vec(input);
-	new_plane->normal = normalize(parse_vec(input));
-	check_vec_range(new_plane->normal);
+	new_plane->normal = normalize(check_vec_range(parse_vec(input)));
 	new_plane->color = parse_color(input);
 	new_object = malloc(sizeof(t_object));
 	new_object->id = PLANE;
@@ -80,8 +79,7 @@ void	parse_cy(char **input)
 	ft_printf("Parsing cylinder...\n");
 	new_cylinder = malloc(sizeof(t_cyl));
 	new_cylinder->base = parse_vec(input);
-	new_cylinder->dir = normalize(parse_vec(input));
-	check_vec_range(new_cylinder->dir);
+	new_cylinder->dir = normalize(check_vec_range(parse_vec(input)));
 	new_cylinder->diameter = parse_double(input);
 	if (new_cylinder->diameter < 0)
 		die("Cylinder diameter cannot be negative");

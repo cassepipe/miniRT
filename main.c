@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:06:26 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/29 12:12:33 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/05/02 13:52:57 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	display_scene(void)
 	mlx_put_image_to_window(g_env.mlx_session, g_env.window,
 			g_env.images->mlx_handle, 0, 0);
 	mlx_key_hook(g_env.window, &handle_keypress, NULL);
-	mlx_hook(g_env.window, DESTROY_NOTIFY, StructureNotifyMask,
+	mlx_hook(g_env.window, DestroyNotify, StructureNotifyMask,
 			&cleanup_and_quit, NULL);
 	mlx_hook(g_env.window, MapNotify, StructureNotifyMask, &reload_img, &g_env);
 	mlx_loop(g_env.mlx_session);

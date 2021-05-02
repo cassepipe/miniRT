@@ -6,7 +6,7 @@
 /*   By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:06:28 by tpouget           #+#    #+#             */
-/*   Updated: 2021/04/29 12:00:05 by tpouget          ###   ########.fr       */
+/*   Updated: 2021/05/02 13:27:12 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,6 @@ int				handle_keypress(int keycode, void *params);
 void			create_bmp();
 
 void			die();
-void			check_vec_range(t_vec3 v);
+t_vec3			check_vec_range(t_vec3 v);
 
 #endif
